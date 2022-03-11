@@ -22,7 +22,7 @@ const Login = () => {
 	console.log(opts)
 
     fetch(
-      "https://3001-nozigs-reactflaskhello-0v4i02inons.ws-eu34.gitpod.io/api/token",
+      "https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu34.gitpod.io/api/token",
       opts
     )
       .then((resp) => {
