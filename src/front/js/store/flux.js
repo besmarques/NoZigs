@@ -22,6 +22,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 				getActions().changeColor(0, "green");
 			},
 
+			syncTokenFromSessionStore: () => {
+				const token = sessionStorage.getItem("token");
+				if( token && token !== "" && token !== undefined) setStore({token: token});
+			},
+
 			login: async (user, password) => {
 				const opts = {
 					method: "POST",
@@ -29,7 +34,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					  "Content-Type": "application/json",
 					},
 					body: JSON.stringify({ 
-					  login: user,
+					  user: user,
 					  password: password
 					  }),
 				  };
@@ -39,10 +44,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 	
 					if (resp.status !== 200) {
 						alert("There was an error!");
-						return false
+						return false;
 					}
 					
-					const data = await resp.json;
+					const data = await resp.json();
 					console.log("this came from the backend", data);	
 					sessionStorage.setItem("token", data.access_token);
 					setStore({token: data.access_token})

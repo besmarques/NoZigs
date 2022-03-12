@@ -16,9 +16,9 @@ api = Blueprint('api', __name__)
 # create_access_token() function is used to actually generate the JWT.
 @api.route("/token", methods=["POST"])
 def create_token():
-    login = request.json.get('login')
+    user = request.json.get('user')
     password = request.json.get('password')
-    if login != "test" or password != "test":
+    if user != "test" or password != "test":
          return jsonify({"msg": "Bad login or password"}), 401
 
     # To-do: 1. verify that the user exists in the database
