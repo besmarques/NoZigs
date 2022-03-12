@@ -25,5 +25,5 @@ def create_token():
     # 2. compare the hash from the password of the password input (line20) with the hash in the database (password field in the database)
     # 3. if above true, return token (line 28), if not, return error (line 22)
 
-    access_token = create_access_token(identity=login)
+    access_token = create_access_token(identity=user)
     return jsonify(access_token=access_token)
