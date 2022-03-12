@@ -1,50 +1,28 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
   const [ user, setUser ] = useState("");
   const [ password, setPassword ] = useState("");
+  const history = useHistory();
+
+  const token = sessionStorage.getItem("token");
 
   const handleClick = () => {
-	const opts = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ 
-        login: user,
-        password: password
-        }),
-    };
-
-	console.log(opts)
-
-    fetch(
-      "https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu34.gitpod.io/api/token",
-      opts
-    )
-      .then((resp) => {
-        if (resp.status === 200) return resp.json();
-        else alert("There was an error!");
-      })
-      .then(data => {
-		  console.log("this came from the backend", data)
-		  sessionStorage.setItem("token", data.access_token);
-	  })
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
+    actions.login(user, password).then(() => {
+      history.push("/") //this should be changed to /searchPage once completed
+    })
   };
 
   return (
     <div className="text-center mt-5">
       <h1>Login</h1>
       <br></br>
-      
-		{(token && token!="" && token!=undefined) ? "You are logged in with this token" + token : 
-			<div>	
+        {(store.token && store.token!="" && store.token!=undefined) ? "You are logged in with this token " + store.token :
+            <div>	
 				<input
 				type="text"
 				placeholder="your login"
@@ -63,7 +41,7 @@ const Login = () => {
 					<br></br>
 				<button type="button" className="btn btn-outline-info" onClick={handleClick}>Login</button>
 			</div>
-		}
+        }
     </div>
   );
 };

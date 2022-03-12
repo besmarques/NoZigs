@@ -8,6 +8,7 @@ const Signup = () => {
   const { store, actions } = useContext(Context);
   const [user, setUser] = useState("");
   const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleClick = () => {
     const opts = {
@@ -17,33 +18,21 @@ const Signup = () => {
       },
       body: JSON.stringify({
         login: user,
+        email: email,
         password: password,
       }),
     };
 
     console.log(opts);
 
-    fetch(
-      "https://3001-nozigs-reactflaskhello-0v4i02inons.ws-eu34.gitpod.io/api/token",
-      opts
-    )
-      .then((resp) => {
-        if (resp.status === 200) return resp.json();
-        else alert("There was an error!");
-      })
-      .then()
-      .catch((error) => {
-        console.error("There was an error!", error);
-      });
   };
-
-  return (
+    return (
     <div className="text-center mt-5">
       <h1>Signup</h1>
       <br></br>
       <div>
         <input
-          type="text"
+          type="text" id="login"
           placeholder="create login"
           value={user}
           onChange={(e) => setUser(e.target.value)}
@@ -51,11 +40,26 @@ const Signup = () => {
         <br></br>
         <br></br>
         <input
-          type="password"
+          type="email" id="email"
+          placeholder="your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <br></br>
+        <br></br>
+        <input
+          type="password" id="password"
           placeholder="create password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <br></br>
+        <br></br>
+        <input
+          type="confirm_password" id="confirm_password"
+          placeholder="confirm password"
+        />
+        <p id="message">Password Status</p>
         <br></br>
         <br></br>
         <button
