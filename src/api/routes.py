@@ -31,8 +31,11 @@ def create_token():
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
 @api.route("/hello", methods=["GET"])
+@jwt_required()
 def get_hello():
+
+     user = get_jwt_identity()
      dictionary = {
-          "message" : "hello world"
+          "message" : "Hello " + user
      }
      return jsonify(dictionary)

@@ -7,16 +7,18 @@ import "../../styles/home.css";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
-
-	useEffect[
+	
+	useEffect(
 		() => {
-		if(store.token && store.token !== "" && store.token !== undefined) actions.getMessage();
+		if(store.token && store.token != "" && store.token != undefined) 
+			actions.getMessage();
 		}, 
 		[store.token]
-	];
+	);
 
 	return (
 		<div className="text-center mt-5">
+			
 			<h1>Hello Rigo!!</h1>
 			<p>
 				<img src={rigoImageUrl} />
