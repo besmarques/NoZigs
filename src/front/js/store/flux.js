@@ -27,6 +27,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if( token && token !== "" && token !== undefined) setStore({token: token});
 			},
 
+			logout: () => {
+				sessionStorage.removeItem("token");
+				setStore({token: null});
+			},
+
+
 			login: async (user, password) => {
 				const opts = {
 					method: "POST",
@@ -59,8 +65,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getMessage: () => {
+				const store = getStore();
+				const opts = {
+					headers: {
+						"Authorization" : "Bearer " + store.token
+					}
+				}
 				// fetching data from the backend
-				fetch(process.env.BACKEND_URL + "/api/hello")
+				fetch("https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu34.gitpod.io/api/hello", opts)
 					.then(resp => resp.json())
 					.then(data => setStore({ message: data.message }))
 					.catch(error => console.log("Error loading message from backend", error));
