@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			token: null,
 			message: null,
 			demo: [
 				{
@@ -19,6 +20,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 			// Use getActions to call a function within a fuction
 			exampleFunction: () => {
 				getActions().changeColor(0, "green");
+			},
+
+			syncTokenFromSessionStore: () => {
+				const token = sessionStorage.getItem("token");
+				if( token && token !== "" && token !== undefined) setStore({token: token});
+			},
+
+			login: async (user, password) => {
+				const opts = {
+					method: "POST",
+					headers: {
+					  "Content-Type": "application/json",
+					},
+					body: JSON.stringify({ 
+					  user: user,
+					  password: password
+					  }),
+				  };
+				
+				try{
+					const resp = await fetch("https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu34.gitpod.io/api/token", opts)
+	
+					if (resp.status !== 200) {
+						alert("There was an error!");
+						return false;
+					}
+					
+					const data = await resp.json();
+					console.log("this came from the backend", data);	
+					sessionStorage.setItem("token", data.access_token);
+					setStore({token: data.access_token})
+					return true;
+				}
+				catch(error){
+					console.error("There's an error logging in")
+				}
 			},
 
 			getMessage: () => {
