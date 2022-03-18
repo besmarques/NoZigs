@@ -17,8 +17,7 @@ const Signup = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        login: user,
-        email: email,
+        user: user,
         password: password,
       }),
     };
@@ -26,6 +25,9 @@ const Signup = () => {
     console.log(opts);
 
   };
+
+//use the library https://react-hook-form.com/form-builder/
+
     return (
     <div className="text-center mt-5">
       <h1>Signup</h1>

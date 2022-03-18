@@ -34,10 +34,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 			login: async (user, password) => {
+				let myToken = localStorage.getItem("token");
 				const opts = {
 					method: "POST",
 					headers: {
-					  "Content-Type": "application/json",
+					// "Content-Type": "application/json",
+					  "Authorization" : myToken,
 					},
 					body: JSON.stringify({ 
 					  user: user,
@@ -46,6 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				  };
 				
 				try{
+					
 					const resp = await fetch("https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu34.gitpod.io/api/token", opts)
 	
 					if (resp.status !== 200) {

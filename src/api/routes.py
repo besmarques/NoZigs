@@ -7,10 +7,50 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from werkzeug.security import check_password_hash, generate_password_hash
 
 import os
 
 api = Blueprint('api', __name__)
+
+# Create a route to authenticate your users and return JWTs. The
+# create_access_token() function is used to actually generate the JWT.
+@api.route("/user", methods=["POST"])
+def user():
+    user = request.json.get('user')
+    password = request.json.get('password')
+    if user and password:
+         new_user = User(user=user, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
+         new_user.create()
+         created_user = User.get_by_user(user)
+
+         if created_user :
+              access_token = create_access_token(identity=created_user.serialize())
+              return({'token' : access_token}), 200
+
+          # return jsonify({"msg": "Bad login or password"}), 401
+
+
+# Create a route to authenticate your users and return JWTs. The
+# create_access_token() function is used to actually generate the JWT.
+@api.route("/login", methods=["POST"])
+def login():
+    user = request.json.get('user', None)
+    password = request.json.get('password', None)
+
+    if not (user and password):
+         return({'error':'Missing info'}), 400
+
+    if user and check_password_hash(account._password, password): #and account._is_active
+         
+         if created_user :
+              access_token = create_access_token(identity=created_user.serialize())
+              token = create_access_token(identity=user, expires_delta=timedelta(minutes=100))
+              return({'token' : access_token}), 200
+
+          # return jsonify({"msg": "Bad login or password"}), 401
+     
+
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
