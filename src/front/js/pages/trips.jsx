@@ -13,8 +13,8 @@ const Trips = () => {
         <>
             <Container>
                 <Row>
-                    <Col><TripsInput /></Col>
-                    <Col><TripsOutput /></Col>
+                    <Col xs={12} lg={6}><TripsInput /></Col>
+                    <Col xs={12} lg={6}><TripsOutput /></Col>
                 </Row>
             </Container>
             <Container fluid>
