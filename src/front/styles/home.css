@@ -5,3 +5,123 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+}
+
+h1 {
+  font-size: 72px;
+  font-weight: 800;
+  line-height: 1.1;
+  font-style: normal;
+  margin-bottom: 30px;
+}
+
+.pink {
+  color: #ea1889;
+}
+
+.blue {
+  color: #1fa9ff;
+}
+
+.black {
+  color: black;
+}
+
+.hero {
+  padding-top: 72px;
+}
+
+.hero-p {
+  font-weight: 300;
+  font-size: 24px;
+  width: 80%;
+  color: #98a2b3;
+  margin-bottom: 30px;
+}
+
+.hero-btn {
+  width: 155px;
+  height: 60px;
+  border: 1px solid #ea1889;
+  background: #ea1889;
+  border-radius: 8px;
+  padding: 16px 28px;
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0px 1px 2px rgba(16, 24, 40, 0.05);
+}
+
+.hero-btn:hover {
+  font-weight: 500;
+  color: white;
+}
+
+.hero-img {
+  border-radius: 3px;
+}
+
+.left-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 130px;
+}
+
+/* media queries */
+
+@media (max-width: 576px) {
+  .hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .left-content {
+    margin-top: 0px;
+  }
+
+  .hero-h1 {
+    font-size: 72px;
+    text-align: center;
+  }
+
+  .hero-p {
+    font-family: "Inter", sans-serif;
+    font-size: 28px;
+    line-height: 36px;
+    text-align: center;
+    margin: 25px 0px;
+    width: 100%;
+    padding: 0px 30px;
+  }
+
+  .hero-btn {
+    display: flex;
+    justify-content: space-around;
+    width: 90%;
+    align-items: center;
+    text-align: center;
+    margin-left: 25px;
+    color: white;
+  }
+
+  .hero-btn:hover {
+    font-weight: 500;
+    color: white;
+  }
+
+  .hero-img {
+    margin-top: 35px;
+    width: 527px;
+    height: 527px;
+  }
+}
+
+@include media-breakpoint-up(sm) {
+}
