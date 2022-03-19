@@ -36,3 +36,11 @@ def get_hello():
           "message" : "hello world"
      }
      return jsonify(dictionary)
+
+
+@api.route("/home", methods=["GET"])
+def get_home():
+     dictionary = {
+          "message" : "hello world"
+     }
+     return jsonify(dictionary)

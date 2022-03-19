@@ -41,7 +41,7 @@ class Trip(db.Model):
     city = db.Column(db.String(), unique=True)
     locations = db.Column(db.String(), unique=False, nullable=False)
     num_of_locations = db.Column(db.Integer(), unique=False, nullable=False) 
-    is_favourite = db.Column(db.Boolean unique=False, nullable=False)
+    is_favourite = db.Column(db.Boolean(), unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     country_id = db.Column(db.Integer, db.ForeignKey('country.id'), nullable=False)
 
