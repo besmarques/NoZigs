@@ -73,6 +73,47 @@ h1 {
   margin-top: 130px;
 }
 
+.bkg-blue {
+  background: #1fa9ff;
+  padding: 50px 0px;
+}
+
+.marker {
+  font-weight: 800;
+  font-size: 48px;
+  color: #1fa9ff;
+  text-shadow: 4px 0 0 #fff, -4px 0 0 #fff, 0 4px 0 #fff, 0 -4px 0 #fff,
+    2px 2px #fff, -2px -2px 0 #fff, 2px -2px 0 #fff, -2px 2px 0 #fff;
+  text-align: center;
+  margin: 10px 0px;
+  padding-top: 10px;
+}
+
+.steps {
+  margin: 35px 0px;
+  padding: 25px 0px;
+}
+
+.step {
+  margin-top: 20px;
+  color: white;
+  text-align: center;
+}
+
+.icon-avatar {
+  width: 80px;
+  height: 80px;
+  background: #f4ebff;
+  border: 8px solid #ffffff;
+  border-radius: 40px;
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.marker-title {
+  font-weight: 500;
+  font-size: 32px;
+}
 /* media queries */
 
 @media (max-width: 576px) {
@@ -121,7 +162,32 @@ h1 {
     width: 527px;
     height: 527px;
   }
-}
 
-@include media-breakpoint-up(sm) {
+  .marker {
+    font-size: 36px;
+    text-shadow: 3px 0 0 #fff, -3px 0 0 #fff, 0 3px 0 #fff, 0 -3px 0 #fff,
+      1.5px 1.5px #fff, -1.5px -1.5px 0 #fff, 1.5px -1.5px 0 #fff,
+      -1.5px 1.5px 0 #fff;
+  }
+
+  .steps {
+    margin: 15px 0px;
+    padding: 5px 0px;
+  }
+
+  .step {
+    margin-top: 30px;
+  }
+
+  .marker-title {
+    width: 85%;
+    font-weight: 700;
+    font-size: 26px;
+  }
+
+  .icon-avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+  }
 }

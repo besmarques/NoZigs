@@ -4,7 +4,7 @@ import HeroImage from "../../img/hero_img.png";
 const Hero = () => {
   return (
     <>
-      <div className="container">
+      <div className="container mb-5">
         <div className="hero">
           <div className="row">
             <div className="col-12 col-sm-6">
@@ -29,8 +29,8 @@ const Hero = () => {
               <img
                 className="hero-img"
                 src={HeroImage}
-                width="650"
-                height="650"
+                width="600"
+                height="600"
               />
             </div>
           </div>
