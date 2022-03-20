@@ -2,7 +2,8 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
-import Hero from "../component/hero.js";
+import Hero from "../component/hero.jsx";
+import Steps from "../component/steps.jsx";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -18,6 +19,7 @@ export const Home = () => {
   return (
     <div>
       <Hero />
+      <Steps />
     </div>
 
     // {/* <div className="text-center mt-5">
