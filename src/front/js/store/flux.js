@@ -3,7 +3,14 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null,
 			message: null,
+			mapBoxToken: "pk.eyJ1IjoiYmVzbWFycXVlcyIsImEiOiJja3p2cGRucDQwMGliMm9rNnpuOG90MG9nIn0.5n3XuDKIqcxsIDs-1VGs7g",
+			name:"",
+			country:"",
+			city:"",
+			base: "",
+			locationsInput: [],
 			locations: [],
+			resultObject: []
 		},
 		actions: {
 			syncTokenFromSessionStore: () => {
@@ -58,15 +65,71 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => setStore({ message: data.message }))
 					.catch(error => console.log("Error loading message from backend", error));
 			},
+			saveName: (name) => {
+				const store = getStore();
+
+				setStore({name: name});
+			},
+			saveCountry: (country) => {
+				const store = getStore();
+
+				setStore({country: country});
+			},
+			saveCity: (city) => { 
+				const store = getStore();
+
+				setStore({city:city});
+			},
+			saveBase: (base) => {
+				const store = getStore();
+
+				setStore({base: base})
+
+				/* Return something has base address */
+
+				if(store.base == ""){
+					store.locations[0] = "Please insert your base address";
+				}else{
+					store.locations[0] = store.base;
+				};
+			},
+
+			saveLocations: (locationsInput) => {
+				const store = getStore();
+
+				setStore({locationsInput : locationsInput});
+
+				/* bug cleaning for .map isnt a fuction */
+				if(store.locations != ""){
+					store.locations = [];
+				}
+
+				/* Return something has base address */
+				if(store.base == ""){
+					store.locations[0] = "Please insert your base address";
+				}else{
+					store.locations[0] = store.base;
+				};
+
+				/*push all the locations to the store.locations */
+				for (let i = 0; i < locationsInput.length; i++){
+					store.locations.push(locationsInput[i]);
+				}
+				
+			},
+
+			fetchLocationData: () => {
+
+				const store = getStore();
+				/**fetch location data */
+				
+				
 			
-			saveLocations: () => {
-				const store = getStore(locations);
-
-				setStore({locations: locations})
-
 				
 				
 			},
+
+			
 			
 			getDataFromFront: (name,country,city,base,locations) => {
 				const store = getStore();
@@ -75,7 +138,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				setStore({ testVar: name + country + city + base + locations})
 
-				//console.log(store.testVar);
+				console.log(store.testVar);
+
+				console.log(store.locations);
 				
 					
 				

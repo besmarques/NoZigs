@@ -21,7 +21,26 @@ const TripsInput = () => {
     const [locations, setLocations] = useState([]);
     let [getLocation, setGetLocation] = useState("");
 
-    console.log("locations", locations);
+    useEffect(()=>{
+        actions.saveName(name)
+    },[name]);
+    
+    useEffect(()=>{
+        actions.saveCountry(country)
+    },[country]);
+    
+    useEffect(()=>{
+        actions.saveCity(city)
+    },[city]);
+
+    useEffect(()=>{
+        actions.saveBase(base)
+    },[base]);
+    
+    useEffect(()=>{
+        actions.saveLocations(locations)
+    },[locations]);
+    
 
 
     function addToList() {
@@ -31,7 +50,7 @@ const TripsInput = () => {
 
     function finalSubmit(){
         if(getLocation != "" && locations == ""){
-            //addToList();
+            addToList();
             actions.getDataFromFront(name,country,city,base,getLocation);
         }else {
             actions.getDataFromFront(name,country,city,base,locations);
@@ -131,12 +150,12 @@ const TripsInput = () => {
                                         <Form.Control type="text" value={getLocation} placeholder="Enter addresses,zip codes or location names" onChange={(e) => setGetLocation(e.target.value)} onKeyPress={(e) => {event.key == "Enter" ? addToList() :""}}/>
                                     </Col>
                                     <Col xs={2} lg={2}>
-                                        <button className="btn-form" onClick={() => {addToList()}}><i class="fa fa-plus"></i></button>
+                                        <button className="btn-form" onClick={() => addToList()}><i className="fa fa-plus"></i></button>
                                     </Col>
                                 </Row>
                             </Form.Group>
                         </Col>
-                        {locations.map((listEntry, i) => (<><p>{listEntry}</p></>))}
+                        {/**locations.map((listEntry, i) => (<><p>{listEntry}</p></>))*/}
                     </Row>
 
                     <Row className="d-flex justify-content-center pt-4 pt-lg-5">

@@ -6,9 +6,27 @@ const TripsOutput = () => {
     
     const { store, actions } = useContext(Context);
 
+
     return (
         <>
-            <p>{store.locations.map((listEntry, i) => (<><p>{listEntry}</p></>))}</p>
+            
+                <h2>
+                    {
+                    store.name != "" && 
+                    store.country != "" && 
+                    store.city != "" 
+                    ? 
+                        <h2>Your {store.name} trip to {store.city},{store.country}</h2>
+                    :
+                        ""
+                    }
+                </h2>
+            
+            {store.locations.length >= 2 ? store.locations.map((listEntry, i) => (<><p>{listEntry}</p></>)):""}
+
+
+        
+            
             
         </>
     )
