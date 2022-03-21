@@ -6,6 +6,8 @@ import TripsInput from "../component/tripsInput.jsx";
 import TripsOutput from "../component/tripsOutput.jsx";
 import TripsMap from "../component/tripsMap.jsx";
 
+import TripsTeste from "../component/tripsTeste.jsx";
+
 import "../../styles/trips.css";
 
 const Trips = () => {
@@ -14,7 +16,7 @@ const Trips = () => {
             <Container>
                 <Row>
                     <Col xs={12} lg={6}><TripsInput /></Col>
-                    <Col xs={12} lg={6}><TripsOutput /></Col>
+                    <Col xs={12} lg={6}>{/*<TripsOutput />*/}<TripsTeste /></Col>
                 </Row>
             </Container>
             <Container fluid>

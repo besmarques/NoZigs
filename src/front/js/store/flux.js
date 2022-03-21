@@ -99,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				setStore({locationsInput : locationsInput});
 
-				/* bug cleaning for .map isnt a fuction */
+				/* bug cleaning for .map isnt a function */
 				if(store.locations != ""){
 					store.locations = [];
 				}
@@ -114,20 +114,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 				/*push all the locations to the store.locations */
 				for (let i = 0; i < locationsInput.length; i++){
 					store.locations.push(locationsInput[i]);
-				}
+				} 
+
+
+
+				/**     test fetch */
+
+				let temp = [];
+
+				let country = store.country.replace(/ /g , "%20");
+				let city = store.city.replace(/ /g , "%20");
+
+				let locations = store.locations;
+
+				/*for(let i = 0; i < locations.length; i++){
+					locations[i] = locations[i].replace(/ /g , "%20");
+				}*/
+
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				  };
+
+				for(let i = 0; i < store.locations.length; i++){
+					fetch("https://api.mapbox.com/geocoding/v5/mapbox.places/" + locations[i] + " " + city + ".json?country=" + country + "&limit=1&types=place%2Cpostcode%2Caddress%2Cpoi&access_token=" + store.mapBoxToken , requestOptions)
+					.then(response => response.json())
+					.then(result => {temp.push(result) })
+				
+				.catch(error => console.log('error', error))
+				} 
+				
+				
+				//console.log("store.locations", store.locations);
+				setStore({resultObject : temp});
+				console.log("store", store.resultObject);
+
+
 				
 			},
 
-			fetchLocationData: () => {
 
-				const store = getStore();
-				/**fetch location data */
-				
-				
-			
-				
-				
-			},
 
 			
 			
