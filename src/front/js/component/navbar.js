@@ -13,7 +13,6 @@ export const Navbar = () => {
 				</Link>
 				<div className="ml-auto">
 					{ !store.token ? 
-						
 						<Link to="/login">
 							<button className="btn btn-info text-white">Login</button>
 						</Link>

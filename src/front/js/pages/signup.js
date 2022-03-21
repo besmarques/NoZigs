@@ -1,14 +1,17 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { useHistory } from "react-router-dom";
 
 //Working In Progress
 
 const Signup = () => {
   const { store, actions } = useContext(Context);
-  const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [confirm_password, setConfirmPassword] = useState("");
+  const history = useHistory();
 
   const handleClick = () => {
     const opts = {
@@ -16,15 +19,16 @@ const Signup = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        user: user,
-        password: password,
+      body: JSON.stringify({ 
+        username: username,
+        password: password
       }),
-    };
-
+    }
+    
     console.log(opts);
-
   };
+
+  
 
 //use the library https://react-hook-form.com/form-builder/
 
@@ -32,12 +36,13 @@ const Signup = () => {
     <div className="text-center mt-5">
       <h1>Signup</h1>
       <br></br>
+      {(store.token && store.token!="" && store.token!=undefined) ? "You are logged in with this token " + store.token :
       <div>
         <input
-          type="text" id="login"
-          placeholder="create login"
-          value={user}
-          onChange={(e) => setUser(e.target.value)}
+          type="text" id="username"
+          placeholder="create username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <br></br>
         <br></br>
@@ -60,6 +65,8 @@ const Signup = () => {
         <input
           type="confirm_password" id="confirm_password"
           placeholder="confirm password"
+          value={confirm_password}
+          onChange={(e) => setConfirmPassword(e.target.value)}
         />
         <p id="message">Password Status</p>
         <br></br>
@@ -72,6 +79,7 @@ const Signup = () => {
           Signup
         </button>
       </div>
+      }
     </div>
   );
 };
