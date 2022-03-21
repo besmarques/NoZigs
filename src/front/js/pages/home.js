@@ -4,6 +4,7 @@ import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 import Hero from "../component/hero.jsx";
 import Steps from "../component/steps.jsx";
+import SecondHero from "../component/second_hero.jsx";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
@@ -20,6 +21,7 @@ export const Home = () => {
     <div>
       <Hero />
       <Steps />
+      <SecondHero />
     </div>
 
     // {/* <div className="text-center mt-5">

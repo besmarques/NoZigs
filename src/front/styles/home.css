@@ -114,6 +114,42 @@ h1 {
   font-weight: 500;
   font-size: 32px;
 }
+
+.hero-title {
+  font-weight: 600;
+  font-size: 32px;
+  color: #1fa9ff;
+  margin-top: 70px;
+  margin-bottom: 20px;
+}
+
+.hero-par {
+  font-weight: 400;
+  font-size: 19px;
+  color: #667085;
+}
+.fact {
+  margin: 10px;
+  padding: 25px;
+}
+
+.fact-number {
+  font-weight: 600;
+  font-size: 45px;
+  color: #ea1889;
+}
+
+.fact-what {
+  font-weight: 500;
+  font-size: 18px;
+  color: #101828;
+}
+
+.fact-desc {
+  font-weight: 400;
+  font-size: 16px;
+  color: #667085;
+}
 /* media queries */
 
 @media (max-width: 576px) {
@@ -189,5 +225,37 @@ h1 {
     width: 70px;
     height: 70px;
     border-radius: 35px;
+  }
+
+  .hero-title {
+    text-align: center;
+    font-size: 26px;
+  }
+
+  .hero-par {
+    font-weight: 400;
+    font-size: 16px;
+    color: #667085;
+    text-align: center;
+    width: 90%;
+    margin-left: 18px;
+  }
+
+  .second-hero-img {
+    width: 460px;
+    height: 350px;
+  }
+
+  .facts {
+    flex-direction: column;
+  }
+
+  .second-img {
+    justify-content: space-around;
+    order: 2;
+  }
+
+  .fact {
+    padding: 10px;
   }
 }
