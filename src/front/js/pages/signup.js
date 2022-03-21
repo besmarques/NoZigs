@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { useHistory } from "react-router-dom";
+
 
 //Working In Progress
 
@@ -11,7 +11,7 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [confirm_password, setConfirmPassword] = useState("");
-  const history = useHistory();
+  
 
   const handleClick = () => {
     const opts = {
@@ -24,7 +24,7 @@ const Signup = () => {
         password: password
       }),
     }
-    
+
     console.log(opts);
   };
 
