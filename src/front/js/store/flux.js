@@ -105,50 +105,50 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({locationsInput : locationsInput});
 
 				/* bug cleaning for .map isnt a function */
-				if(store.locations != ""){
-					store.locations = [];
-				}
+				//if(store.locations != ""){
+				//	store.locations = [];
+				//}
 
 				/* Return something has base address */
-				if(store.base == ""){
-					store.locations[0] = "Please insert your base address";
-				}else{
-					store.locations[0] = store.base;
-				};
+				//if(store.base == ""){
+				//	store.locations[0] = "Please insert your base address";
+				//}else{
+				//	store.locations[0] = store.base;
+				//};
 
 				/*push all the locations to the store.locations */
-				for (let i = 0; i < locationsInput.length; i++){
-					store.locations.push(locationsInput[i]);
-				} 
+				//for (let i = 0; i < locationsInput.length; i++){
+				//	store.locations.push(locationsInput[i]);
+				//} 
 
 
 
 				/**     test fetch */
 
-				let temp = [];
+				//let temp = [];
 
-				let country = store.country.replace(/ /g , "%20");
-				let city = store.city.replace(/ /g , "%20");
+				//let country = store.country.replace(/ /g , "%20");
+				//let city = store.city.replace(/ /g , "%20");
 
-				let locations = store.locations;
+				//let locations = store.locations;
 
 				/*for(let i = 0; i < locations.length; i++){
 					locations[i] = locations[i].replace(/ /g , "%20");
 				}*/
 
-				var requestOptions = {
-					method: 'GET',
-					redirect: 'follow'
-				  };
+				//var requestOptions = {
+				//	method: 'GET',
+				//	redirect: 'follow'
+				//  };
 
-				for(let i = 0; i < store.locations.length; i++){
+				//for(let i = 0; i < store.locations.length; i++){
 					
-				} 
+				//} 
 				
 				
 				//console.log("store.locations", store.locations);
-				setStore({resultObject : temp});
-				console.log("store", store.resultObject);
+				//setStore({resultObject : temp});
+				//console.log("store", store.resultObject);
 
 
 				
