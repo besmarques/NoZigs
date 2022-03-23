@@ -3,7 +3,7 @@ import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Context } from "../store/appContext";
 
 
-const Tripstest = () => {
+const TripsInteractions = () => {
 
     const { store, actions } = useContext(Context);
 
@@ -14,6 +14,10 @@ const Tripstest = () => {
     const [country, setCountry] = useState("");
     const [url,setUrl] = useState("");
 
+    const [geo, setGeo] = useState([]);
+
+    let coordinatesData = [];
+    const [waypoints, setWaypoints] = useState([]);
 
     function fetchLocation() {
         setUrl(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location} ${city}.json?country=${country}&limit=1&types=place%2Cpostcode%2Caddress%2Cpoi&access_token=${store.mapBoxToken}`);
@@ -32,10 +36,12 @@ const Tripstest = () => {
     function removeAll(i) {
 		setData([]);
 	}
+
     useEffect(() => {
         actions.saveLocations(data)
     }, [data]);
 
+    /** function to get location data */
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -46,13 +52,60 @@ const Tripstest = () => {
                 
                 
             } catch (error) {
-                console.log("error", error);
+                console.log("error fetch location data", error);
             }
         };
         fetchData();
     }, [url]);
 
-    //console.log(data.length);
+    /** function to get waypoints data */
+    const getBestRoute = async () => {
+        for(let i = 0; i < data.length; i++){
+            coordinatesData.push(data[i].features[0].geometry.coordinates);
+        }
+        
+        let coordinatesString = "";
+        coordinatesString = coordinatesData.join(";");
+		
+        try{
+            const response = await fetch("https://api.mapbox.com/optimized-trips/v1/mapbox/walking/" + coordinatesString + "?geometries=geojson&language=en&overview=simplified&steps=true&access_token=" + store.mapBoxToken);
+            const json = await response.json();
+         
+            setWaypoints(json);
+            setGeo(json);
+            console.log("json",json);
+            
+        }
+        catch(error){
+            console.log("error on bet route", error)
+        }
+        
+    }
+
+    useEffect(()=>{
+        actions.saveGeometry(geo);
+    },[geo])
+
+
+
+    let tempRoute = [];
+    let tempTemp = [];
+
+    useEffect(() => {
+        
+        if(waypoints != ""){
+            for(let i = 0; i < waypoints.waypoints.length;i++){
+                tempRoute.push(waypoints.waypoints[i].waypoint_index);
+            }
+
+            for(let i = 0;i < tempRoute.length; i++){
+				tempTemp.push(data[tempRoute[i]])
+			}
+            setData(tempTemp);
+        } 
+    }, [waypoints]);
+
+    let titleArray = [];
 
     return (
         <>
@@ -168,7 +221,7 @@ const Tripstest = () => {
                                 <Row className="d-flex justify-content-center">
                                     <Col xs={12} lg={10} className="d-grid gap-2">
                                         {data.length >= 2 ? 
-                                            <Button className="btn-submit-route" type="submit" size="lg" onClick={() => actions.getBestRoute()}>
+                                            <Button className="btn-submit-route" type="submit" size="lg" onClick={() => getBestRoute()}>
                                                 Give me the best route
                                             </Button>
                                             :
@@ -217,6 +270,8 @@ const Tripstest = () => {
                     <Col xs={12} lg={12}>
                         {data.length > 0 ? 
                             data.map((listEntry, i) => (
+
+                               
                                     i == 0 ? (
                                        <Row key = {i} className="my-3 px-2 p-lg-0 card-row">
                                         <Col xs={2} lg={2} className="d-flex justify-content-center card-icon-box-home">
@@ -225,8 +280,8 @@ const Tripstest = () => {
                                         
                                         <Col >
                                             <Row className="py-2">
-                                                <p>{listEntry.features[0].place_type != "poi" ? listEntry.features[0].place_type : listEntry.features[0].properties.category}</p>                                                
-                                                <h4>{listEntry.features[0].place_name}</h4>                                
+                                                <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : ( titleArray = listEntry.features[0].properties.category.split(","),titleArray[0])}</p>                                                
+                                                <h6>{listEntry.features[0].place_name}</h6>                                
                                             </Row>
                                         </Col>
 
@@ -243,8 +298,8 @@ const Tripstest = () => {
                                             </Col>
                                             <Col >
                                                 <Row className="py-2">
-                                                    <p>{listEntry.features[0].place_type != "poi" ? listEntry.features[0].place_type : listEntry.features[0].properties.category}</p>                                                
-                                                    <h4>{listEntry.features[0].place_name}</h4>                                
+                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : ( titleArray = listEntry.features[0].properties.category.split(","),titleArray[0])}</p>                                                
+                                                    <h6>{listEntry.features[0].place_name}</h6>                                
                                                 </Row>
                                             </Col>
                                             <Col xs={2} lg={2} className="d-flex justify-content-center card-delete-box">
@@ -259,7 +314,7 @@ const Tripstest = () => {
                                             <Col >
                                                 <Row className="py-2">
                                                     <p>{listEntry.features[0].place_type != "poi" ? listEntry.features[0].place_type : listEntry.features[0].properties.category}</p>                                                
-                                                    <h4>{listEntry.features[0].place_name}</h4>                                
+                                                    <h6>{listEntry.features[0].place_name}</h6>                                
                                                 </Row>
                                             </Col>
                                             <Col xs={2} lg={2} className="d-flex justify-content-center card-delete-box">
@@ -288,4 +343,4 @@ const Tripstest = () => {
     )
 };
 
-export default Tripstest
+export default TripsInteractions

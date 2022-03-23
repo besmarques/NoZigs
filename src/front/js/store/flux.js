@@ -5,11 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			message: null,
 			mapBoxToken: "pk.eyJ1IjoiYmVzbWFycXVlcyIsImEiOiJja3p2cGRucDQwMGliMm9rNnpuOG90MG9nIn0.5n3XuDKIqcxsIDs-1VGs7g",
 			name:"",
-			country:"",
-			city:"",
-			base: "",
 			locations: [],
-			route: [],
+			geometry: [],
 		},
 		actions: {
 			syncTokenFromSessionStore: () => {
@@ -69,66 +66,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				setStore({name: name});
 			},
-			saveCountry: (country) => {
-				const store = getStore();
-
-				setStore({country: country});
-			},
-			saveCity: (city) => { 
-				const store = getStore();
-
-				setStore({city:city});
-			},
 			saveLocations: (data) => { 
 				const store = getStore();
 
 				setStore({locations:data});
 			},
-			getBestRoute: () => {
+			saveGeometry: (geo) => { 
 				const store = getStore();
 
-				let coordinatesData = [];
-
-				for(let i = 0; i < store.locations.length; i++){
-					coordinatesData.push(store.locations[i].features[0].geometry.coordinates);
-				}
-
-				console.log("object with data",coordinatesData);
-
-				let coordinatesString = "";
-
-				coordinatesString = coordinatesData.join(";");
-				
-				console.log("string for fetch",coordinatesString);
-
-				let route = [];
-
-				var requestOptions = {
-					method: 'GET',
-					redirect: 'follow'
-				  };
-
-				fetch("https://api.mapbox.com/optimized-trips/v1/mapbox/walking/" + coordinatesString + "?access_token=" + store.mapBoxToken , requestOptions)
-				  .then(response => response.json())
-				  .then(result => route.push(result))
-				  .catch(error => console.log('error', error));
-				  
-				  //setStore({route : route});
-				  console.log("route", route);
-				  console.log("route.length", route[0].waypoints);
-
-				
-				  let tempRoute = [];
-
-				  for(let i = 0; i < route.length; i++){
-					  for(let z = 0; z < route[i].waypoints.length; z++){
-						  tempRoute.push(route[i].waypoints[z].waypoint_index);
-						  console.log("temproute",tempRoute);
-					  }
-				  }
-  
-
-
+				setStore({geometry:geo});
 			},
 
 		

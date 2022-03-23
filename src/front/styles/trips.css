@@ -178,26 +178,26 @@
 
 .card-icon-box-home{
     background-color: #4be89f;
-    min-height:13vh;
+    min-height:10vh;
 }
 
 .card-icon-box-poi{
     background-color: #EA1889;
-    min-height:13vh;
+    min-height:10vh;
 }
 
 .card-icon-box-address{
     background-color: #1b8ed6;
-    min-height:13vh;
+    min-height:10vh;
 }
 
 .card-icon{
     display:inline-block;
-    font-size: 5vh;
+    font-size: 3vh;
     margin:auto;
     color:white;
     width: 50px;
-    height: 50px;
+    /*height: 50px;*/
     text-align: center;
     vertical-align: bottom;
 }
@@ -209,8 +209,8 @@
 
 .card-delete-button{
     visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s, opacity 0.2s linear;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.2s linear;
 }
 
 .card-row:hover .card-delete-button{
@@ -225,7 +225,7 @@
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
-    font-size: 20px;
-    line-height: 24px;
-    height: 46px;
+    font-size: 16px;
+    line-height: 20px;
+    height: 40px;
 }
