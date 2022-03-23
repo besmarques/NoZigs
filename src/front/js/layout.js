@@ -13,6 +13,7 @@ import Login from "./pages/login";
 import Signup from "./pages/signup";
 
 import Trips from "./pages/trips.jsx";
+import Profile from "./pages/profile.jsx";
 
 //create your first component
 const Layout = () => {
@@ -43,6 +44,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/trips">
 							<Trips />
+						</Route>
+						<Route exact path="/profile">
+							<Profile />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>
