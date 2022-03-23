@@ -73,3 +73,6 @@ This boilerplate it's 100% integrated with Herkou, just by pushing your changes 
 "friendly-errors-webpack-plugin": "^1.7.0",
 
 test
+
+### to reset migration
+$_ bash /workspace/NoZigs/docs/assets/reset_migrations.bash

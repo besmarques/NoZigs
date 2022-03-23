@@ -32,19 +32,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({token: null});
 			},
 
-			signup: async (username, password) => {
-				const signup = {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ 
-					  username: username,
-					  password: password
-					  }),
-				  };
-
-			},
+			
 
 			login: async (username, password) => {
 				let myToken = localStorage.getItem("token");

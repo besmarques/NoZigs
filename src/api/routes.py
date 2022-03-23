@@ -44,10 +44,11 @@ def signup():
          return({'error':'Missing info'}), 400
 
     else:
-         new_user = User(user=username, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
+         new_user = User(username=username, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
          new_user.create()
          created_user = User.get_by_username(username)
-         return 'Congratulations for signing up!'
+         access_token = create_access_token(identity=username)
+         return({'token' : access_token, 'message' : 'Congratulations for signing up!'}), 200
          
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
