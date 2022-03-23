@@ -19,9 +19,19 @@ class User(db.Model):
     photo = db.Column(db.String(), unique=False)
     birthday = db.Column(db.DateTime())
     trips = db.relationship('Trip', backref='user', lazy=True)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
+    def create(self):
+      db.session.add(self)
+      db.session.commit()
+
+    @classmethod
+    def get_by_username(cls, user):
+      account = cls.query.filter_by(user=user).one_or_none()
+      return account
 
     # tell python how to print the class object on the console
+
     def __repr__(self):
         return '<User %r>' % self.username
 
@@ -41,7 +51,7 @@ class Trip(db.Model):
     city = db.Column(db.String(), unique=True)
     locations = db.Column(db.String(), unique=False, nullable=False)
     num_of_locations = db.Column(db.Integer(), unique=False, nullable=False) 
-    is_favourite = db.Column(db.Boolean unique=False, nullable=False)
+    is_favourite = db.Column(db.Boolean(), unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     country_id = db.Column(db.Integer, db.ForeignKey('country.id'), nullable=False)
 
