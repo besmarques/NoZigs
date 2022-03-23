@@ -8,14 +8,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			country:"",
 			city:"",
 			base: "",
-			locationsInput: [],
 			locations: [],
-			resultObject: [],
-
-
-
-			testeLocation:"",
-			testeObject:"",
+			route: [],
 		},
 		actions: {
 			syncTokenFromSessionStore: () => {
@@ -85,95 +79,59 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 				setStore({city:city});
 			},
-			saveBase: (base) => {
+			saveLocations: (data) => { 
 				const store = getStore();
 
-				setStore({base: base})
-
-				/* Return something has base address */
-
-				if(store.base == ""){
-					store.locations[0] = "Please insert your base address";
-				}else{
-					store.locations[0] = store.base;
-				};
+				setStore({locations:data});
 			},
-
-			saveLocations: (locationsInput) => {
+			getBestRoute: () => {
 				const store = getStore();
 
-				setStore({locationsInput : locationsInput});
+				let coordinatesData = [];
 
-				/* bug cleaning for .map isnt a function */
-				//if(store.locations != ""){
-				//	store.locations = [];
-				//}
+				for(let i = 0; i < store.locations.length; i++){
+					coordinatesData.push(store.locations[i].features[0].geometry.coordinates);
+				}
 
-				/* Return something has base address */
-				//if(store.base == ""){
-				//	store.locations[0] = "Please insert your base address";
-				//}else{
-				//	store.locations[0] = store.base;
-				//};
+				console.log("object with data",coordinatesData);
 
-				/*push all the locations to the store.locations */
-				//for (let i = 0; i < locationsInput.length; i++){
-				//	store.locations.push(locationsInput[i]);
-				//} 
+				let coordinatesString = "";
 
-
-
-				/**     test fetch */
-
-				//let temp = [];
-
-				//let country = store.country.replace(/ /g , "%20");
-				//let city = store.city.replace(/ /g , "%20");
-
-				//let locations = store.locations;
-
-				/*for(let i = 0; i < locations.length; i++){
-					locations[i] = locations[i].replace(/ /g , "%20");
-				}*/
-
-				//var requestOptions = {
-				//	method: 'GET',
-				//	redirect: 'follow'
-				//  };
-
-				//for(let i = 0; i < store.locations.length; i++){
-					
-				//} 
+				coordinatesString = coordinatesData.join(";");
 				
-				
-				//console.log("store.locations", store.locations);
-				//setStore({resultObject : temp});
-				//console.log("store", store.resultObject);
+				console.log("string for fetch",coordinatesString);
 
+				let route = [];
+
+				var requestOptions = {
+					method: 'GET',
+					redirect: 'follow'
+				  };
+
+				fetch("https://api.mapbox.com/optimized-trips/v1/mapbox/walking/" + coordinatesString + "?access_token=" + store.mapBoxToken , requestOptions)
+				  .then(response => response.json())
+				  .then(result => route.push(result))
+				  .catch(error => console.log('error', error));
+				  
+				  //setStore({route : route});
+				  console.log("route", route);
+				  console.log("route.length", route[0].waypoints);
 
 				
+				  let tempRoute = [];
+
+				  for(let i = 0; i < route.length; i++){
+					  for(let z = 0; z < route[i].waypoints.length; z++){
+						  tempRoute.push(route[i].waypoints[z].waypoint_index);
+						  console.log("temproute",tempRoute);
+					  }
+				  }
+  
+
+
 			},
 
-
-			
-			
-			getDataFromFront: (name,country,city,base,locations) => {
-				const store = getStore();
-
-				setStore({locations: locations})
-
-				setStore({ testVar: name + country + city + base + locations})
-
-				console.log(store.testVar);
-
-				console.log(store.locations);
-				
-					
-				
-
-				
-
-			},
+		
 		}
 	};
 };

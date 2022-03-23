@@ -4,29 +4,44 @@ import { Context } from "../store/appContext";
 
 
 const Tripstest = () => {
+
+    const { store, actions } = useContext(Context);
+
     const [data, setData] = useState([]);
+    const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [city, setCity] = useState("");
     const [country, setCountry] = useState("");
     const [url,setUrl] = useState("");
 
-    const [canFetch,setCanFetch] = useState(false);
 
     function fetchLocation() {
-        setUrl(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location} ${city}.json?country=${country}&limit=1&types=place%2Cpostcode%2Caddress%2Cpoi&access_token=pk.eyJ1IjoiYmVzbWFycXVlcyIsImEiOiJja3p2cGRucDQwMGliMm9rNnpuOG90MG9nIn0.5n3XuDKIqcxsIDs-1VGs7g`);
+        setUrl(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location} ${city}.json?country=${country}&limit=1&types=place%2Cpostcode%2Caddress%2Cpoi&access_token=${store.mapBoxToken}`);
         event.preventDefault();
         setLocation("");
     }
 
-    
+    /*function to remove one entry of the result data. used in each location */
+    function removeItem(i) {
+		let temp = [...data];
+        temp.splice(i, 1);
+        setData(temp);
+	}
+
+    /*function to remove all of the result data. used when deleting the base location */
+    function removeAll(i) {
+		setData([]);
+	}
+    useEffect(() => {
+        actions.saveLocations(data)
+    }, [data]);
 
     useEffect(() => {
-  
         const fetchData = async () => {
             try {
                 const response = await fetch(url);
                 const json = await response.json();
-                console.log(json);
+                //console.log(json);
                 setData((prevState) => [...prevState,	json]);
                 
                 
@@ -34,15 +49,10 @@ const Tripstest = () => {
                 console.log("error", error);
             }
         };
-        
         fetchData();
     }, [url]);
 
-    console.log(data.length);
-
-    /*if(data.length == 1){
-        setCanFetch(true);
-    }*/
+    //console.log(data.length);
 
     return (
         <>
@@ -50,6 +60,7 @@ const Tripstest = () => {
             <Col xs={12} lg={6}>
                 <Row className="py-5">
                     <Col xs={12}>
+                    {/** Trip name on form */}
                         <Row className="d-flex justify-content-center">
                             <Col xs={12} lg={8}>
                                 <Form.Group className="mb-3" controlId="Name">
@@ -67,7 +78,7 @@ const Tripstest = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                        
+                    {/** Country on form */}
                         <Row className="d-flex justify-content-center">
                             <Col xs={12} lg={8}>
                                 <Form.Group className="mb-3" controlId="Country">
@@ -90,7 +101,7 @@ const Tripstest = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
-                    
+                    {/** City on form */}
                         <Row className="d-flex justify-content-center">
                             <Col xs={12} lg={8}>
                                 <Form.Group className="mb-3" controlId="City">
@@ -108,7 +119,9 @@ const Tripstest = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
+                    {/** Locations on form */}
                         {data.length == 0 ?  
+                        /** Base Location on form */
                         <Row className="d-flex justify-content-center">
                             <Col xs={12} lg={8}>
                                 <Form.Group className="mb-3" controlId="base">
@@ -131,6 +144,7 @@ const Tripstest = () => {
                             </Col>
                         </Row>
                         :
+                    /** Visit Locations on form */
                         <Row className="d-flex justify-content-center">
                             <Col xs={12} lg={8}>
                                 <Form.Group className="mb-3" controlId="locations">
@@ -148,57 +162,57 @@ const Tripstest = () => {
                                 </Form.Group>
                             </Col>
                         </Row>}
-
+                    {/** Button to fetch best route */}                      
                         <Row className="d-flex justify-content-center pt-4 pt-lg-5">
-                        <Col xs={12} lg={8}>
-                            <Row className="d-flex justify-content-center">
-                                <Col xs={12} lg={10} className="d-grid gap-2">
-                                    {data.length >= 2 ? 
-                                        <Button className="btn-submit-route" type="submit" size="lg" onClick={() => finalSubmit()}>
-                                            Give me the best route
-                                        </Button>
-                                        :
-                                        <Button className="btn-disable-route" type="submit" size="lg">
-                                            Give me the best route
-                                        </Button>
-                                    }
-                                </Col>
-                                <Col xs={12} lg={2}>
+                            <Col xs={12} lg={8}>
+                                <Row className="d-flex justify-content-center">
+                                    <Col xs={12} lg={10} className="d-grid gap-2">
+                                        {data.length >= 2 ? 
+                                            <Button className="btn-submit-route" type="submit" size="lg" onClick={() => actions.getBestRoute()}>
+                                                Give me the best route
+                                            </Button>
+                                            :
+                                            <Button className="btn-disable-route" type="submit" size="lg">
+                                                Give me the best route
+                                            </Button>
+                                        }
+                                    </Col>
+                                    <Col xs={12} lg={2}>
 
-                                </Col>
-                            </Row>
-                        </Col>
-                    </Row>
-                    
-                    <Row className="d-flex justify-content-center pt-4 pt-lg-5">
-                        <Col xs={12} lg={8}>
-                            <Row className="d-flex justify-content-center">
-                                <Col xs={12} lg={10} className="d-grid gap-2">
-                                    <Button className="btn-submit-share" type="submit" size="lg">
-                                        Share
-                                    </Button>
-                                </Col>
-                                <Col xs={12} lg={2}></Col>
-                            </Row>
-                        </Col>
-                    </Row>
-
-                    <Row className="d-flex justify-content-center pt-4 pt-lg-5">
-                        <Col xs={12} lg={8}>
-                            <Row className="d-flex justify-content-center">
-                                <Col xs={12} lg={10} className="d-grid gap-2">
-                                    <Button className="btn-submit-save" type="submit" size="lg">
-                                        Save Trip
-                                    </Button>
-                                </Col>
-                                <Col xs={12} lg={2}></Col>
-                            </Row>
-                        </Col>    
-                    </Row>
+                                    </Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    {/** Button to share trip */}  
+                        <Row className="d-flex justify-content-center pt-4 pt-lg-5">
+                            <Col xs={12} lg={8}>
+                                <Row className="d-flex justify-content-center">
+                                    <Col xs={12} lg={10} className="d-grid gap-2">
+                                        <Button className="btn-submit-share" type="submit" size="lg">
+                                            Share
+                                        </Button>
+                                    </Col>
+                                    <Col xs={12} lg={2}></Col>
+                                </Row>
+                            </Col>
+                        </Row>
+                    {/** Button to save trip */} 
+                        <Row className="d-flex justify-content-center pt-4 pt-lg-5">
+                            <Col xs={12} lg={8}>
+                                <Row className="d-flex justify-content-center">
+                                    <Col xs={12} lg={10} className="d-grid gap-2">
+                                        <Button className="btn-submit-save" type="submit" size="lg">
+                                            Save Trip
+                                        </Button>
+                                    </Col>
+                                    <Col xs={12} lg={2}></Col>
+                                </Row>
+                            </Col>    
+                        </Row>
                     </Col>
                 </Row>
             </Col>
-            <Col>
+            <Col xs={12} lg={6}>
                 <Row className="py-5 d-flex justify-content-center">
                     <Col xs={12} lg={12}>
                         {data.length > 0 ? 
@@ -215,6 +229,11 @@ const Tripstest = () => {
                                                 <h4>{listEntry.features[0].place_name}</h4>                                
                                             </Row>
                                         </Col>
+
+                                        <Col xs={2} lg={2} className="d-flex justify-content-center card-delete-box">
+                                            <Button className="card-delete-button" type="submit" onClick={() => removeAll(i)}><i className="fa-solid fa-trash-can"></i></Button>
+                                        </Col>
+                                        
                                     </Row>)   
                                     : (
                                     i > 0 && listEntry.features[0].place_type == "poi" ? 
@@ -228,6 +247,9 @@ const Tripstest = () => {
                                                     <h4>{listEntry.features[0].place_name}</h4>                                
                                                 </Row>
                                             </Col>
+                                            <Col xs={2} lg={2} className="d-flex justify-content-center card-delete-box">
+                                                <Button className="card-delete-button" type="submit" onClick={() => removeItem(i)}><i className="fa-solid fa-circle-minus"></i></Button>
+                                            </Col>
                                         </Row> ) 
                                         :
                                         (<Row key = {i} className="my-3 px-2 p-lg-0 card-row">
@@ -240,9 +262,13 @@ const Tripstest = () => {
                                                     <h4>{listEntry.features[0].place_name}</h4>                                
                                                 </Row>
                                             </Col>
+                                            <Col xs={2} lg={2} className="d-flex justify-content-center card-delete-box">
+                                                <Button className="card-delete-button" type="submit" onClick={() => removeItem(i)}><i className="fa-solid fa-circle-minus"></i></Button>
+                                            </Col>
                                         </Row>)
+                                    
                                     )  
-                                
+                                    
                             
                        
 
@@ -256,7 +282,7 @@ const Tripstest = () => {
             </Col>
         </Row>
         <Row>
-            <p>{url}</p>
+            <p>{/*console.log("store",store.locations)*/}</p>
         </Row>
         </>
     )
