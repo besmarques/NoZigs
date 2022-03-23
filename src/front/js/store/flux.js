@@ -32,21 +32,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({token: null});
 			},
 
+			
 
-			login: async (user, password) => {
+			login: async (username, password) => {
+				let myToken = localStorage.getItem("token");
 				const opts = {
 					method: "POST",
 					headers: {
-					  "Content-Type": "application/json",
+						"Content-Type": "application/json",
+					  	"Authorization" : myToken,
 					},
 					body: JSON.stringify({ 
-					  user: user,
+					  username: username,
 					  password: password
 					  }),
 				  };
 				
 				try{
-					const resp = await fetch("https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu34.gitpod.io/api/token", opts)
+					
+					const resp = await fetch("https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu38.gitpod.io/api/token", opts)
 	
 					if (resp.status !== 200) {
 						alert("There was an error!");
@@ -72,7 +76,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				}
 				// fetching data from the backend
-				fetch("https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu34.gitpod.io/api/hello", opts)
+				fetch("https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu38.gitpod.io/api/hello", opts)
 					.then(resp => resp.json())
 					.then(data => setStore({ message: data.message }))
 					.catch(error => console.log("Error loading message from backend", error));

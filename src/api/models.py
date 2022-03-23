@@ -19,9 +19,19 @@ class User(db.Model):
     photo = db.Column(db.String(), unique=False)
     birthday = db.Column(db.DateTime())
     trips = db.relationship('Trip', backref='user', lazy=True)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
 
+    def create(self):
+      db.session.add(self)
+      db.session.commit()
+
+    @classmethod
+    def get_by_username(cls, user):
+      account = cls.query.filter_by(user=user).one_or_none()
+      return account
 
     # tell python how to print the class object on the console
+
     def __repr__(self):
         return '<User %r>' % self.username
 
