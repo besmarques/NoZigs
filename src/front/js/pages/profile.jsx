@@ -10,13 +10,12 @@ const Profile = () => {
     return (
         <>
             <Container>
-                <Row>
-                    <UserProfile />
-                </Row>
-            
-                <Row>
-                    <Col>
-                       <MyTrips />
+                <Row className="py-5">
+                    <Col xs={12} lg={6}>
+                        <UserProfile />
+                    </Col>
+                    <Col xs={12} lg={6}>
+                        <MyTrips />
                     </Col>
                 </Row>
             </Container>
