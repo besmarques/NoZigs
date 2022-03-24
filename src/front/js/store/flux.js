@@ -3,25 +3,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			token: null,
 			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			mapBoxToken: "pk.eyJ1IjoiYmVzbWFycXVlcyIsImEiOiJja3p2cGRucDQwMGliMm9rNnpuOG90MG9nIn0.5n3XuDKIqcxsIDs-1VGs7g",
+			name:"",
+			locations: [],
+			geometry: [],
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
-			},
-
 			syncTokenFromSessionStore: () => {
 				const token = sessionStorage.getItem("token");
 				if( token && token !== "" && token !== undefined) setStore({token: token});
@@ -31,11 +18,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				sessionStorage.removeItem("token");
 				setStore({token: null});
 			},
-
-			
-
-			login: async (username, password) => {
+      login: async (username, password) => {
 				let myToken = localStorage.getItem("token");
+
 				const opts = {
 					method: "POST",
 					headers: {
@@ -67,7 +52,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("There's an error logging in")
 				}
 			},
-
 			getMessage: () => {
 				const store = getStore();
 				const opts = {
@@ -81,21 +65,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 					.then(data => setStore({ message: data.message }))
 					.catch(error => console.log("Error loading message from backend", error));
 			},
-			
-			changeColor: (index, color) => {
-				//get the store
+
+        saveName: (name) => {
+          //get the store
 				const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+				setStore({name: name});
+			},
+			saveLocations: (data) => { 
+				const store = getStore();
 
-				//reset the global store
-				setStore({ demo: demo });
-			}
+				setStore({locations:data});
+			},
+			saveGeometry: (geo) => { 
+				const store = getStore();
+
+				setStore({geometry:geo});
+			},
+
+		
 		}
 	};
 };
