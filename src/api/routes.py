@@ -4,31 +4,12 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User
 from api.utils import generate_sitemap, APIException
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 from werkzeug.security import check_password_hash, generate_password_hash
 
 import os
 
 api = Blueprint('api', __name__)
-
-# Create a route to authenticate your users and return JWTs. The
-# create_access_token() function is used to actually generate the JWT.
-# @api.route("/user", methods=["GET"]) #user should be GET
-# def user():
-#     username = request.json.get('username')
-#     password = request.json.get('password')
-#     if username and password:
-#          new_user = User(user=username, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
-#          new_user.create()
-#          created_user = User.get_by_username(username)
-
-#          if created_user :
-#               access_token = create_access_token(identity=created_user.serialize())
-#               return({'token' : access_token}), 200
-
-          # return jsonify({"msg": "Bad login or password"}), 401
 
 @api.route("/signup", methods=["POST"])
 def signup():
@@ -49,6 +30,22 @@ def signup():
          created_user = User.get_by_username(username)
          access_token = create_access_token(identity=username)
          return({'token' : access_token, 'message' : 'Congratulations for signing up!'}), 200
+
+# We keep this just in case it's not working....
+# @api.route("/user", methods=["GET"]) #user should be GET
+# def user():
+#     username = request.json.get('username')
+#     password = request.json.get('password')
+#     if username and password:
+#          new_user = User(user=username, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
+#          new_user.create()
+#          created_user = User.get_by_username(username)
+
+#          if created_user :
+#               access_token = create_access_token(identity=created_user.serialize())
+#               return({'token' : access_token}), 200
+
+          # return jsonify({"msg": "Bad login or password"}), 401
          
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
@@ -56,7 +53,7 @@ def signup():
 def create_token():
     username = request.json.get('username', None)
     password = request.json.get('password', None)
-
+     
      # Query your database for username and password
     user = User.query.filter_by(username=username, password=password).first()
     if user is None:
@@ -88,6 +85,9 @@ def login():
               return({'token' : access_token}), 200
 
           # return jsonify({"msg": "Bad login or password"}), 401
+
+
+
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
