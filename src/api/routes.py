@@ -15,7 +15,7 @@ api = Blueprint('api', __name__)
 def signup():
     username = request.json.get('username', None)
     password = request.json.get('password', None)
-    confirm_password = request.json.get('confirm_password', None)
+    confirm_password = request.json.get('confirmPassword', None)
     email = request.json.get('email', None)
 
     if (password != confirm_password):
@@ -25,7 +25,7 @@ def signup():
          return({'error':'Missing info'}), 400
 
     else:
-         new_user = User(username=username, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
+         new_user = User(username=username, email= email, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
          new_user.create()
          created_user = User.get_by_username(username)
          access_token = create_access_token(identity=username)
@@ -78,15 +78,13 @@ def login():
          return({'error':'Missing info'}), 400
 
     if username and check_password_hash(account._password, password): #and account._is_active
-         
+
          if created_user :
               access_token = create_access_token(identity=created_user.serialize())
               token = create_access_token(identity=username, expires_delta=timedelta(minutes=100))
               return({'token' : access_token}), 200
 
           # return jsonify({"msg": "Bad login or password"}), 401
-
-
 
 
 # Create a route to authenticate your users and return JWTs. The
