@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
-import "../../styles/home.css";
+import "../../styles/login.css";
 import { useHistory } from "react-router-dom";
 import Logo from "../../img/logo.png";
 
@@ -29,34 +29,36 @@ const Login = () => {
   console.log(token);
 
   return (
-    <div className="text-center mt-5">
-      <img src={Logo} height="40" alt="logo" />
+    <div className="login">
+      <img className="mb-3" src={Logo} height="40" alt="logo" />
       <h1>Login to your account</h1>
       <p>Welcome back! Please enter your details.</p>
-      <br></br>
       {store.token && store.token != "" && store.token != undefined ? (
         "You are logged in with this token " + store.token
       ) : (
         <div>
-          <input
-            type="text"
-            placeholder="your username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-          <br></br>
-          <br></br>
-          <input
-            type="password"
-            placeholder="your password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <br></br>
-          <br></br>
+          <label className="d-flex flex-column py-2 form-l">
+            Email
+            <input className="form-i"
+              label="Email"
+              type="text"
+              placeholder="Enter your email"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+          <label className="d-flex flex-column py-2 form-l">
+            Password
+            <input className="form-i"
+              type="password"
+              placeholder="your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </label>
           <button
             type="button"
-            className="btn btn-outline-info"
+            className="btn btn-outline-info bto"
             onClick={handleClick}
           >
             Login
