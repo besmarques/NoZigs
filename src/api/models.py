@@ -11,23 +11,24 @@ db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(40), unique=False, nullable=False)
-    logged_in = db.Column(db.Boolean(), unique=False, nullable=False)
+    password = db.Column(db.String(220), unique=False, nullable=False)
+    logged_in = db.Column(db.Boolean(), unique=False, nullable=False, default = True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     first_name = db.Column(db.String(60), unique=False)
     last_name = db.Column(db.String(100), unique=False)
     photo = db.Column(db.String(), unique=False)
     birthday = db.Column(db.DateTime())
     trips = db.relationship('Trip', backref='user', lazy=True)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default = True)
 
     def create(self):
       db.session.add(self)
       db.session.commit()
+      return self
 
     @classmethod
     def get_by_username(cls, user):
-      account = cls.query.filter_by(user=user).one_or_none()
+      account = cls.query.filter_by(username=user).one_or_none()
       return account
 
     # tell python how to print the class object on the console
