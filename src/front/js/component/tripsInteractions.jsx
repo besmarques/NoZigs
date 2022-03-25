@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Form, Button } from 'react-bootstrap';
 import { Context } from "../store/appContext";
+import { Typeahead } from 'react-bootstrap-typeahead';
+import 'react-bootstrap-typeahead/css/Typeahead.css';
+
+import options from './list_countries.jsx';
 
 
 const TripsInteractions = () => {
@@ -11,7 +15,10 @@ const TripsInteractions = () => {
     const [name, setName] = useState("");
     const [location, setLocation] = useState("");
     const [city, setCity] = useState("");
-    const [country, setCountry] = useState("");
+    const [country, setCountry] = useState([]);
+
+    
+    console.log(country);
     const [url,setUrl] = useState("");
 
     const [geo, setGeo] = useState([]);
@@ -140,12 +147,19 @@ const TripsInteractions = () => {
                                     </Row>
                                     <Row className="d-flex justify-content-center">
                                         <Col xs={10} lg={10}>
-                                            <Form.Select aria-label="Default select" value={country} onChange={(e) => setCountry(e.target.value)} >
+                                            {/** <Form.Select aria-label="Default select" autocomplete="on" value={country} onChange={(e) => setCountry(e.target.value)} >
                                                 <option >Select your country</option>
                                                 <option value="FR">France</option>
                                                 <option value="PT">Portugal</option>
                                                 <option value="SP">Spain</option>
-                                            </Form.Select>
+                                            </Form.Select> */}
+                                            <Typeahead
+                                                id="basic-example"
+                                                onChange={setCountry}
+                                                options={options}
+                                                placeholder="Select your country"
+                                                selected={country}
+                                            />
                                         </Col>
                                         <Col xs={2} lg={2}>
                                                 
@@ -154,6 +168,7 @@ const TripsInteractions = () => {
                                 </Form.Group>
                             </Col>
                         </Row>
+
                     {/** City on form */}
                         <Row className="d-flex justify-content-center">
                             <Col xs={12} lg={8}>
