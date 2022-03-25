@@ -17,7 +17,7 @@ const Login = () => {
     // Front end fetch is done here throught the store
     actions.login(username, password).then((x) => {
       if (x.msg) {
-        history.push("/trips");
+        history.push("/profile");
       } else {
         console.log(x);
         setError(x.err);
