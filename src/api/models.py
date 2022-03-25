@@ -24,6 +24,7 @@ class User(db.Model):
     def create(self):
       db.session.add(self)
       db.session.commit()
+      return self
 
     @classmethod
     def get_by_username(cls, user):

@@ -26,9 +26,8 @@ def signup():
 
     else:
          new_user = User(username=username, email= email, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
-         new_user.create()
-         created_user = User.get_by_username(username)
-         access_token = create_access_token(identity=username)
+         created_user = new_user.create()
+         access_token = create_access_token(identity=created_user.id)
          return({'token' : access_token, 'message' : 'Congratulations for signing up!'}), 200
 
 # We keep this just in case it's not working....
@@ -64,44 +63,36 @@ def create_token():
     # 2. compare the hash from the password of the password input (line20) with the hash in the database (password field in the database)
     # 3. if above true, return token (line 28), if not, return error (line 22)
 
-    access_token = create_access_token(identity=username)
+    access_token = create_access_token(identity=user.id)
     return jsonify(access_token=access_token)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
 @api.route("/login", methods=["POST"])
 def login():
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
+     username = request.json.get('username', None)
+     password = request.json.get('password', None)
 
-    if not (username and password):
-         return({'error':'Missing info'}), 400
+     if not (username and password):
+          return jsonify({'error':'Missing info'}), 400
 
-    if username and check_password_hash(account._password, password): #and account._is_active
+     user = User.query.filter_by(username = username).first() 
 
-         if created_user :
-              access_token = create_access_token(identity=created_user.serialize())
-              token = create_access_token(identity=username, expires_delta=timedelta(minutes=100))
-              return({'token' : access_token}), 200
+     if user and check_password_hash(user.password, password): #and account._is_active
+          access_token = create_access_token(identity=user.id)
+          return jsonify({'token' : access_token}), 200
+     else: 
+          return jsonify({"error" : "bad info for the login"}), 400
 
-          # return jsonify({"msg": "Bad login or password"}), 401
 
-
-# Create a route to authenticate your users and return JWTs. The
-# create_access_token() function is used to actually generate the JWT.
-@api.route("/hello", methods=["GET"])
+@api.route("/trips", methods=["GET"])
 @jwt_required()
-def get_hello():
+def protected():
 
-     user = get_jwt_identity()
-     dictionary = {
-          "message" : "Hello " + user
-     }
-     return jsonify(dictionary)
+     current_user_id = get_jwt_identity()
+     user = User.query.get(current_user_id)
 
-@api.route("/home", methods=["GET"])
-def get_home():
-     dictionary = {
-          "message" : "hello world"
-     }
-     return jsonify(dictionary)
+     if user:
+          return jsonify({"protected": True }), 200
+     else:
+          return jsonify({"protected": False }), 400

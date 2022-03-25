@@ -14,11 +14,13 @@ const Login = () => {
   const token = sessionStorage.getItem("token");
 
   const handleClick = () => {
+    // Front end fetch is done here throught the store
     actions.login(username, password).then((x) => {
-      if (x == true) {
+      if (x.msg) {
         history.push("/trips");
       } else {
-        setError(true);
+        console.log(x);
+        setError(x.err);
         setTimeout(() => {
           setError(false);
         }, 2000);
@@ -30,16 +32,18 @@ const Login = () => {
 
   return (
     <div className="login">
-      <img className="mb-3" src={Logo} height="40" alt="logo" />
+      <img src={Logo} height="40" alt="logo" />
       <h1>Login to your account</h1>
       <p>Welcome back! Please enter your details.</p>
+
       {store.token && store.token != "" && store.token != undefined ? (
         "You are logged in with this token " + store.token
       ) : (
         <div>
-          <label className="d-flex flex-column py-2 form-l">
+          <label className="d-flex flex-column py-1 form-l">
             Email
-            <input className="form-i"
+            <input
+              className="form-i"
               label="Email"
               type="text"
               placeholder="Enter your email"
@@ -47,11 +51,12 @@ const Login = () => {
               onChange={(e) => setUsername(e.target.value)}
             />
           </label>
-          <label className="d-flex flex-column py-2 form-l">
+          <label className="d-flex flex-column py-1 form-l">
             Password
-            <input className="form-i"
+            <input
+              className="form-i"
               type="password"
-              placeholder="your password"
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -65,7 +70,7 @@ const Login = () => {
           </button>
         </div>
       )}
-      {error ? "Error creating the user" : null}
+      {error ? error : null}
     </div>
   );
 };

@@ -22,13 +22,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       login: async (username, password) => {
-        let myToken = localStorage.getItem("token");
-
         const opts = {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: myToken,
           },
           body: JSON.stringify({
             username: username,
@@ -44,19 +41,19 @@ const getState = ({ getStore, getActions, setStore }) => {
             opts
           );
 
-          if (resp.status !== 200) {
-            alert("There was an error!");
-            res = false;
-          }
-
           const data = await resp.json();
-          console.log("this came from the backend", data);
-          sessionStorage.setItem("token", data.token);
-          setStore({ token: data.token });
-          res = true;
+
+          if (resp.status !== 200) {
+            res = { err: data.error };
+          } else {
+            sessionStorage.setItem("token", data.token);
+            setStore({ token: data.token });
+            res = { msg: data.message };
+          }
         } catch (error) {
           console.error("There's an error logging in");
         }
+        console.log(res);
         return res;
       },
       getMessage: () => {

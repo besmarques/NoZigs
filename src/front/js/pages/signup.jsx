@@ -1,10 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import "../../styles/signup.css";
 import { useHistory } from "react-router-dom";
 import { set } from "react-hook-form";
-
-//Working In Progress
 
 const Signup = () => {
   const { store, actions } = useContext(Context);
@@ -12,9 +11,9 @@ const Signup = () => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const history = useHistory();
   const [error, setError] = useState(false);
-
+  const history = useHistory();
+  
   const handleClick = async () => {
     const opts = {
       method: "POST",
