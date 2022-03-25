@@ -79,9 +79,10 @@
 		"react": "^16.8.4",
 		"react-bootstrap": "^2.2.1",
 		"react-dom": "^16.8.4",
-    "react-map-gl": "^7.0.10",
-    "react-hook-form": "^7.28.0",
-    "react-polyfills": "0.0.1",
+		"react-hook-form": "^7.28.0",
+		"react-input-mask": "^2.0.4",
+		"react-map-gl": "^7.0.10",
+		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0"
 	}
 }
