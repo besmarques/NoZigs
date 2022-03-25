@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import "../../styles/signup.css";
 import { useHistory } from "react-router-dom";
+import Logo from "../../img/logo.png";
 import { set } from "react-hook-form";
 
 const Signup = () => {
@@ -13,7 +14,7 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState(false);
   const history = useHistory();
-  
+
   const handleClick = async () => {
     const opts = {
       method: "POST",
@@ -52,41 +53,41 @@ const Signup = () => {
   //use the library https://react-hook-form.com/form-builder/
 
   return (
-    <div className="text-center mt-5">
-      <h1>Signup</h1>
-      <br></br>
+    <div className="signup">
+      <img src={Logo} height="40" alt="logo" />
+      <h1>Create an account</h1>
       {store.token && store.token != "" && store.token != undefined ? (
         "You are logged in with this token " + store.token
       ) : (
         <div>
           <input
+            className="d-flex flex-column py-1 form-s"
             type="text"
             id="username"
-            placeholder="create username"
+            placeholder="your username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <br></br>
-          <br></br>
+
           <input
+            className="d-flex flex-column py-1 form-s"
             type="email"
             id="email"
             placeholder="your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          <br></br>
-          <br></br>
+
           <input
+            className="d-flex flex-column py-1 form-s"
             type="password"
             id="password"
             placeholder="create password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <br></br>
-          <br></br>
           <input
+            className="d-flex flex-column py-1 form-s"
             type="confirm_password"
             id="confirm_password"
             placeholder="confirm password"
@@ -94,14 +95,13 @@ const Signup = () => {
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
           <p id="message">Password Status</p>
-          <br></br>
-          <br></br>
+
           <button
             type="button"
-            className="btn btn-outline-info"
+            className="btn btn-outline-info bto"
             onClick={handleClick}
           >
-            Signup
+            Get Started
           </button>
 
           {/* Insert html alert */}

@@ -56,6 +56,11 @@ class Trip(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     country_id = db.Column(db.Integer, db.ForeignKey('country.id'), nullable=False)
 
+    def create(self):
+      db.session.add(self)
+      db.session.commit()
+      return self
+
     # tell python how to print the class object on the console
     def __repr__(self):
         return '<Trip %r>' % self.name
