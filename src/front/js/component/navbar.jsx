@@ -20,9 +20,8 @@ export const Navbar = () => {
               <button className="btn btn-info text-white">Login</button>
             </Link>
           ) : (
-            <Link to="/login">
+                <Link to="/login" onClick={() => actions.logout()} >
               <button
-                onClick={() => actions.logout()}
                 className="btn btn-info text-white"
               >
                 Logout
