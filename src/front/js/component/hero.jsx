@@ -1,7 +1,15 @@
 import React from "react";
 import HeroImage from "../../img/hero_img.png";
+import { useHistory } from "react-router-dom";
 
 const Hero = () => {
+  const history = useHistory();
+
+  const handleClick = () => {
+    history.push("/trips");
+  };
+
+
   return (
     <>
       <div className="container mb-5">
@@ -21,7 +29,7 @@ const Hero = () => {
                     </strong>
                     . Dont waste your time, visit more
                   </p>
-                  <a className="hero-btn">Discover</a>
+                  <a className="hero-btn" onClick={handleClick}>Discover</a>
                 </div>
               </div>
             </div>
