@@ -18,6 +18,8 @@ const TripsInteractions = () => {
     const [country, setCountry] = useState([]);
 
     
+
+    
     console.log(country);
     const [url,setUrl] = useState("");
 
@@ -27,7 +29,7 @@ const TripsInteractions = () => {
     const [waypoints, setWaypoints] = useState([]);
 
     function fetchLocation() {
-        setUrl(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location} ${city}.json?country=${country}&limit=1&types=place%2Cpostcode%2Caddress%2Cpoi&access_token=${store.mapBoxToken}`);
+        setUrl(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location} ${city}.json?country=${country[0].country_code}&limit=1&types=place%2Cpostcode%2Caddress%2Cpoi&access_token=${store.mapBoxToken}`);
         event.preventDefault();
         setLocation("");
     }
@@ -147,19 +149,20 @@ const TripsInteractions = () => {
                                     </Row>
                                     <Row className="d-flex justify-content-center">
                                         <Col xs={10} lg={10}>
-                                            {/** <Form.Select aria-label="Default select" autocomplete="on" value={country} onChange={(e) => setCountry(e.target.value)} >
+                                            {/**  <Form.Select aria-label="Default select" autocomplete="on" value={country} onChange={(e) => setCountry(e.target.value)} >
                                                 <option >Select your country</option>
                                                 <option value="FR">France</option>
                                                 <option value="PT">Portugal</option>
                                                 <option value="SP">Spain</option>
                                             </Form.Select> */}
-                                            <Typeahead
+                                            {<Typeahead
                                                 id="basic-example"
                                                 onChange={setCountry}
                                                 options={options}
                                                 placeholder="Select your country"
                                                 selected={country}
-                                            />
+                                                />
+                                            }
                                         </Col>
                                         <Col xs={2} lg={2}>
                                                 
@@ -295,7 +298,7 @@ const TripsInteractions = () => {
                                         
                                         <Col >
                                             <Row className="py-2">
-                                                <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : ( titleArray = listEntry.features[0].properties.category.split(","),titleArray[0])}</p>                                                
+                                                <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : ( listEntry.features[0].properties.category.split(","))}</p>                                                
                                                 <h6>{listEntry.features[0].place_name}</h6>                                
                                             </Row>
                                         </Col>
@@ -313,7 +316,7 @@ const TripsInteractions = () => {
                                             </Col>
                                             <Col >
                                                 <Row className="py-2">
-                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : ( titleArray = listEntry.features[0].properties.category.split(","),titleArray[0])}</p>                                                
+                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : ( listEntry.features[0].properties.category.split(","))}</p>                                                
                                                     <h6>{listEntry.features[0].place_name}</h6>                                
                                                 </Row>
                                             </Col>

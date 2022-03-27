@@ -16,6 +16,7 @@ const Login = () => {
   const handleClick = () => {
     // Front end fetch is done here throught the store
     actions.login(username, password).then((x) => {
+      console.log(x);
       if (x.msg) {
         history.push("/profile");
       } else {
@@ -36,9 +37,7 @@ const Login = () => {
       <h1>Login to your account</h1>
       <p>Welcome back! Please enter your details.</p>
 
-      {store.token && store.token != "" && store.token != undefined ? (
-        "You are logged in with this token " + store.token
-      ) : (
+      
         <div>
           <label className="d-flex flex-column py-1 form-l">
             Email
@@ -69,7 +68,7 @@ const Login = () => {
             Login
           </button>
         </div>
-      )}
+     
       {error ? error : null}
     </div>
   );
