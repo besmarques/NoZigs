@@ -61,7 +61,7 @@ class Trip(db.Model):
       db.session.add(self)
       db.session.commit()
       return self
-
+    
     # tell python how to print the class object on the console
     def __repr__(self):
         return '<Trip %r>' % self.name
@@ -69,8 +69,8 @@ class Trip(db.Model):
     # tell python how convert the class object into a dictionary ready to jsonify
     def serialize(self):
         return {
-            "name": self.name,
-            "locations": self.locations
+            "name": self.name
+            #"country_code": self.country_code
             # do not serialize the password, its a security breach
         }
         

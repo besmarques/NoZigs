@@ -28,6 +28,52 @@ const TripsInteractions = () => {
     let coordinatesData = [];
     const [waypoints, setWaypoints] = useState([]);
 
+    
+    const saveTrip = async () => {
+        console.log("name",name);
+        console.log("data",data);
+        console.log("city",city);
+        console.log("country",country);
+
+        const opts = {
+            method: "POST",
+            mode: "no-cors",
+            headers: {
+              "Content-Type": "application/json",
+              
+            },
+            body: JSON.stringify({
+              //name: name,
+              //data: data,
+              //city: city,
+              //country: country,
+
+                "name" :"teste postman",
+                "travel_date" : "2022-10-10",
+                "locations" : "Lisboa, porto, setubal",
+                "num_of_locations" : 6,
+                "is_favourite" : false,
+                "country_code": "FR"
+            }),
+          };
+        
+        const response = await fetch(
+        "https://3001-nozigs-nozigs-r5bk3wf3fd2.ws-eu38.gitpod.io/api/save-trip",
+        opts
+        );
+
+        
+
+        if (response.status == 200) {
+            console.log("fetchou")
+          } else {
+            setError(true);
+            setTimeout(() => {
+              setError(false);
+            }, 2000);
+          }
+    }
+
     function fetchLocation() {
         setUrl(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location} ${city}.json?country=${country[0].country_code}&limit=1&types=place%2Cpostcode%2Caddress%2Cpoi&access_token=${store.mapBoxToken}`);
         event.preventDefault();
@@ -272,9 +318,11 @@ const TripsInteractions = () => {
                             <Col xs={12} lg={8}>
                                 <Row className="d-flex justify-content-center">
                                     <Col xs={12} lg={10} className="d-grid gap-2">
-                                        <Button className="btn-submit-save" type="submit" size="lg">
+                                    
+                                        <button className="btn-submit-save" type="submit" size="lg" onClick={saveTrip}>
                                             Save Trip
-                                        </Button>
+                                        </button>
+                                 
                                     </Col>
                                     <Col xs={12} lg={2}></Col>
                                 </Row>
