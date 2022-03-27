@@ -54,7 +54,8 @@ class Trip(db.Model):
     num_of_locations = db.Column(db.Integer(), unique=False, nullable=False) 
     is_favourite = db.Column(db.Boolean(), unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    country_id = db.Column(db.Integer, db.ForeignKey('country.id'), nullable=False)
+    country_code = db.Column(db.String(2), unique=False, nullable=False)
+    #country_id = db.Column(db.Integer, db.ForeignKey('country.id'), nullable=False)
 
     def create(self):
       db.session.add(self)
@@ -73,21 +74,21 @@ class Trip(db.Model):
             # do not serialize the password, its a security breach
         }
         
-class Country(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    country = db.Column(db.String(), unique=True, nullable=False)
-    country_code = db.Column(db.String(), unique=True, nullable=False)
-    trips = db.relationship('Trip', backref='country', lazy=True)
+# class Country(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     country = db.Column(db.String(), unique=True, nullable=False)
+#     country_code = db.Column(db.String(), unique=True, nullable=False)
+#     trips = db.relationship('Trip', backref='country', lazy=True)
 
 
-    # tell python how to print the class object on the console
-    def __repr__(self):
-        return '<Trip %r>' % self.name
+#     tell python how to print the class object on the console
+#     def __repr__(self):
+#         return '<Trip %r>' % self.name
 
-    # tell python how convert the class object into a dictionary ready to jsonify
-    def serialize(self):
-        return {
-            "name": self.name,
-            "locations": self.locations
-            # do not serialize the password, its a security breach
-        }
+#     tell python how convert the class object into a dictionary ready to jsonify
+#     def serialize(self):
+#         return {
+#             "name": self.name,
+#             "locations": self.locations
+#             do not serialize the password, its a security breach
+#         }
