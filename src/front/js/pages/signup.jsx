@@ -46,8 +46,6 @@ const Signup = () => {
         setError(false);
       }, 2000);
     }
-
-    //need to have a fetch()
   };
 
   //use the library https://react-hook-form.com/form-builder/

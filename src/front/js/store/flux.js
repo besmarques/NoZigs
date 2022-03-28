@@ -43,17 +43,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           const data = await resp.json();
 
-          if (resp.status !== 200) {
+          if (!resp.ok) {
             res = { err: data.error };
           } else {
+            // save the token in the localStorage
             sessionStorage.setItem("token", data.token);
             setStore({ token: data.token });
             res = { msg: data.message };
           }
         } catch (error) {
-          console.error("There's an error logging in");
+          console.error("Error logging in");
         }
-        console.log(res);
         return res;
       },
       getMessage: () => {
