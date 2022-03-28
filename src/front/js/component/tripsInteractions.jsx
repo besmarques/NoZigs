@@ -18,7 +18,7 @@ const TripsInteractions = () => {
     const [country, setCountry] = useState([]);
 
     
-
+    const [error, setError] = useState(false);
     
     console.log(country);
     const [url,setUrl] = useState("");
@@ -28,50 +28,68 @@ const TripsInteractions = () => {
     let coordinatesData = [];
     const [waypoints, setWaypoints] = useState([]);
 
+
+    console.log("data",JSON.stringify(data));
+
+    
     
     const saveTrip = async () => {
-        console.log("name",name);
+
+        //console.log("name",name);
         console.log("data",data);
-        console.log("city",city);
-        console.log("country",country);
+        //console.log("city",city);
+        //console.log("country",country);
+
+        
+
+        
+        
+        
 
         const opts = {
             method: "POST",
-            mode: "no-cors",
+            
             headers: {
               "Content-Type": "application/json",
+              "Authorization": "Bearer" + " " + store.token,
               
             },
             body: JSON.stringify({
-              //name: name,
-              //data: data,
-              //city: city,
-              //country: country,
+                name: name,
+                travel_date : "2020-10-10",
+                locations: data,
+                num_of_locations : data.length,
+                is_favourite : false,
+                city: city,
+                country_code: country[0].country_code
 
-                "name" :"teste postman",
-                "travel_date" : "2022-10-10",
+                /*"name" :"teste button",
+                "travel_date" : "2020-10-10",
                 "locations" : "Lisboa, porto, setubal",
                 "num_of_locations" : 6,
                 "is_favourite" : false,
-                "country_code": "FR"
+                "country_code": "FR"*/
             }),
+            
           };
-        
-        const response = await fetch(
-        "https://3001-nozigs-nozigs-r5bk3wf3fd2.ws-eu38.gitpod.io/api/save-trip",
+          console.log(opts);
+        fetch(
+        "https://3001-nozigs-nozigs-un53z0nhyul.ws-eu38.gitpod.io/api/save-trip",
         opts
-        );
+        ).then(response => response.text())
+        .then(result => console.log("result",result))
+        .catch(error => console.log('error', error));
 
         
 
-        if (response.status == 200) {
+        /*if (response.status == 200) {
             console.log("fetchou")
           } else {
             setError(true);
             setTimeout(() => {
               setError(false);
             }, 2000);
-          }
+          }*/
     }
 
     function fetchLocation() {

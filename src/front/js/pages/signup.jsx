@@ -30,10 +30,10 @@ const Signup = () => {
     };
 
     const response = await fetch(
-      "https://3001-nozigs-nozigs-r5bk3wf3fd2.ws-eu38.gitpod.io/api/signup",
+      "https://3001-nozigs-nozigs-un53z0nhyul.ws-eu38.gitpod.io/api/signup",
       opts
     );
-
+    
     const data = await response.json();
 
     if (response.status == 200) {

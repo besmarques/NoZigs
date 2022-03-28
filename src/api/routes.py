@@ -103,9 +103,9 @@ def protected():
 @api.route("/save-trip", methods=["POST"])
 @jwt_required()
 def saveTrip():
+     print("We are here")
 
-     current_user_id = get_jwt_identity()
-     
+     user_id = get_jwt_identity()
      name = request.json.get('name', None)
      travel_date = request.json.get('travel_date', None)
      #date_created = request.json.get('name', None)
@@ -114,21 +114,25 @@ def saveTrip():
      num_of_locations = request.json.get('num_of_locations', None)
      is_favourite = request.json.get('is_favourite', None)
      country_code = request.json.get('country_code', None)
-     user_id = request.json.get('user_id', None)
+     #user_id = request.json.get('user_id', None)
+
+     print(user_id)
 
      trip = Trip(
           name = name,
           travel_date = travel_date,
           date_created = datetime.now(),
           city = city,
-          locations = locations,
+          locations = str(locations),
           num_of_locations = num_of_locations,
           is_favourite = is_favourite,
           country_code = country_code,
-          user_id = get_jwt_identity()
+          user_id = user_id
 
      )
 
      trip.create()
+
+     
 
      return jsonify(trip.serialize())

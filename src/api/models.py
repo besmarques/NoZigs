@@ -45,11 +45,11 @@ class User(db.Model):
         }
 
 class Trip(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(80), unique=False, nullable=False)
     travel_date = db.Column(db.DateTime())
     date_created = db.Column(db.DateTime(), nullable=False)
-    city = db.Column(db.String(), unique=True)
+    city = db.Column(db.String(), unique=False, nullable=False)
     locations = db.Column(db.String(), unique=False, nullable=False)
     num_of_locations = db.Column(db.Integer(), unique=False, nullable=False) 
     is_favourite = db.Column(db.Boolean(), unique=False, nullable=False)
