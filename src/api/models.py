@@ -45,11 +45,11 @@ class User(db.Model):
         }
 
 class Trip(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     name = db.Column(db.String(80), unique=False, nullable=False)
     travel_date = db.Column(db.DateTime())
     date_created = db.Column(db.DateTime(), nullable=False)
-    city = db.Column(db.String(), unique=True)
+    city = db.Column(db.String(), unique=False, nullable=False)
     locations = db.Column(db.String(), unique=False, nullable=False)
     num_of_locations = db.Column(db.Integer(), unique=False, nullable=False) 
     is_favourite = db.Column(db.Boolean(), unique=False, nullable=False)
@@ -61,7 +61,7 @@ class Trip(db.Model):
       db.session.add(self)
       db.session.commit()
       return self
-
+    
     # tell python how to print the class object on the console
     def __repr__(self):
         return '<Trip %r>' % self.name
@@ -69,8 +69,8 @@ class Trip(db.Model):
     # tell python how convert the class object into a dictionary ready to jsonify
     def serialize(self):
         return {
-            "name": self.name,
-            "locations": self.locations
+            "name": self.name
+            #"country_code": self.country_code
             # do not serialize the password, its a security breach
         }
         

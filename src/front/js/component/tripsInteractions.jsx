@@ -18,7 +18,7 @@ const TripsInteractions = () => {
     const [country, setCountry] = useState([]);
 
     
-
+    const [error, setError] = useState(false);
     
     console.log(country);
     const [url,setUrl] = useState("");
@@ -27,6 +27,70 @@ const TripsInteractions = () => {
 
     let coordinatesData = [];
     const [waypoints, setWaypoints] = useState([]);
+
+
+    console.log("data",JSON.stringify(data));
+
+    
+    
+    const saveTrip = async () => {
+
+        //console.log("name",name);
+        console.log("data",data);
+        //console.log("city",city);
+        //console.log("country",country);
+
+        
+
+        
+        
+        
+
+        const opts = {
+            method: "POST",
+            
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer" + " " + store.token,
+              
+            },
+            body: JSON.stringify({
+                name: name,
+                travel_date : "2020-10-10",
+                locations: data,
+                num_of_locations : data.length,
+                is_favourite : false,
+                city: city,
+                country_code: country[0].country_code
+
+                /*"name" :"teste button",
+                "travel_date" : "2020-10-10",
+                "locations" : "Lisboa, porto, setubal",
+                "num_of_locations" : 6,
+                "is_favourite" : false,
+                "country_code": "FR"*/
+            }),
+            
+          };
+          console.log(opts);
+        fetch(
+        "https://3001-nozigs-nozigs-un53z0nhyul.ws-eu38.gitpod.io/api/save-trip",
+        opts
+        ).then(response => response.text())
+        .then(result => console.log("result",result))
+        .catch(error => console.log('error', error));
+
+        
+
+        /*if (response.status == 200) {
+            console.log("fetchou")
+          } else {
+            setError(true);
+            setTimeout(() => {
+              setError(false);
+            }, 2000);
+          }*/
+    }
 
     function fetchLocation() {
         setUrl(`https://api.mapbox.com/geocoding/v5/mapbox.places/${location} ${city}.json?country=${country[0].country_code}&limit=1&types=place%2Cpostcode%2Caddress%2Cpoi&access_token=${store.mapBoxToken}`);
@@ -272,9 +336,11 @@ const TripsInteractions = () => {
                             <Col xs={12} lg={8}>
                                 <Row className="d-flex justify-content-center">
                                     <Col xs={12} lg={10} className="d-grid gap-2">
-                                        <Button className="btn-submit-save" type="submit" size="lg">
+                                    
+                                        <button className="btn-submit-save" type="submit" size="lg" onClick={saveTrip}>
                                             Save Trip
-                                        </Button>
+                                        </button>
+                                 
                                     </Col>
                                     <Col xs={12} lg={2}></Col>
                                 </Row>
@@ -288,10 +354,8 @@ const TripsInteractions = () => {
                     <Col xs={12} lg={12}>
                         {data.length > 0 ? 
                             data.map((listEntry, i) => (
-
-                               
-                                    i == 0 ? (
-                                       <Row key = {i} className="my-3 px-2 p-lg-0 card-row">
+                                i == 0 ? (
+                                    <Row key = {i} className="my-3 px-2 p-lg-0 card-row">
                                         <Col xs={2} lg={2} className="d-flex justify-content-center card-icon-box-home">
                                             <i className="fa-solid fa-house card-icon"></i>
                                         </Col>
@@ -316,7 +380,7 @@ const TripsInteractions = () => {
                                             </Col>
                                             <Col >
                                                 <Row className="py-2">
-                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : ( listEntry.features[0].properties.category.split(","))}</p>                                                
+                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : (titleArray = listEntry.features[0].properties.category.split(","),titleArray[0])}</p>                                                
                                                     <h6>{listEntry.features[0].place_name}</h6>                                
                                                 </Row>
                                             </Col>
@@ -331,7 +395,7 @@ const TripsInteractions = () => {
                                             </Col>
                                             <Col >
                                                 <Row className="py-2">
-                                                    <p>{listEntry.features[0].place_type != "poi" ? listEntry.features[0].place_type : listEntry.features[0].properties.category}</p>                                                
+                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : (titleArray = listEntry.features[0].properties.category,titleArray[0])}</p>                                                
                                                     <h6>{listEntry.features[0].place_name}</h6>                                
                                                 </Row>
                                             </Col>
