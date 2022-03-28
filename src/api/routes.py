@@ -79,8 +79,9 @@ def login():
      user = User.query.filter_by(username = username).first() 
 
      if user and check_password_hash(user.password, password): #and account._is_active
+          
           access_token = create_access_token(identity=user.id)
-          return jsonify({'token' : access_token}), 200
+          return jsonify({'message': "whatever", 'token' : access_token}), 200
      else: 
           return jsonify({"error" : "bad info for the login"}), 400
 

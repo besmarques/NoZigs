@@ -30,7 +30,7 @@ const Signup = () => {
     };
 
     const response = await fetch(
-      "https://3001-nozigs-nozigs-oqwvteot7v8.ws-eu38.gitpod.io/api/signup",
+      "https://3001-nozigs-nozigs-r5bk3wf3fd2.ws-eu38.gitpod.io/api/signup",
       opts
     );
 
@@ -39,7 +39,7 @@ const Signup = () => {
     if (response.status == 200) {
       sessionStorage.setItem("token", data.token);
       actions.syncTokenFromSessionStore();
-      history.push("/trips");
+      history.push("/profile");
     } else {
       setError(true);
       setTimeout(() => {
