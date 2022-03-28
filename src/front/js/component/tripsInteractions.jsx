@@ -336,10 +336,8 @@ const TripsInteractions = () => {
                     <Col xs={12} lg={12}>
                         {data.length > 0 ? 
                             data.map((listEntry, i) => (
-
-                               
-                                    i == 0 ? (
-                                       <Row key = {i} className="my-3 px-2 p-lg-0 card-row">
+                                i == 0 ? (
+                                    <Row key = {i} className="my-3 px-2 p-lg-0 card-row">
                                         <Col xs={2} lg={2} className="d-flex justify-content-center card-icon-box-home">
                                             <i className="fa-solid fa-house card-icon"></i>
                                         </Col>
@@ -364,7 +362,7 @@ const TripsInteractions = () => {
                                             </Col>
                                             <Col >
                                                 <Row className="py-2">
-                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : ( listEntry.features[0].properties.category.split(","))}</p>                                                
+                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : (titleArray = listEntry.features[0].properties.category.split(","),titleArray[0])}</p>                                                
                                                     <h6>{listEntry.features[0].place_name}</h6>                                
                                                 </Row>
                                             </Col>
@@ -379,7 +377,7 @@ const TripsInteractions = () => {
                                             </Col>
                                             <Col >
                                                 <Row className="py-2">
-                                                    <p>{listEntry.features[0].place_type != "poi" ? listEntry.features[0].place_type : listEntry.features[0].properties.category}</p>                                                
+                                                    <p>{listEntry.features[0].place_type != "poi" ? (listEntry.features[0].place_type) : (titleArray = listEntry.features[0].properties.category,titleArray[0])}</p>                                                
                                                     <h6>{listEntry.features[0].place_name}</h6>                                
                                                 </Row>
                                             </Col>
