@@ -39,7 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const resp = await fetch(
-            "https://3001-nozigs-nozigs-biy143jkv7t.ws-eu38.gitpod.io/api/login",
+            "https://3001-nozigs-nozigs-h4nns35abra.ws-eu38.gitpod.io/api/login",
             opts
           );
 

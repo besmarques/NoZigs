@@ -2,10 +2,11 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Trip
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import datetime
 
 import os
 
@@ -99,6 +100,67 @@ def protected():
      else:
           return jsonify({"protected": False }), 400
 
+@api.route("/save-trip", methods=["POST"])
+@jwt_required()
+def saveTrip():
+     print("We are here")
+
+     user_id = get_jwt_identity()
+     name = request.json.get('name', None)
+     travel_date = request.json.get('travel_date', None)
+     #date_created = request.json.get('name', None)
+     city = request.json.get('city', None)
+     locations = request.json.get('locations', None)
+     num_of_locations = request.json.get('num_of_locations', None)
+     is_favourite = request.json.get('is_favourite', None)
+     country_code = request.json.get('country_code', None)
+     #user_id = request.json.get('user_id', None)
+
+     print(user_id)
+
+     trip = Trip(
+          name = name,
+          travel_date = travel_date,
+          date_created = datetime.now(),
+          city = city,
+          locations = str(locations),
+          num_of_locations = num_of_locations,
+          is_favourite = is_favourite,
+          country_code = country_code,
+          user_id = user_id
+
+     )
+
+     trip.create()
+
+     
+
+     return jsonify(trip.serialize())
+
+
+@api.route("/profile", methods=["GET"])
+@jwt_required()
+
+def get_all_trips():
+    
+    trips = Trip.get_all_trips()
+    serialized_trips = []
+    for trip in trips:
+        serialized_trips.append(trip.serialize())
+
+    return(jsonify(serialized_trips))
+
+@api.route("/profile/<int:id>", methods=["GET"])
+@jwt_required()
+def get_trips_by_user_id(id):
+     trips = Trip.trips_by_user_id(id)
+
+     serialized_trips = []
+     for trip in trips:
+        serialized_trips.append(trip.serialize())
+
+     return(jsonify(serialized_trips))
+
 @api.route("/profile/<int:id>", methods=["GET"])
 def get_user_data(id):
      user = User.get_by_id(id)
@@ -106,3 +168,13 @@ def get_user_data(id):
           return jsonify(user.serialize()), 200
 
      return ({"Error": "user not found"}), 404
+
+
+#@app.route('/users/<int:id>', methods=['GET'])
+#def get_users_by_id(id):
+    
+#    user = User.get_users_by_id(id)
+    
+#    return(jsonify(user.serialize()))
+
+
