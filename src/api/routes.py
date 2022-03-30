@@ -136,3 +136,35 @@ def saveTrip():
      
 
      return jsonify(trip.serialize())
+
+
+@api.route("/profile", methods=["GET"])
+@jwt_required()
+
+def get_all_trips():
+    
+    trips = Trip.get_all_trips()
+    serialized_trips = []
+    for trip in trips:
+        serialized_trips.append(trip.serialize())
+
+    return(jsonify(serialized_trips))
+
+@api.route("/profile/<int:id>", methods=["GET"])
+@jwt_required()
+def get_trips_by_user_id(id):
+     trips = Trip.trips_by_user_id(id)
+
+     serialized_trips = []
+     for trip in trips:
+        serialized_trips.append(trip.serialize())
+
+     return(jsonify(serialized_trips))
+
+
+#@app.route('/users/<int:id>', methods=['GET'])
+#def get_users_by_id(id):
+    
+#    user = User.get_users_by_id(id)
+    
+#    return(jsonify(user.serialize()))

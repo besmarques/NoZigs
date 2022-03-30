@@ -6,16 +6,33 @@ import "../../styles/profile.css";
 
 const MyTrips = () => {
 
-    const [data, setData] = useState([{
-        "name": "The nice trip",
-        "city": "Paris",
-        "country": "France"
-    },
-    {
-        "name": "The great trip",
-        "city": "Vienna",
-        "country": "Austria"
-    }]);
+    const { store, actions } = useContext(Context);
+    const [tripsList, setTripsList] = useState("");
+
+    let token = localStorage.getItem(token);
+
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            var myHeaders = new Headers();
+            myHeaders.append("Authorization", "Bearer " + store.token);
+            
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            const response = await fetch("https://3001-nozigs-nozigs-h4nns35abra.ws-eu38.gitpod.io/api/profile", requestOptions);
+            const json = await response.json();
+
+            setTripsList(json)
+          } catch (error) {
+            console.log("error fetch location data", error);
+          }
+        };
+        fetchData();
+      }, []);
 
     function removeItem(i) {
 		let temp = [...data];
@@ -23,28 +40,37 @@ const MyTrips = () => {
         setData(temp);
 	}
     
-    return (
+    
+        return (
+        
         <>
         <Col xs={12} lg={6} >
             <h2 className="profile-title blue"> My trips</h2>
                 <Row className="d-flex justify-content-center">
                     <Col xs={12} lg={12}>
-                        {data.map((listEntry, i) => (
-                            <Row key = {i} className="my-3 px-2 p-lg-0 card-row">
-                                <Col xs={2} lg={2} className="d-flex justify-content-center card-icon-box-poi">
-                                    <i class="fa-solid fa-route card-icon"></i>
-                                </Col>
-                                <Col >
-                                    <Row className="py-2">
-                                        <h6>{listEntry.city}, {listEntry.country}</h6>                                                
-                                        <h3>{listEntry.name}</h3>                                
-                                    </Row>
-                                </Col>
-                                <Col xs={2} lg={2} className="d-flex justify-content-center card-delete-box">
-                                    <Button className="card-delete-button" type="submit" onClick={() => removeItem(i)}><i className="fa-solid fa-circle-minus"></i></Button>
-                                </Col>
-                            </Row> 
-                        ))}
+                        {/**console.log(Object.keys(tripsList))*/}
+                        {console.log(tripsList)}
+                        {Object.keys(tripsList).map(key => {
+                            return (
+                                <>
+                                <Row key={key} className="my-3 px-2 p-lg-0 card-row">
+                                    <Col xs={2} lg={2} className="d-flex justify-content-center card-icon-box-poi">
+                                        <i class="fa-solid fa-route card-icon"></i>
+                                    </Col>
+                                    <Col >
+                                        <Row className="py-2">
+                                            <h6>{tripsList[key].city}, {tripsList[key].country_code}</h6>                                                
+                                            <h3>{tripsList[key].name}</h3>                                
+                                        </Row>
+                                    </Col>
+                                    {/**<Col xs={2} lg={2} className="d-flex justify-content-center card-delete-box">
+                                        <Button className="card-delete-button" type="submit" onClick={() => removeItem(key)}><i className="fa-solid fa-circle-minus"></i></Button>
+                                    </Col>*/}
+                                </Row> 
+                                </>
+                            )
+                            
+                        })}
                     </Col>
                 </Row>
             </Col>
