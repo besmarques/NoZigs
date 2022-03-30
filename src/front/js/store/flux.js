@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -37,7 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const resp = await fetch(
-            "https://3001-nozigs-nozigs-r5bk3wf3fd2.ws-eu38.gitpod.io/api/login",
+            "https://3001-nozigs-nozigs-biy143jkv7t.ws-eu38.gitpod.io/api/login",
             opts
           );
 
@@ -73,6 +75,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) =>
             console.log("Error loading message from backend", error)
           );
+      },
+
+      getUserData: () => {
+        const token = getStore().token;
+        const user_data = jwt_decode(token);
       },
 
       saveName: (name) => {

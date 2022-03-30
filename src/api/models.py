@@ -31,6 +31,11 @@ class User(db.Model):
       account = cls.query.filter_by(username=user).one_or_none()
       return account
 
+    @classmethod
+    def get_by_id(cls, id):
+      user = cls.query.get(id)
+      return user
+
     # tell python how to print the class object on the console
 
     def __repr__(self):
@@ -40,7 +45,13 @@ class User(db.Model):
     def serialize(self):
         return {
             "username": self.username,
-            "email": self.email
+            "email": self.email,
+            "id": self.id,
+            "username": self.username,
+            "photo": self.photo,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "birthday": self.birthday
             # do not serialize the password, its a security breach
         }
 
