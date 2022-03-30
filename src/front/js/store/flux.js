@@ -1,3 +1,5 @@
+import jwt_decode from "jwt-decode";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
@@ -73,6 +75,11 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) =>
             console.log("Error loading message from backend", error)
           );
+      },
+
+      getUserData: () => {
+        const token = getStore().token;
+        const user_data = jwt_decode(token);
       },
 
       saveName: (name) => {

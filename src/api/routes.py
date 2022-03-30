@@ -81,7 +81,7 @@ def login():
 
      if user and check_password_hash(user.password, password): #and account._is_active
           
-          access_token = create_access_token(identity=user.id)
+          access_token = create_access_token(identity=user.serialize())
           return jsonify({'message': "whatever", 'token' : access_token}), 200
      else: 
           return jsonify({"error" : "bad info for the login"}), 400
@@ -95,10 +95,10 @@ def protected():
      user = User.query.get(current_user_id)
 
      if user:
+          history.push("")
           return jsonify({"protected": True }), 200
      else:
           return jsonify({"protected": False }), 400
-
 
 @api.route("/save-trip", methods=["POST"])
 @jwt_required()
@@ -161,6 +161,14 @@ def get_trips_by_user_id(id):
 
      return(jsonify(serialized_trips))
 
+@api.route("/profile/<int:id>", methods=["GET"])
+def get_user_data(id):
+     user = User.get_by_id(id)
+     if user:
+          return jsonify(user.serialize()), 200
+
+     return ({"Error": "user not found"}), 404
+
 
 #@app.route('/users/<int:id>', methods=['GET'])
 #def get_users_by_id(id):
@@ -168,3 +176,5 @@ def get_trips_by_user_id(id):
 #    user = User.get_users_by_id(id)
     
 #    return(jsonify(user.serialize()))
+
+
