@@ -59,7 +59,7 @@ const TripsInteractions = () => {
     };
     console.log(opts);
     fetch(
-      "https://3001-nozigs-nozigs-h4nns35abra.ws-eu38.gitpod.io/api/save-trip",
+      `${process.env.BASE_URL}save-trip`,
       opts
     )
       .then((response) => response.text())

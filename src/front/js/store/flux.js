@@ -39,7 +39,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
         try {
           const resp = await fetch(
-            "https://3001-nozigs-nozigs-h4nns35abra.ws-eu38.gitpod.io/api/login",
+            `${process.env.BASE_URL}login`,
             opts
           );
 
@@ -67,9 +67,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         };
         // fetching data from the backend
         fetch(
-          "https://3001-nozigs-nozigs-8fn6hvofjfr.ws-eu38.gitpod.io/api/hello",
+          `${process.env.BASE_URL}hello`,
           opts
         )
+        
           .then((resp) => resp.json())
           .then((data) => setStore({ message: data.message }))
           .catch((error) =>
