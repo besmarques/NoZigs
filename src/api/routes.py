@@ -2,19 +2,36 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Trip
 from api.utils import generate_sitemap, APIException
-from flask_jwt_extended import create_access_token
-from flask_jwt_extended import get_jwt_identity
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token
 from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import datetime
 
 import os
 
 api = Blueprint('api', __name__)
 
-# Create a route to authenticate your users and return JWTs. The
-# create_access_token() function is used to actually generate the JWT.
+@api.route("/signup", methods=["POST"])
+def signup():
+    username = request.json.get('username', None)
+    password = request.json.get('password', None)
+    confirm_password = request.json.get('confirmPassword', None)
+    email = request.json.get('email', None)
+
+    if (password != confirm_password):
+         return({'error':'passwords are not matching'}, 400)
+
+    elif not (username and password and email and confirm_password):
+         return({'error':'Missing info'}), 400
+
+    else:
+         new_user = User(username=username, email= email, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
+         created_user = new_user.create()
+         access_token = create_access_token(identity=created_user.id)
+         return({'token' : access_token, 'message' : 'Congratulations for signing up!'}), 200
+
+# We keep this just in case it's not working....
 # @api.route("/user", methods=["GET"]) #user should be GET
 # def user():
 #     username = request.json.get('username')
@@ -29,26 +46,6 @@ api = Blueprint('api', __name__)
 #               return({'token' : access_token}), 200
 
           # return jsonify({"msg": "Bad login or password"}), 401
-
-@api.route("/signup", methods=["POST"])
-def signup():
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
-    confirm_password = request.json.get('confirm_password', None)
-    email = request.json.get('email', None)
-
-    if (password != confirm_password):
-         return({'error':'passwords are not matching'}, 400)
-
-    elif not (username and password and email and confirm_password):
-         return({'error':'Missing info'}), 400
-
-    else:
-         new_user = User(username=username, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
-         new_user.create()
-         created_user = User.get_by_username(username)
-         access_token = create_access_token(identity=username)
-         return({'token' : access_token, 'message' : 'Congratulations for signing up!'}), 200
          
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
@@ -56,7 +53,7 @@ def signup():
 def create_token():
     username = request.json.get('username', None)
     password = request.json.get('password', None)
-
+     
      # Query your database for username and password
     user = User.query.filter_by(username=username, password=password).first()
     if user is None:
@@ -67,43 +64,75 @@ def create_token():
     # 2. compare the hash from the password of the password input (line20) with the hash in the database (password field in the database)
     # 3. if above true, return token (line 28), if not, return error (line 22)
 
-    access_token = create_access_token(identity=username)
+    access_token = create_access_token(identity=user.id)
     return jsonify(access_token=access_token)
 
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
 @api.route("/login", methods=["POST"])
 def login():
-    username = request.json.get('username', None)
-    password = request.json.get('password', None)
+     username = request.json.get('username', None)
+     password = request.json.get('password', None)
 
-    if not (username and password):
-         return({'error':'Missing info'}), 400
+     if not (username and password):
+          return jsonify({'error':'Missing info'}), 400
 
-    if username and check_password_hash(account._password, password): #and account._is_active
-         
-         if created_user :
-              access_token = create_access_token(identity=created_user.serialize())
-              token = create_access_token(identity=username, expires_delta=timedelta(minutes=100))
-              return({'token' : access_token}), 200
+     user = User.query.filter_by(username = username).first() 
 
-          # return jsonify({"msg": "Bad login or password"}), 401
+     if user and check_password_hash(user.password, password): #and account._is_active
+          
+          access_token = create_access_token(identity=user.id)
+          return jsonify({'message': "whatever", 'token' : access_token}), 200
+     else: 
+          return jsonify({"error" : "bad info for the login"}), 400
 
-# Create a route to authenticate your users and return JWTs. The
-# create_access_token() function is used to actually generate the JWT.
-@api.route("/hello", methods=["GET"])
+
+@api.route("/trips", methods=["GET"])
 @jwt_required()
-def get_hello():
+def protected():
 
-     user = get_jwt_identity()
-     dictionary = {
-          "message" : "Hello " + user
-     }
-     return jsonify(dictionary)
+     current_user_id = get_jwt_identity()
+     user = User.query.get(current_user_id)
 
-@api.route("/home", methods=["GET"])
-def get_home():
-     dictionary = {
-          "message" : "hello world"
-     }
-     return jsonify(dictionary)
+     if user:
+          return jsonify({"protected": True }), 200
+     else:
+          return jsonify({"protected": False }), 400
+
+
+@api.route("/save-trip", methods=["POST"])
+@jwt_required()
+def saveTrip():
+     print("We are here")
+
+     user_id = get_jwt_identity()
+     name = request.json.get('name', None)
+     travel_date = request.json.get('travel_date', None)
+     #date_created = request.json.get('name', None)
+     city = request.json.get('city', None)
+     locations = request.json.get('locations', None)
+     num_of_locations = request.json.get('num_of_locations', None)
+     is_favourite = request.json.get('is_favourite', None)
+     country_code = request.json.get('country_code', None)
+     #user_id = request.json.get('user_id', None)
+
+     print(user_id)
+
+     trip = Trip(
+          name = name,
+          travel_date = travel_date,
+          date_created = datetime.now(),
+          city = city,
+          locations = str(locations),
+          num_of_locations = num_of_locations,
+          is_favourite = is_favourite,
+          country_code = country_code,
+          user_id = user_id
+
+     )
+
+     trip.create()
+
+     
+
+     return jsonify(trip.serialize())

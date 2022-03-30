@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
 import "../../styles/home.css";
 
 import Hero from "../component/hero.jsx";
@@ -31,5 +30,4 @@ export const Home = () => {
       <JoinNow />
     </div>
   );
-
 };

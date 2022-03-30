@@ -1,0 +1,42 @@
+/*
+.disabled-row .btn-form{
+    visibility:hidden;
+}
+
+.disabled-row:hover .btn-form{
+    visibility:visible;
+}
+
+color: #1fa9ff;
+*/
+
+.disabled-row h5{
+    margin-bottom:0px !important;
+}
+
+input#Username:disabled{
+    background-color: #ffffff;
+    border: none !important;
+}
+
+input#Username:disabled::placeholder{
+    color:#1fa9ff !important;
+    font-family: 'Inter';
+}
+
+.row-10{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.profile-title{
+
+}
+
+@media (max-width: 576px) {
+.profile-title{
+
+        font-size: 30px;
+        text-align: left;
+
+}
+}
