@@ -23,7 +23,8 @@ const MyTrips = () => {
                 redirect: 'follow'
             };
 
-            const response = await fetch("https://3001-nozigs-nozigs-h4nns35abra.ws-eu38.gitpod.io/api/profile", requestOptions);
+            const response = await fetch(`${process.env.BASE_URL}profile`, requestOptions);
+    
             const json = await response.json();
 
             setTripsList(json)
