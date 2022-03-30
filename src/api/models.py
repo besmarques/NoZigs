@@ -86,8 +86,13 @@ class Trip(db.Model):
         return trips
 
     @classmethod
+    def get_trips_by_user_id(cls, id):
+        trips_by_user_id = cls.query.filter_by(user_id = id).one_or_none()
+        return trips_by_user_id
+
+    @classmethod
     def get_trip_by_id(cls, id):
-        trip0s_by_id = cls.query.filter_by(id = id).one_or_none()
+        trips_by_id = cls.query.filter_by(id = id).one_or_none()
         return trips_by_id
         
 # class Country(db.Model):
