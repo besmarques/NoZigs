@@ -14,6 +14,7 @@ import Signup from "./pages/signup.jsx";
 
 import Trips from "./pages/trips.jsx";
 import Profile from "./pages/profile.jsx";
+import SingleTrip from "./views/singleTripView.jsx";
 
 //create your first component
 const Layout = () => {
@@ -44,6 +45,9 @@ const Layout = () => {
             </Route>
             <Route exact path="/trips">
               <Trips />
+            </Route>
+            <Route exact path="/trips/:theid">
+              <SingleTrip />
             </Route>
             <Route exact path="/profile">
               <Profile />
