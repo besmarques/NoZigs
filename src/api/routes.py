@@ -104,7 +104,7 @@ def protected():
 @jwt_required()
 def saveTrip():
      print("We are here")
-
+     
      user_id = get_jwt_identity()
      name = request.json.get('name', None)
      travel_date = request.json.get('travel_date', None)
@@ -116,7 +116,8 @@ def saveTrip():
      country_code = request.json.get('country_code', None)
      #user_id = request.json.get('user_id', None)
 
-     print(user_id)
+     print(user_id['id'])
+
 
      trip = Trip(
           name = name,
@@ -127,14 +128,10 @@ def saveTrip():
           num_of_locations = num_of_locations,
           is_favourite = is_favourite,
           country_code = country_code,
-          user_id = user_id
-
+          user_id = user_id['id']
      )
 
      trip.create()
-
-     
-
      return jsonify(trip.serialize())
 
 
@@ -154,7 +151,8 @@ def saveTrip():
 @jwt_required()
 def get_trips_by_user_id():
 
-     id = get_jwt_identity()
+     user_id = get_jwt_identity()
+     id = user_id['id']
      #print(id)
      trips = Trip.get_trips_by_user_id(id)
 
@@ -164,13 +162,25 @@ def get_trips_by_user_id():
 
      return(jsonify(serialized_trips))
 
-@api.route("/profile/<int:id>", methods=["GET"])
-def get_user_data(id):
-     user = User.get_by_id(id)
-     if user:
-          return jsonify(user.serialize()), 200
+@api.route("/trips/<int:id>", methods=["GET"])
+@jwt_required()
+def get_trips_by_trip_id(id):
 
-     return ({"Error": "user not found"}), 404
+     trips = Trip.get_trips_by_trip_id(id)
+
+     serialized_trips = []
+     for trip in trips:
+        serialized_trips.append(trip.serialize())
+
+     return(jsonify(serialized_trips))
+
+#@api.route("/profile/<int:id>", methods=["GET"])
+#def get_user_data(id):
+#     user = User.get_by_id(id)
+#     if user:
+#          return jsonify(user.serialize()), 200
+
+#     return ({"Error": "user not found"}), 404
 
 
 #@app.route('/users/<int:id>', methods=['GET'])
@@ -179,5 +189,3 @@ def get_user_data(id):
 #    user = User.get_users_by_id(id)
     
 #    return(jsonify(user.serialize()))
-
-

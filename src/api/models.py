@@ -74,12 +74,13 @@ class Trip(db.Model):
       return self
     
     # tell python how to print the class object on the console
-    #def __repr__(self):
-    #  return '<Trip %r>' % self.name
+    def __repr__(self):
+      return '<Trip %r>' % self.name
 
     # tell python how convert the class object into a dictionary ready to jsonify
     def serialize(self):
       return {
+        "id": self.id,
         "name": self.name,
         "travel_date": self.travel_date,
         "date_created": self.date_created,
@@ -100,11 +101,16 @@ class Trip(db.Model):
     def get_trips_by_user_id(cls, id):
         trips_by_user_id = cls.query.filter_by(user_id = id)
         return trips_by_user_id
-
+    
     @classmethod
-    def get_trip_by_id(cls, id):
-        trips_by_id = cls.query.filter_by(id = id).one_or_none()
-        return trips_by_id
+    def get_trips_by_trip_id(cls, id):
+        trips_by_trip_id = cls.query.filter_by(id = id)
+        return trips_by_trip_id
+
+    #@classmethod
+    #def get_trip_by_id(cls, id):
+    #    trips_by_id = cls.query.filter_by(id = id).one_or_none()
+    #    return trips_by_id
         
 # class Country(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)
