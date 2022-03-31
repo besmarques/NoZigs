@@ -116,7 +116,8 @@ def saveTrip():
      country_code = request.json.get('country_code', None)
      #user_id = request.json.get('user_id', None)
 
-     print(user_id['id'])
+     print("asdasd",user_id['id'])
+     print("jwt", get_jwt_identity())
 
 
      trip = Trip(
@@ -152,10 +153,9 @@ def saveTrip():
 def get_trips_by_user_id():
 
      user_id = get_jwt_identity()
-     id = user_id['id']
-     #print(id)
+     
      trips = Trip.get_trips_by_user_id(id)
-
+     
      serialized_trips = []
      for trip in trips:
         serialized_trips.append(trip.serialize())
@@ -164,15 +164,12 @@ def get_trips_by_user_id():
 
 @api.route("/trips/<int:id>", methods=["GET"])
 @jwt_required()
-def get_trips_by_trip_id(id):
+def get_trip_by_id(id):
 
-     trips = Trip.get_trips_by_trip_id(id)
-
-     serialized_trips = []
-     for trip in trips:
-        serialized_trips.append(trip.serialize())
-
-     return(jsonify(serialized_trips))
+     print(id)
+     trip = Trip.get_trip_by_id(id)
+    
+     return(jsonify(trip.serialize()))
 
 #@api.route("/profile/<int:id>", methods=["GET"])
 #def get_user_data(id):

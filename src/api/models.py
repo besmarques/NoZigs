@@ -103,9 +103,9 @@ class Trip(db.Model):
         return trips_by_user_id
     
     @classmethod
-    def get_trips_by_trip_id(cls, id):
-        trips_by_trip_id = cls.query.filter_by(id = id)
-        return trips_by_trip_id
+    def get_trip_by_id(cls, id):
+        trip_by_id = cls.query.filter_by(id = id).one_or_none()
+        return trip_by_id
 
     #@classmethod
     #def get_trip_by_id(cls, id):

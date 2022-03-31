@@ -32,8 +32,10 @@ const SingleTrip = props => {
             console.log("error fetch location data", error);
           }
         };
-        fetchData();
-      }, []);
+        if(store.token){
+          fetchData();
+          }
+      }, [store.token]);
 
     console.log(trip);
     return (
