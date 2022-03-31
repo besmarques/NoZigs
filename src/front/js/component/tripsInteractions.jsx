@@ -39,7 +39,11 @@ const TripsInteractions = () => {
   
 /**function to save trip to the database*/
   const saveTrip = async () => {
-      
+     
+    console.log("data",data);
+
+    //let testeData = data.toString();
+
     const opts = {
       method: "POST",
 
