@@ -15,7 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       syncTokenFromSessionStore: () => {
         
         const token = sessionStorage.getItem("token");
-        console.log(token);
+        console.log(token)
+
         if (token && token !== "" && token !== undefined)
           setStore({ token: token });
       },
@@ -60,6 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
         return res;
       },
+
       getMessage: () => {
         const store = getStore();
         const opts = {
