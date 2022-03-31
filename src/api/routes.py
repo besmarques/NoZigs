@@ -104,6 +104,9 @@ def protected():
 @jwt_required()
 def saveTrip():
      print("We are here")
+     
+     
+     
 
      user_id = get_jwt_identity()
      name = request.json.get('name', None)
@@ -116,7 +119,8 @@ def saveTrip():
      country_code = request.json.get('country_code', None)
      #user_id = request.json.get('user_id', None)
 
-     print(user_id)
+     print(user_id['id'])
+
 
      trip = Trip(
           name = name,
@@ -127,7 +131,7 @@ def saveTrip():
           num_of_locations = num_of_locations,
           is_favourite = is_favourite,
           country_code = country_code,
-          user_id = user_id
+          user_id = user_id['id']
 
      )
 
