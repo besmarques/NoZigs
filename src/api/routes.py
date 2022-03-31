@@ -158,7 +158,8 @@ def saveTrip():
 @jwt_required()
 def get_trips_by_user_id():
 
-     id = get_jwt_identity()
+     user_id = get_jwt_identity()
+     id = user_id['id']
      #print(id)
      trips = Trip.get_trips_by_user_id(id)
 
