@@ -50,6 +50,9 @@ const Layout = () => {
                         <ProtectedRoute exact path="/trips">
                             <Trips />
                         </ProtectedRoute>
+                        <ProtectedRoute exact path="/trips/:theid">
+                            <SingleTrip />
+                        </ProtectedRoute>
                         <ProtectedRoute exact path="/profile">
                             <Profile />
                         </ProtectedRoute>
