@@ -7,7 +7,10 @@ import UserProfile from "../component/userProfile.jsx";
 import MyTrips from "../component/myTrips.jsx";
 
 
+
 const Profile = () => {
+    
+
     return (
         <>
             <Container>
