@@ -44,6 +44,7 @@ class User(db.Model):
     # tell python how convert the class object into a dictionary ready to jsonify
     def serialize(self):
         return {
+            "id":self.id,
             "username": self.username,
             "email": self.email,
             "id": self.id,
@@ -56,7 +57,7 @@ class User(db.Model):
         }
 
 class Trip(db.Model):
-    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(80), unique=False, nullable=False)
     travel_date = db.Column(db.DateTime())
     date_created = db.Column(db.DateTime(), nullable=False)
@@ -104,13 +105,8 @@ class Trip(db.Model):
     
     @classmethod
     def get_trip_by_id(cls, id):
-        trip_by_id = cls.query.filter_by(id = id).one_or_none()
+        trip_by_id = cls.query.filter_by(id = id).first()
         return trip_by_id
-
-    #@classmethod
-    #def get_trip_by_id(cls, id):
-    #    trips_by_id = cls.query.filter_by(id = id).one_or_none()
-    #    return trips_by_id
         
 # class Country(db.Model):
 #     id = db.Column(db.Integer, primary_key=True)

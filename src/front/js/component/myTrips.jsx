@@ -20,10 +20,6 @@ const MyTrips = props => {
             var myHeaders = new Headers();
             myHeaders.append("Authorization", "Bearer " + store.token);
 
-            //console.log("store.token",store.token);
-            //console.log("token",token);
-            //console.log("mapbox",store.mapBoxToken);
-
             var requestOptions = {
                 method: 'GET',
                 headers: myHeaders,
@@ -63,8 +59,8 @@ const MyTrips = props => {
                         {Object.keys(tripsList).map(key => {
                             return (
                                 <>
-                                <Link to={"/trips/" + key} >
-                                    <Row key={key} className="my-3 px-2 p-lg-0 card-row">
+                                <Link to={"/trips/" + tripsList[key].id} >
+                                    <Row key={key.id} className="my-3 px-2 p-lg-0 card-row">
                                         <Col xs={2} lg={2} className="d-flex justify-content-center card-icon-box-poi">
                                             <i class="fa-solid fa-route card-icon"></i>
                                         </Col>
