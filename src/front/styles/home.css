@@ -246,20 +246,6 @@ margin: 8px 0px;
   font-size: small;
 }
 
-.cards-list {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 20px;
-  overflow-x: auto;
-}
-
-.card {
-  width: whateverpx;
-  font-size: 12px;
-  flex: 0 0 auto;         /* ADD */
-}
-
-
 /* media queries */
 
 @media (max-width: 576px) {

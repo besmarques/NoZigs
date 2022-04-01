@@ -4,7 +4,6 @@ import "../../styles/home.css";
 import "../../styles/signup.css";
 import { useHistory } from "react-router-dom";
 import Logo from "../../img/logo.png";
-import { set } from "react-hook-form";
 
 const Signup = () => {
     const { store, actions } = useContext(Context);
@@ -14,8 +13,10 @@ const Signup = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(false);
     const history = useHistory();
-
+    const [passwordStatus, setPasswordStatus] = useState("");
+    
     const handleClick = async () => {
+        
         const opts = {
             method: "POST",
             headers: {
@@ -44,10 +45,23 @@ const Signup = () => {
                 setError(false);
             }, 2000);
         }
+
+
     };
 
-    //use the library https://react-hook-form.com/form-builder/
+    const handleConfirmPassword = (value) => {
+        setConfirmPassword(value);
 
+        if (password == value) {
+            setPasswordStatus("Password Match");
+        } else {
+            setPasswordStatus("Password Mismatch");
+        }
+
+        console.log("passwordStatus");
+    }
+    //use the library https://react-hook-form.com/form-builder/
+    
     return (
         <div className="signup">
             <img src={Logo} height="40" alt="logo" />
@@ -56,6 +70,7 @@ const Signup = () => {
                 "You are logged in with this token " + store.token
             ) : (
                 <div>
+                    <form>
                     <input
                         className="d-flex flex-column py-1 form-s"
                         type="text"
@@ -84,14 +99,15 @@ const Signup = () => {
                     />
                     <input
                         className="d-flex flex-column py-1 form-s"
-                        type="confirm_password"
+                        type="password"
                         id="confirm_password"
                         placeholder="confirm password"
                         value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        onChange={(e) => handleConfirmPassword(e.target.value)}
                     />
-                    <p id="message">Password Status</p>
 
+                    <p>{passwordStatus}</p>
+                        
                     <button
                         type="button"
                         className="btn btn-outline-info bto"
@@ -100,8 +116,12 @@ const Signup = () => {
                         Get Started
                     </button>
 
+                    <br></br>
+
                     {/* Insert html alert */}
                     {error ? "Error creating the user" : null}
+                    
+                    </form>
                 </div>
             )}
         </div>
