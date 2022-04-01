@@ -20,15 +20,17 @@ const JoinPeople = () => {
 
         <br></br>
 
+        
+
         <div>
-            <div class="row row-cols-auto justify-content-md-center">
-                <div class="col"><MyCard name="Megan Sims" linkname="Vahid Kanani" img={CardImg1}/></div>
-                <div class="col"><MyCard name="Ryan Fox" linkname="Italo Melo" img={CardImg2}/></div>
-                <div class="col"><MyCard name="Mason Phillips" linkname="Gustavo Leighton" img={CardImg3}/></div>
-                <div class="col col-md-auto"><MyCard name="Zoe Silva" linkname="Polina Kovaleva" img={CardImg4} /></div>
-                <div class="col"><MyCard name="Amanda Carr" linkname="Tyler Nix" img={CardImg5}/></div>
-                <div class="col"><MyCard name="Harley White" linkname="Andrey Z." img={CardImg6}/></div>
-                <div class="col"><MyCard name="Amelie Cooper" linkname="Artem Podrez" img={CardImg7}/></div>
+            <div className="row row-cols-auto justify-content-md-center">
+                <div className="col"><MyCard name="Megan Sims" linkname="Vahid Kanani" img={CardImg1}/></div>
+                <div className="col"><MyCard name="Ryan Fox" linkname="Italo Melo" img={CardImg2}/></div>
+                <div className="col"><MyCard name="Mason Phillips" linkname="Gustavo Leighton" img={CardImg3}/></div>
+                <div className="col col-md-auto"><MyCard name="Zoe Silva" linkname="Polina Kovaleva" img={CardImg4} /></div>
+                <div className="col"><MyCard name="Amanda Carr" linkname="Tyler Nix" img={CardImg5}/></div>
+                <div className="col"><MyCard name="Harley White" linkname="Andrey Z." img={CardImg6}/></div>
+                <div className="col"><MyCard name="Amelie Cooper" linkname="Artem Podrez" img={CardImg7}/></div>
             </div>
         </div>
         </>
