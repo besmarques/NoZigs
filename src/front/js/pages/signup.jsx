@@ -30,8 +30,9 @@ const Signup = () => {
         };
 
         const response = await fetch(`${process.env.BASE_URL}signup`, opts);
-
+        
         const data = await response.json();
+        console.log("data " + data)
 
         if (response.status == 200) {
             sessionStorage.setItem("token", data.token);
