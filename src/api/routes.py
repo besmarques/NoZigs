@@ -153,7 +153,7 @@ def saveTrip():
 def get_trips_by_user_id():
 
      user_id = get_jwt_identity()
-     
+     id = user_id['id']
      trips = Trip.get_trips_by_user_id(id)
      
      serialized_trips = []
@@ -166,9 +166,9 @@ def get_trips_by_user_id():
 @jwt_required()
 def get_trip_by_id(id):
 
-     print(id)
      trip = Trip.get_trip_by_id(id)
-    
+     print(trip)
+
      return(jsonify(trip.serialize()))
 
 #@api.route("/profile/<int:id>", methods=["GET"])
