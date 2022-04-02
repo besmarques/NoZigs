@@ -9,7 +9,10 @@ const SingleTrip = props => {
     const { store, actions } = useContext(Context);
     const params = useParams();
 
-    const [trip, setTrip] = useState([])
+    const [data, setData] = useState([])
+    const [locations, setLocations] = useState("")
+    let xlocations = "";
+    let xlocations2 = "";
 
     useEffect(() => {
         const fetchData = async () => {
@@ -27,23 +30,48 @@ const SingleTrip = props => {
     
             const json = await response.json();
 
-            setTrip(json)
+            setData(json)
+            xlocations = json.locations;
+            xlocations = xlocations.replaceAll("[000]", ",");
+            xlocations = "[" + xlocations + "]";
+            xlocations2 = JSON.parse(xlocations);
+            
+            
+            setLocations(xlocations2)
+            console.log(data);
+            
           } catch (error) {
             console.log("error fetch location data", error);
           }
-        };
-        if(store.token){
+      };
+      if(store.token){
           fetchData();
           }
-      }, [store.token]);
+  }, [store.token]);
 
-    console.log(trip);
-    return (
-        <>
-        
-        {params.theid}
-        This is the single trip 
-        </>
-    )
+
+      //console.log("locati",locations.split("[000]"));
+      //let xlocations = locations.split("[000]");
+      //let xlocations = locations.replaceAll("[000]", ",");
+      //xlocations = "[" + xlocations + "]";
+      //let xlocations2 = JSON.parse(xlocations);
+      //console.log(typeof xlocations[0]);
+      //console.log(xlocations[0]);
+      //console.log("locat",JSON.parse(xlocations[0]));
+
+      
+      console.log(locations[0]);
+      
+        return (
+          <>
+          <p>teste</p>
+          {locations != "" ? (
+            <p>{locations[0].type}</p>
+            )
+            :("")}
+          
+          </>
+  )
+
 }
 export default SingleTrip
