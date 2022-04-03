@@ -49,6 +49,18 @@ const Signup = () => {
 
     };
 
+    const handlePassword = (value) => {
+        setPassword(value);
+
+        if (confirmPassword == value) {
+            setPasswordStatus("Password Match");
+        } else {
+            setPasswordStatus("Password Mismatch");
+        }
+
+        console.log("passwordStatus");
+    }
+
     const handleConfirmPassword = (value) => {
         setConfirmPassword(value);
 
@@ -95,8 +107,9 @@ const Signup = () => {
                         id="password"
                         placeholder="create password"
                         value={password}
-                        onChange={(e) => setPassword(e.target.value)}
+                        onChange={(e) => handlePassword(e.target.value)}
                     />
+
                     <input
                         className="d-flex flex-column py-1 form-s"
                         type="password"
