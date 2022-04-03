@@ -21,7 +21,7 @@ export const Home = () => {
   ];
 
   return (
-    <div>
+    <div className="body">
       <Hero />
       <Steps />
       <SecondHero />
