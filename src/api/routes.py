@@ -26,7 +26,7 @@ def signup():
          return({'error':'Missing info'}), 400
 
     else:
-         new_user = User(username=username, email= email, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
+         new_user = User(username=username, email = email, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
          created_user = new_user.create()
          access_token = create_access_token(identity=created_user.id)
          return({'token' : access_token, 'message' : 'Congratulations for signing up!'}), 200

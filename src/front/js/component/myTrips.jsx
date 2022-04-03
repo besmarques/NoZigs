@@ -18,6 +18,7 @@ const MyTrips = props => {
         
         try {
             var myHeaders = new Headers();
+            
             myHeaders.append("Authorization", "Bearer " + store.token);
 
             var requestOptions = {
@@ -31,13 +32,16 @@ const MyTrips = props => {
             const json = await response.json();
 
             setTripsList(json)
-        } catch (error) {
+            } 
+        
+        catch (error) {
             console.log("error fetch location data", error);
-        }
-    };
-    if(store.token){
-        fetchData();
-        }
+            }
+        };
+
+        if(store.token){
+            fetchData();
+            }
     }, [store.token]);
 
     function removeItem(i) {
