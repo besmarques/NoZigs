@@ -29,7 +29,7 @@ const Hero = () => {
                     </strong>
                     . Dont waste your time, visit more
                   </p>
-                  <a className="hero-btn" onClick={handleClick}>Discover</a>
+                  <a className="btn hero-btn" onClick={handleClick}>Discover</a>
                 </div>
               </div>
             </div>

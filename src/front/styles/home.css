@@ -242,6 +242,13 @@ body {
     margin: 8px 0px;
 }
 
+.footer-text {
+  margin: 2px;
+  vertical-align: middle;
+  color: #667085
+}
+
+
 /* media queries */
 
 @media (max-width: 576px) {

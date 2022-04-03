@@ -21,6 +21,7 @@ export const Home = () => {
   ];
 
   return (
+    <>
     <div className="body">
       <Hero />
       <Steps />
@@ -29,5 +30,6 @@ export const Home = () => {
       <JoinPeople />
       <JoinNow />
     </div>
+    </>
   );
 };
