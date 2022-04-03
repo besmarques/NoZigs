@@ -31,7 +31,8 @@ const Login = () => {
     });
   };
 
-  console.log(token);
+  console.log("store token",store.token);
+  console.log("token",token);
 
   return (
     <div className="login">

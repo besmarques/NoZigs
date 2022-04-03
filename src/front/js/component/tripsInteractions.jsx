@@ -11,6 +11,8 @@ const TripsInteractions = () => {
 
   const [data, setData] = useState([]);
 
+  const [dataString, setDataString] = useState([]);
+
   /**variable to get the name from form */
   const [name, setName] = useState("");
 
@@ -37,12 +39,16 @@ const TripsInteractions = () => {
   const [waypoints, setWaypoints] = useState([]);
 
   
+
+  
+  
 /**function to save trip to the database*/
   const saveTrip = async () => {
-     
-    console.log("data",data);
 
     //let testeData = data.toString();
+
+    //console.log("dataString", dataString.join("[000]"))
+    let dataStringJoined = dataString.join("[000]");
 
     const opts = {
       method: "POST",
@@ -54,7 +60,7 @@ const TripsInteractions = () => {
       body: JSON.stringify({
         name: name,
         travel_date: date,
-        locations: data,
+        locations: dataStringJoined,
         num_of_locations: data.length,
         is_favourite: false,
         city: city,
@@ -133,7 +139,6 @@ const TripsInteractions = () => {
 
       setWaypoints(json);
       setGeo(json);
-      console.log("json", json);
     } catch (error) {
       console.log("error on bet route", error);
     }
@@ -146,6 +151,7 @@ const TripsInteractions = () => {
 
   let tempRoute = [];
   let tempTemp = [];
+  let tempStr = [];
 
   /**useEffect that updates the data with the info from geo*/
   useEffect(() => {
@@ -154,9 +160,13 @@ const TripsInteractions = () => {
         tempRoute.push(waypoints.waypoints[i].waypoint_index);
       }
 
+      console.log("tempRoute",tempRoute)
       for (let i = 0; i < tempRoute.length; i++) {
         tempTemp.push(data[tempRoute[i]]);
+        tempStr.push(JSON.stringify(data[tempRoute[i]]));
       }
+      console.log("tempStr",tempStr);
+      setDataString(tempStr);
       setData(tempTemp);
     }
   }, [waypoints]);
