@@ -242,10 +242,6 @@ body {
     margin: 8px 0px;
 }
 
-.card-p {
-    font-size: small;
-}
-
 /* media queries */
 
 @media (max-width: 576px) {
