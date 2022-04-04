@@ -7,6 +7,16 @@ import HeroImage from "../../img/hero_img.png";
 
 const UserProfile = () => {
 
+    
+
+    const { store, actions } = useContext(Context);
+
+    const [getFirstname, setGetFirstname] = useState("");
+    const [firstname, setFirstname] = useState("Username");
+
+    const [getLastname, setGetLastname] = useState("");
+    const [lastname, setLastname] = useState("Username");
+
     const [getUsername, setGetUsername] = useState("");
     const [username, setUsername] = useState("Username");
 
@@ -16,7 +26,47 @@ const UserProfile = () => {
     const [getPassword, setGetPassword] = useState("");
     const [password, setPassword] = useState("00 from Month");
 
+
     const [email, setEmail] = useState("tourist@nozigs.com");
+
+
+    useEffect(() => {
+        const fetchData = async () => {
+        
+        try {
+            var myHeaders = new Headers();
+            
+            myHeaders.append("Authorization", "Bearer " + store.token);
+
+            var requestOptions = {
+                method: 'GET',
+                headers: myHeaders,
+                redirect: 'follow'
+            };
+
+            const response = await fetch(`${process.env.BASE_URL}profile/user`, requestOptions);
+    
+            const json = await response.json();
+
+            //setTripsList(json)
+            setFirstname(json.first_name)
+            setLastname(json.last_name)
+            setUsername(json.username)
+            setBirthday(json.birthday)
+            setPassword(json.password)
+            setEmail(json.email)
+            } 
+        
+        catch (error) {
+            console.log("error fetch location data", error);
+            }
+        };
+
+        if(store.token){
+            fetchData();
+            }
+    }, [store.token]);
+
 
     return (
         <>
@@ -32,10 +82,10 @@ const UserProfile = () => {
                             </Col>
                             <Col xs={8} lg={8}>
                                 <h2 className="profile-title"> 
-                                    <span className="pink">Fnamefdf sdaf</span>
+                                    <span className="pink">{firstname}</span>
                                 </h2>
                                 <h2 className="profile-title">
-                                    <span className="blue">Lname</span>
+                                    <span className="blue">{lastname}</span>
                                 </h2>  
                             </Col>
                         </Row>
@@ -54,21 +104,21 @@ const UserProfile = () => {
                                         <Col xs={10} lg={9}>
                                             <Form.Control mask="999.999.999-99" type="text" value={getUsername} onChange={(e) => setGetUsername(e.target.value)} onKeyPress={(e) => {event.key == "Enter" ? setUsername(getUsername):""} }/>
                                         </Col>
-                                        <Col xs={2} lg={1}>
+                                        {/**<Col xs={2} lg={1}>
                                             <button type="submit" className="btn-form" onClick={() => setUsername(getUsername)}><i class="fa fa-save"></i></button>
-                                        </Col>
+                                        </Col>*/}
                                     </Row>)
                                     :
-                                    (<Row className="d-flex disabled-row align-items-center" onClick={() => setUsername("")}>
+                                    (<Row className="d-flex disabled-row align-items-center">
                                         <Col xs={10} lg={10} >
                                             <h5>
                                                 <span className="blue pe-3"><i class="fa-solid fa-user"></i></span>
                                                 {username}
                                             </h5>
                                         </Col>
-                                        <Col xs={2} lg={2} className="d-block d-lg-none">
+                                       {/* <Col xs={2} lg={2} className="d-block d-lg-none">
                                             <button type="submit" className="btn-form d-block d-lg-none" ><i class="fa fa-edit" onClick={() => setUsername("")}></i></button>
-                                        </Col>
+                                        </Col>*/}
                                     </Row>)}
                                 </Form.Group>
                             </Row>
@@ -84,21 +134,21 @@ const UserProfile = () => {
                                         <Col xs={10} lg={9}>
                                             <Form.Control type="date" value={getBirthday} onChange={(e) => setGetBirthday(e.target.value)} onKeyPress={(e) => {event.key == "Enter" ? setBirthday(getBirthday):""} }/>
                                         </Col>
-                                        <Col xs={2} lg={1}>
+                                        {/*<Col xs={2} lg={1}>
                                             <button type="submit" className="btn-form" onClick={() => setBirthday(getBirthday)}><i class="fa fa-save"></i></button>
-                                        </Col>
+                                    </Col>*/}
                                     </Row>)
                                     :
-                                    (<Row className="d-flex disabled-row align-items-center" onClick={() => setBirthday("")}>
+                                    (<Row className="d-flex disabled-row align-items-center" >
                                         <Col xs={10} lg={10}>
                                             <h5>
                                             <span className="pink pe-3"><i class="fa-solid fa-cake-candles"></i></span>
                                                 {birthday}
                                             </h5>
                                         </Col>
-                                        <Col xs={2} lg={2} className="d-block d-lg-none">
+                                        {/*<Col xs={2} lg={2} className="d-block d-lg-none">
                                             <button type="submit" className="btn-form d-block d-lg-none" ><i class="fa fa-edit" onClick={() => setBirthday("")}></i></button>
-                                        </Col>
+                                        </Col>*/}
                                     </Row>)}
                                 </Form.Group>
                             </Row>
@@ -114,21 +164,21 @@ const UserProfile = () => {
                                         <Col xs={10} lg={9}>
                                             <Form.Control type="password" value={getPassword} onChange={(e) => setGetPassword(e.target.value)} onKeyPress={(e) => {event.key == "Enter" ? setPassword(getPassword):""} }/>
                                         </Col>
-                                        <Col xs={2} lg={1}>
+                                        {/*<Col xs={2} lg={1}>
                                             <button type="submit" className="btn-form" onClick={() => setPassword(getPassword)}><i class="fa fa-save"></i></button>
-                                        </Col>
+                                    </Col>*/}
                                     </Row>)
                                     :
-                                    (<Row className="d-flex disabled-row align-items-center" onClick={() => setPassword("")}>
+                                    (<Row className="d-flex disabled-row align-items-center" >
                                         <Col xs={10} lg={10}>
                                             <h5>
                                             <span className="blue pe-3"><i class="fa-solid fa-key"></i></span>
                                                 HIDDEN
                                             </h5>
                                         </Col>
-                                        <Col xs={2} lg={2} className="d-block d-lg-none">
+                                        {/*<Col xs={2} lg={2} className="d-block d-lg-none">
                                             <button type="submit" className="btn-form d-block d-lg-none" ><i class="fa fa-edit" onClick={() => setPassword("")}></i></button>
-                                        </Col>
+                                        </Col>*/}
                                     </Row>)}
                                 </Form.Group>
                             </Row>

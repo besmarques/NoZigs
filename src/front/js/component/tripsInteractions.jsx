@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { Context } from "../store/appContext";
+import { useHistory } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 
 import options from "./list_countries.jsx";
 
 const TripsInteractions = () => {
+  const history = useHistory();
+  
   const { store, actions } = useContext(Context);
 
   const [data, setData] = useState([]);
@@ -73,7 +76,7 @@ const TripsInteractions = () => {
       opts
     )
       .then((response) => response.text())
-      .then((result) => console.log("result", result))
+      .then((result) => {console.log("result", result),history.push("/profile");})
       .catch((error) => console.log("error", error));
   };
 

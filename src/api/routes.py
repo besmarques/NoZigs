@@ -22,6 +22,7 @@ def signup():
     first_name = request.json.get('firstname', None)
     last_name = request.json.get('lastname', None)
 
+
     if (password != confirm_password):
          return({'error':'passwords are not matching'}, 400)
 
@@ -31,25 +32,9 @@ def signup():
     else:
          new_user = User(username=username, email = email, birthday = birthday, first_name = first_name, last_name = last_name, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
          created_user = new_user.create()
-         access_token = create_access_token(identity=created_user.id)
+         access_token = create_access_token(identity=created_user.serialize())
          return({'token' : access_token, 'message' : 'Congratulations for signing up!'}), 200
-
-# We keep this just in case it's not working....
-# @api.route("/user", methods=["GET"]) #user should be GET
-# def user():
-#     username = request.json.get('username')
-#     password = request.json.get('password')
-#     if username and password:
-#          new_user = User(user=username, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
-#          new_user.create()
-#          created_user = User.get_by_username(username)
-
-#          if created_user :
-#               access_token = create_access_token(identity=created_user.serialize())
-#               return({'token' : access_token}), 200
-
-          # return jsonify({"msg": "Bad login or password"}), 401
-         
+      
 # Create a route to authenticate your users and return JWTs. The
 # create_access_token() function is used to actually generate the JWT.
 @api.route("/token", methods=["POST"])
@@ -156,6 +141,7 @@ def saveTrip():
 def get_trips_by_user_id():
 
      user_id = get_jwt_identity()
+     print("trips",user_id)
      id = user_id['id']
      trips = Trip.get_trips_by_user_id(id)
      
@@ -164,6 +150,7 @@ def get_trips_by_user_id():
         serialized_trips.append(trip.serialize())
 
      return(jsonify(serialized_trips))
+     #return jsonify("working"),200
 
 @api.route("/trips/<int:id>", methods=["GET"])
 @jwt_required()
@@ -174,13 +161,20 @@ def get_trip_by_id(id):
 
      return(jsonify(trip.serialize()))
 
-#@api.route("/profile/<int:id>", methods=["GET"])
-#def get_user_data(id):
-#     user = User.get_by_id(id)
-#     if user:
-#          return jsonify(user.serialize()), 200
+@api.route("/profile/user", methods=["GET"])
+@jwt_required()
+def get_user_data():
+     user_id = get_jwt_identity()
+     print("profile",user_id)
+     id = user_id['id']
+     print("second",user_id)
+     print(id)
+     user = User.get_by_id(id)
+     if user:
+          return jsonify(user.serialize()), 200
 
-#     return ({"Error": "user not found"}), 404
+     return ({"Error": "user not found"}), 404
+     #return jsonify("working"),200
 
 
 #@app.route('/users/<int:id>', methods=['GET'])

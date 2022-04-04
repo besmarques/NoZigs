@@ -40,3 +40,15 @@ input#Username:disabled::placeholder{
 
 }
 }
+
+.trip-location h6,
+.trip-location h3,
+.trip-location a{
+    color:black;
+    text-decoration: none;
+}
+
+.tripcol a{
+    color:black;
+    text-decoration: none;
+}

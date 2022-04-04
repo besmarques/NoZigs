@@ -57,7 +57,7 @@ const MyTrips = props => {
         <Col xs={12} lg={6} >
             <h2 className="profile-title blue"> My trips</h2>
                 <Row className="d-flex justify-content-center">
-                    <Col xs={12} lg={12}>
+                    <Col xs={12} lg={12} className="tripcol">
                         {/**console.log(Object.keys(tripsList))*/}
                         {console.log(tripsList)}
                         {Object.keys(tripsList).map(key => {
@@ -69,7 +69,7 @@ const MyTrips = props => {
                                             <i class="fa-solid fa-route card-icon"></i>
                                         </Col>
                                         <Col >
-                                            <Row className="py-2">
+                                            <Row className="py-2 trip-location">
                                                 <h6>{tripsList[key].city}, {tripsList[key].country_code}</h6>                                                
                                                 <h3>{tripsList[key].name}</h3>                                
                                             </Row>

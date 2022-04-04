@@ -136,7 +136,8 @@ const BaseMap = () => {
                         {store.locations.map((listEntry, i) => (
                             <>
                             <Marker key={i} longitude={listEntry.features[0].geometry.coordinates[0]} latitude={listEntry.features[0].geometry.coordinates[1]} anchor="bottom" >
-                                <i className="fa-solid fa-map-pin" Style="font-size:30px;">{i}</i>
+                                {i == 0 ? (<i className="fa-solid fa-map-pin" Style="font-size:30px;Color:#4be89f"> {i}</i>):
+                                (<i className="fa-solid fa-map-pin" Style="font-size:30px;Color:#EA1889"> {i}</i>)}
                             </Marker>
                             </>
                         ))}
