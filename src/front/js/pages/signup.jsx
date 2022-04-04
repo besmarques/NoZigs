@@ -14,6 +14,9 @@ const Signup = () => {
     const [error, setError] = useState(false);
     const history = useHistory();
     const [passwordStatus, setPasswordStatus] = useState("");
+    const [bday, setBday] = useState("");
+    const [firstname, setFirstname] = useState("");
+    const [lastname, setLastname] = useState("");
     
     const handleClick = async () => {
         
@@ -27,6 +30,9 @@ const Signup = () => {
                 password: password,
                 confirmPassword: confirmPassword,
                 email: email,
+                bday: bday,
+                firstname: firstname,
+                lastname: lastname,
             }),
         };
 
@@ -45,8 +51,6 @@ const Signup = () => {
                 setError(false);
             }, 2000);
         }
-
-
     };
 
     const handlePassword = (value) => {
@@ -78,29 +82,58 @@ const Signup = () => {
         <div className="signup">
             <img src={Logo} height="40" alt="logo" />
             <h1>Create an account</h1>
+            <br></br>
             {store.token && store.token != "" && store.token != undefined ? (
                 "You are logged in with this token " + store.token
             ) : (
                 <div>
                     <form>
+                    <label className="signup-label"><strong>First Name:</strong></label>
+                    <input
+                        className="d-flex flex-column py-1 form-s"
+                        type="firstname"
+                        id="firstname"
+                        placeholder="your firstname"
+                        value={firstname}
+                        onChange={(e) => setFirstname(e.target.value)}
+                    />
+                    <label className="signup-label"><strong>Last Name:</strong></label>
+                    <input
+                        className="d-flex flex-column py-1 form-s"
+                        type="text"
+                        id="lastname"
+                        placeholder="your lastname"
+                        value={lastname}
+                        onChange={(e) => setLastname(e.target.value)}
+                    />
+                    <label className="signup-label"><strong>Username:</strong></label>
                     <input
                         className="d-flex flex-column py-1 form-s"
                         type="text"
                         id="username"
-                        placeholder="your username"
+                        placeholder="create a username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                     />
-
+                    <label className="signup-label"><strong>Birthdate:</strong></label>
+                    <input
+                        className="d-flex  py-1 form-s"
+                        type="date"
+                        id="bday"
+                        placeholder="your birthdate"
+                        value={bday}
+                        onChange={(e) => setBday(e.target.value)}
+                    />
+                    <label className="signup-label"><strong>Email:</strong></label>
                     <input
                         className="d-flex flex-column py-1 form-s"
                         type="email"
                         id="email"
-                        placeholder="your email"
+                        placeholder="your email address"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                     />
-
+                    <label className="signup-label"><strong>Password:</strong></label>
                     <input
                         className="d-flex flex-column py-1 form-s"
                         type="password"
@@ -109,7 +142,7 @@ const Signup = () => {
                         value={password}
                         onChange={(e) => handlePassword(e.target.value)}
                     />
-
+                    <label className="signup-label"><strong>Confirm Password:</strong></label>
                     <input
                         className="d-flex flex-column py-1 form-s"
                         type="password"
