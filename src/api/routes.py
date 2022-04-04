@@ -18,6 +18,9 @@ def signup():
     password = request.json.get('password', None)
     confirm_password = request.json.get('confirmPassword', None)
     email = request.json.get('email', None)
+    bday = request.json.get('bday', None)
+    firstname = request.json.get('firstname', None)
+    lastname = request.json.get('lastname', None)
 
     if (password != confirm_password):
          return({'error':'passwords are not matching'}, 400)
@@ -26,7 +29,7 @@ def signup():
          return({'error':'Missing info'}), 400
 
     else:
-         new_user = User(username=username, email = email, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
+         new_user = User(username=username, email = email, bday = bday, firstname = firstname, lastname = lastname, password = generate_password_hash(password, method='pbkdf2:sha256', salt_length=16))
          created_user = new_user.create()
          access_token = create_access_token(identity=created_user.id)
          return({'token' : access_token, 'message' : 'Congratulations for signing up!'}), 200
