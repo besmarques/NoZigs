@@ -14,7 +14,7 @@ const Signup = () => {
     const [error, setError] = useState(false);
     const history = useHistory();
     const [passwordStatus, setPasswordStatus] = useState("");
-    const [bday, setBday] = useState("");
+    const [birthday, setBirthday] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
     
@@ -30,7 +30,7 @@ const Signup = () => {
                 password: password,
                 confirmPassword: confirmPassword,
                 email: email,
-                bday: bday,
+                birthday: birthday,
                 firstname: firstname,
                 lastname: lastname,
             }),
@@ -119,10 +119,10 @@ const Signup = () => {
                     <input
                         className="d-flex  py-1 form-s"
                         type="date"
-                        id="bday"
-                        placeholder="your birthdate"
-                        value={bday}
-                        onChange={(e) => setBday(e.target.value)}
+                        id="birthday"
+                        placeholder="your birthday"
+                        value={birthday}
+                        onChange={(e) => setBirthday(e.target.value)}
                     />
                     <label className="signup-label"><strong>Email:</strong></label>
                     <input
