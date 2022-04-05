@@ -11,7 +11,7 @@ export const Navbar = () => {
     console.log(location.pathname);
 
     const display =
-        location.pathname === "/" ||
+        /*location.pathname === "/" ||*/
         location.pathname === "/login" ||
         location.pathname === "/signup"
             ? "display-none"
@@ -29,13 +29,18 @@ export const Navbar = () => {
 
                 <div className="ml-auto">
                     <div className="d-flex align-items-center justify-content-around">
-                        <Link to="/trips" className="link">
-                            <span className={`${display}`}>Trips</span>
-                        </Link>
+                        {store.token ? (
+                            <Link to="/trips" className="link">
+                                <span>Trips</span>
+                            </Link>
+                        ) :("")}
 
-                        <Link to="/profile" className="link">
-                            <span className={`${display}`}>Profile</span>
-                        </Link>
+                        {store.token ? (
+                            <Link to="/profile" className="link">
+                                <span>Profile</span>
+                            </Link>
+                        ) :("")}
+
                         {!store.token ? (
                             <Link to="/login">
                                 <button className="login-link">Login</button>

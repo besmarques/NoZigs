@@ -87,7 +87,51 @@ const Signup = () => {
                 "You are logged in with this token " + store.token
             ) : (
                 <div>
-                    <form>
+                    <form className="needs-validation">
+                        <label className="signup-label"><strong>Username:</strong></label>
+                        <input
+                            className="d-flex flex-column py-1 form-s"
+                            type="text"
+                            id="username"
+                            placeholder="create a username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                        <label className="signup-label"><strong>Email:</strong></label>
+                        <input
+                            className="d-flex flex-column py-1 form-s"
+                            type="email"
+                            id="email"
+                            placeholder="your email address"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                        <label className="signup-label"><strong>Password:</strong></label>
+                        <input
+                            className="d-flex flex-column py-1 form-s"
+                            type="password"
+                            id="password"
+                            placeholder="create password"
+                            value={password}
+                            onChange={(e) => handlePassword(e.target.value)}
+                            required
+                        />
+                        <label className="signup-label"><strong>Confirm Password:</strong></label>
+                        <input
+                            className="d-flex flex-column py-1 form-s"
+                            type="password"
+                            id="confirm_password"
+                            placeholder="confirm password"
+                            value={confirmPassword}
+                            onChange={(e) => handleConfirmPassword(e.target.value)}
+                            required
+                        />
+                        <p>{passwordStatus}</p>
+
+
+
                     <label className="signup-label"><strong>First Name:</strong></label>
                     <input
                         className="d-flex flex-column py-1 form-s"
@@ -106,15 +150,8 @@ const Signup = () => {
                         value={lastname}
                         onChange={(e) => setLastname(e.target.value)}
                     />
-                    <label className="signup-label"><strong>Username:</strong></label>
-                    <input
-                        className="d-flex flex-column py-1 form-s"
-                        type="text"
-                        id="username"
-                        placeholder="create a username"
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
+                    
+                    
                     <label className="signup-label"><strong>Birthdate:</strong></label>
                     <input
                         className="d-flex  py-1 form-s"
@@ -124,35 +161,8 @@ const Signup = () => {
                         value={birthday}
                         onChange={(e) => setBirthday(e.target.value)}
                     />
-                    <label className="signup-label"><strong>Email:</strong></label>
-                    <input
-                        className="d-flex flex-column py-1 form-s"
-                        type="email"
-                        id="email"
-                        placeholder="your email address"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <label className="signup-label"><strong>Password:</strong></label>
-                    <input
-                        className="d-flex flex-column py-1 form-s"
-                        type="password"
-                        id="password"
-                        placeholder="create password"
-                        value={password}
-                        onChange={(e) => handlePassword(e.target.value)}
-                    />
-                    <label className="signup-label"><strong>Confirm Password:</strong></label>
-                    <input
-                        className="d-flex flex-column py-1 form-s"
-                        type="password"
-                        id="confirm_password"
-                        placeholder="confirm password"
-                        value={confirmPassword}
-                        onChange={(e) => handleConfirmPassword(e.target.value)}
-                    />
-
-                    <p>{passwordStatus}</p>
+                    
+                    
                         
                     <button
                         type="button"
