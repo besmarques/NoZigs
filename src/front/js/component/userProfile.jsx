@@ -12,22 +12,22 @@ const UserProfile = () => {
     const { store, actions } = useContext(Context);
 
     const [getFirstname, setGetFirstname] = useState("");
-    const [firstname, setFirstname] = useState("Username");
+    const [firstname, setFirstname] = useState("");
 
     const [getLastname, setGetLastname] = useState("");
-    const [lastname, setLastname] = useState("Username");
+    const [lastname, setLastname] = useState("");
 
     const [getUsername, setGetUsername] = useState("");
-    const [username, setUsername] = useState("Username");
+    const [username, setUsername] = useState("");
 
     const [getBirthday, setGetBirthday] = useState("");
-    const [birthday, setBirthday] = useState("YYYY-MM-DD");
+    const [birthday, setBirthday] = useState("");
 
     const [getPassword, setGetPassword] = useState("");
-    const [password, setPassword] = useState("00 from Month");
+    const [password, setPassword] = useState("");
 
 
-    const [email, setEmail] = useState("tourist@nozigs.com");
+    const [email, setEmail] = useState("");
 
 
     useEffect(() => {
@@ -66,6 +66,14 @@ const UserProfile = () => {
             fetchData();
             }
     }, [store.token]);
+
+    let birthDate = "";
+    console.log(birthday);
+    if(birthday != null){
+        birthDate = birthday;
+	    birthDate = birthDate.slice(0,-13);
+	    birthDate = birthDate.slice(5);
+    }
 
 
     return (
@@ -143,7 +151,7 @@ const UserProfile = () => {
                                         <Col xs={10} lg={10}>
                                             <h5>
                                             <span className="pink pe-3"><i class="fa-solid fa-cake-candles"></i></span>
-                                                {birthday}
+                                                {birthDate}
                                             </h5>
                                         </Col>
                                         {/*<Col xs={2} lg={2} className="d-block d-lg-none">
