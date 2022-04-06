@@ -90,7 +90,7 @@ const Signup = () => {
                     <form className="needs-validation">
                         <label className="signup-label"><strong>Username:</strong></label>
                         <input
-                            className="d-flex flex-column py-1 form-s"
+                            className="d-flex flex-column py-1 form-s form-control"
                             type="text"
                             id="username"
                             placeholder="create a username"

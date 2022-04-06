@@ -14,10 +14,10 @@ class User(db.Model):
     password = db.Column(db.String(220), unique=False, nullable=False)
     logged_in = db.Column(db.Boolean(), unique=False, nullable=False, default = True)
     username = db.Column(db.String(80), unique=True, nullable=False)
-    first_name = db.Column(db.String(60), unique=False)
-    last_name = db.Column(db.String(100), unique=False)
+    first_name = db.Column(db.String(60), unique=False, nullable=True)
+    last_name = db.Column(db.String(100), unique=False, nullable=True)
     photo = db.Column(db.String(), unique=False)
-    birthday = db.Column(db.DateTime())
+    birthday = db.Column(db.DateTime(), nullable=True)
     trips = db.relationship('Trip', backref='user', lazy=True)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False, default = True)
 
