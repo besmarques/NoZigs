@@ -1,5 +1,6 @@
+
 .signup {
-  min-height: 88vh;
+  min-height: 87vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -45,3 +46,4 @@
   width: 360px;
   height: 44px;
 }
+
