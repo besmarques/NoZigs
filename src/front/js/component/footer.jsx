@@ -13,7 +13,7 @@ export const Footer = () => (
 					<Nav.Link href="https://4geeksacademy.com/">About Us</Nav.Link>
 					<Nav.Link href="#pricing">Paid Version</Nav.Link>
 					</Nav>
-					<p className="footer-text">Copyright 2022</p>
+					<p className="footer-text">@Copyright 2022</p>
 					</Container>
 				</Navbar>
 			</>
