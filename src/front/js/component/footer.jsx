@@ -2,10 +2,10 @@ import React from "react";
 import { Navbar, Nav, Container } from "react-bootstrap";
 
 export const Footer = () => (
-	<footer className="mt-auto py-3 text-center">
+	<footer className="footer mt-auto py-3 text-center">
 		<div>
 			<>
-				<Navbar bg="light" variant="light" className="footer">
+				<Navbar bg="light" variant="light">
 					<Container>
 					<Navbar.Brand>Made with <i className="fa fa-heart text-danger" /> by NoZigs</Navbar.Brand>
 					<Nav className="me-auto footer-links">
@@ -20,3 +20,5 @@ export const Footer = () => (
 		</div>
 	</footer>
 );
+
+
