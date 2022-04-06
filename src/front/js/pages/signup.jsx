@@ -17,9 +17,8 @@ const Signup = () => {
     const [birthday, setBirthday] = useState("");
     const [firstname, setFirstname] = useState("");
     const [lastname, setLastname] = useState("");
-    
+
     const handleClick = async () => {
-        
         const opts = {
             method: "POST",
             headers: {
@@ -36,10 +35,10 @@ const Signup = () => {
             }),
         };
 
-        const response = await fetch(`${process.env.BASE_URL}signup`, opts);
-        
+        const response = await fetch(`${process.env.BACKEND_URL}signup`, opts);
+
         const data = await response.json();
-        console.log("data " + data)
+        console.log("data " + data);
 
         if (response.status == 200) {
             sessionStorage.setItem("token", data.token);
@@ -63,7 +62,7 @@ const Signup = () => {
         }
 
         console.log("passwordStatus");
-    }
+    };
 
     const handleConfirmPassword = (value) => {
         setConfirmPassword(value);
@@ -75,9 +74,9 @@ const Signup = () => {
         }
 
         console.log("passwordStatus");
-    }
+    };
     //use the library https://react-hook-form.com/form-builder/
-    
+
     return (
         <div className="signup">
             <img src={Logo} height="40" alt="logo" />
@@ -88,7 +87,9 @@ const Signup = () => {
             ) : (
                 <div>
                     <form className="needs-validation">
-                        <label className="signup-label"><strong>Username:</strong></label>
+                        <label className="signup-label">
+                            <strong>Username:</strong>
+                        </label>
                         <input
                             className="d-flex flex-column py-1 form-s form-control"
                             type="text"
@@ -98,7 +99,9 @@ const Signup = () => {
                             onChange={(e) => setUsername(e.target.value)}
                             required
                         />
-                        <label className="signup-label"><strong>Email:</strong></label>
+                        <label className="signup-label">
+                            <strong>Email:</strong>
+                        </label>
                         <input
                             className="d-flex flex-column py-1 form-s"
                             type="email"
@@ -108,7 +111,9 @@ const Signup = () => {
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
-                        <label className="signup-label"><strong>Password:</strong></label>
+                        <label className="signup-label">
+                            <strong>Password:</strong>
+                        </label>
                         <input
                             className="d-flex flex-column py-1 form-s"
                             type="password"
@@ -118,65 +123,69 @@ const Signup = () => {
                             onChange={(e) => handlePassword(e.target.value)}
                             required
                         />
-                        <label className="signup-label"><strong>Confirm Password:</strong></label>
+                        <label className="signup-label">
+                            <strong>Confirm Password:</strong>
+                        </label>
                         <input
                             className="d-flex flex-column py-1 form-s"
                             type="password"
                             id="confirm_password"
                             placeholder="confirm password"
                             value={confirmPassword}
-                            onChange={(e) => handleConfirmPassword(e.target.value)}
+                            onChange={(e) =>
+                                handleConfirmPassword(e.target.value)
+                            }
                             required
                         />
                         <p>{passwordStatus}</p>
 
+                        <label className="signup-label">
+                            <strong>First Name:</strong>
+                        </label>
+                        <input
+                            className="d-flex flex-column py-1 form-s"
+                            type="firstname"
+                            id="firstname"
+                            placeholder="your firstname"
+                            value={firstname}
+                            onChange={(e) => setFirstname(e.target.value)}
+                        />
+                        <label className="signup-label">
+                            <strong>Last Name:</strong>
+                        </label>
+                        <input
+                            className="d-flex flex-column py-1 form-s"
+                            type="text"
+                            id="lastname"
+                            placeholder="your lastname"
+                            value={lastname}
+                            onChange={(e) => setLastname(e.target.value)}
+                        />
 
+                        <label className="signup-label">
+                            <strong>Birthdate:</strong>
+                        </label>
+                        <input
+                            className="d-flex  py-1 form-s"
+                            type="date"
+                            id="birthday"
+                            placeholder="your birthday"
+                            value={birthday}
+                            onChange={(e) => setBirthday(e.target.value)}
+                        />
 
-                    <label className="signup-label"><strong>First Name:</strong></label>
-                    <input
-                        className="d-flex flex-column py-1 form-s"
-                        type="firstname"
-                        id="firstname"
-                        placeholder="your firstname"
-                        value={firstname}
-                        onChange={(e) => setFirstname(e.target.value)}
-                    />
-                    <label className="signup-label"><strong>Last Name:</strong></label>
-                    <input
-                        className="d-flex flex-column py-1 form-s"
-                        type="text"
-                        id="lastname"
-                        placeholder="your lastname"
-                        value={lastname}
-                        onChange={(e) => setLastname(e.target.value)}
-                    />
-                    
-                    
-                    <label className="signup-label"><strong>Birthdate:</strong></label>
-                    <input
-                        className="d-flex  py-1 form-s"
-                        type="date"
-                        id="birthday"
-                        placeholder="your birthday"
-                        value={birthday}
-                        onChange={(e) => setBirthday(e.target.value)}
-                    />
-                    
-                    
-                        
-                    <button
-                        type="button"
-                        className="btn btn-outline-info bto"
-                        onClick={handleClick}
-                    >
-                        Get Started
-                    </button>
+                        <button
+                            type="button"
+                            className="btn btn-outline-info bto"
+                            onClick={handleClick}
+                        >
+                            Get Started
+                        </button>
 
-                    <br></br>
+                        <br></br>
 
-                    {/* Insert html alert */}
-                    {error ? "Error creating the user" : null}
-                    
+                        {/* Insert html alert */}
+                        {error ? "Error creating the user" : null}
                     </form>
                 </div>
             )}
