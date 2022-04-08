@@ -14,9 +14,9 @@ const Signup = () => {
     const [error, setError] = useState(false);
     const history = useHistory();
     const [passwordStatus, setPasswordStatus] = useState("");
-    const [birthday, setBirthday] = useState("");
-    const [firstname, setFirstname] = useState("");
-    const [lastname, setLastname] = useState("");
+    const [birthday, setBirthday] = useState();
+    const [firstname, setFirstname] = useState();
+    const [lastname, setLastname] = useState();
 
     const handleClick = async () => {
         const opts = {
@@ -103,7 +103,7 @@ const Signup = () => {
                             <strong>Email:</strong>
                         </label>
                         <input
-                            className="d-flex flex-column py-1 form-s"
+                            className="d-flex flex-column py-1 form-s form-control"
                             type="email"
                             id="email"
                             placeholder="your email address"
@@ -115,7 +115,7 @@ const Signup = () => {
                             <strong>Password:</strong>
                         </label>
                         <input
-                            className="d-flex flex-column py-1 form-s"
+                            className="d-flex flex-column py-1 form-s form-control"
                             type="password"
                             id="password"
                             placeholder="create password"
@@ -127,7 +127,7 @@ const Signup = () => {
                             <strong>Confirm Password:</strong>
                         </label>
                         <input
-                            className="d-flex flex-column py-1 form-s"
+                            className="d-flex flex-column py-1 form-s form-control"
                             type="password"
                             id="confirm_password"
                             placeholder="confirm password"
@@ -139,7 +139,7 @@ const Signup = () => {
                         />
                         <p>{passwordStatus}</p>
 
-                        <label className="signup-label">
+                        {/* <label className="signup-label">
                             <strong>First Name:</strong>
                         </label>
                         <input
@@ -172,7 +172,7 @@ const Signup = () => {
                             placeholder="your birthday"
                             value={birthday}
                             onChange={(e) => setBirthday(e.target.value)}
-                        />
+                        /> */}
 
                         <button
                             type="button"

@@ -91,9 +91,33 @@ const MyTrips = (props) => {
                                         </Col>*/}
                                         </Row>
                                     </Link>
+                                    
+
+                                    
                                 </>
                             );
                         })}
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="tripcol">
+                        <Link to={"/trips"}>
+                            <Row className="my-3 px-2 p-lg-0 card-row">
+                                <Col xs={2} lg={2} className="d-flex justify-content-center card-icon-box-home" >
+                                    <i class="fa-solid fa-plus card-icon"></i>
+                                </Col>
+                                <Col>
+                                    <Row className="py-2 trip-location">
+                                        <h6>
+                                            Create a new trip                    
+                                        </h6>
+                                        <h3>
+                                            Add a trip                    
+                                        </h3>
+                                    </Row>
+                                </Col>
+                            </Row>
+                        </Link>
                     </Col>
                 </Row>
             </Col>
