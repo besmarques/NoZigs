@@ -9,7 +9,7 @@ import TripsMap from "../component/tripsMap.jsx";
 const Trips = () => {
     return (
         <>
-            <Container>
+            <Container >
                 <Row>
                     <TripsInteractions/>
                 </Row>

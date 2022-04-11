@@ -19,7 +19,7 @@ export const Navbar = () => {
 
     console.log(display);
     return (
-        <nav className="navbar py-4">
+        <nav className="navbar py-4" Style="height:10vh">
             <div className="container">
                 <Link to="/">
                     <span className="navbar-brand mb-0 h1 text-danger">
