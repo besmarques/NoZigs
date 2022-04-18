@@ -43,12 +43,12 @@ const Login = () => {
       
         <div>
           <label className="d-flex flex-column py-1 form-l">
-            Email
+            Username
             <input
               className="form-i"
-              label="Email"
+              label="Username"
               type="text"
-              placeholder="Enter your email"
+              placeholder="Insert your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
             />
