@@ -45,9 +45,17 @@ const TripsInteractions = () => {
     let imgArr = [img1,img2,img3,img4];
     let imgShow = "";
 
-    useEffect(() => {
-        imgShow = imgArr[Math.floor(Math.random() * 4)];
-    },[])
+    let iArr = null;
+    
+    useEffect(() => {iArr = Math.floor(Math.random() * 4)}, []);
+
+    //console.log("iarr",iArr);
+    
+    //imgShow = imgArr[Math.floor(Math.random() * 4];
+    
+    
+    
+    
 
 
     /**function to save trip to the database*/
@@ -684,7 +692,7 @@ const TripsInteractions = () => {
                                           </Row>
                                       )
                                   )
-                                : <img src={imgShow}></img>}
+                                : <img src={imgArr[store.rndImg]}></img>}
                         </Col>
                     </Row>
                 </Col>
