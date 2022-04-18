@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { Context } from "../store/appContext";
+import { Context } from "../../store/appContext";
 import { Link, useParams } from "react-router-dom";
 
-import "../../styles/profile.css";
+import "../../../styles/profile.css";
 
 const MyTrips = (props) => {
     const { store, actions } = useContext(Context);

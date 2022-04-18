@@ -1,5 +1,5 @@
 import React from "react";
-import Avatar from "../../img/avatar.jpg";
+import Avatar from "../../../img/avatar.jpg";
 
 const Testimonial = () => {
   return (

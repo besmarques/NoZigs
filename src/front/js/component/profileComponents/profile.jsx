@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Container, Row, Col, Image, Form } from "react-bootstrap";
-import { Context } from "../store/appContext";
+import { Context } from "../../store/appContext";
 
-import HeroImage from "../../img/hero_img.png";
+import HeroImage from "../../../img/hero_img.png";
 
 const UserProfile = () => {
     const { store, actions } = useContext(Context);

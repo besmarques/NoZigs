@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 
-import Hero from "../component/hero.jsx";
-import Steps from "../component/steps.jsx";
-import SecondHero from "../component/second_hero.jsx";
-import Testimonial from "../component/testimonial.jsx";
-import JoinNow from "../component/joinNow.jsx";
-import JoinPeople from "../component/joinPeople.jsx";
+import Hero from "../component/homeComponents/hero.jsx";
+import Steps from "../component/homeComponents/steps.jsx";
+import SecondHero from "../component/homeComponents/second_hero.jsx";
+import Testimonial from "../component/homeComponents/testimonial.jsx";
+import JoinNow from "../component/homeComponents/joinNow.jsx";
+import JoinPeople from "../component/homeComponents/joinPeople.jsx";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
