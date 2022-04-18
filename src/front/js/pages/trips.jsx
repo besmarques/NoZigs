@@ -3,8 +3,8 @@ import {Container,Row,Col } from 'react-bootstrap';
 import { Context } from "../store/appContext";
 import "../../styles/trips.css";
 
-import TripsInteractions from "../component/tripsInteractions.jsx";
-import TripsMap from "../component/tripsMap.jsx";
+import TripsInteractions from "../component/tripsComponents/tripsInteractions.jsx";
+import TripsMap from "../component/tripsComponents/tripsMap.jsx";
 
 const Trips = () => {
     return (

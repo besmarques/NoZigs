@@ -1,12 +1,12 @@
 import React from "react";
 import MyCard from "./card.jsx";
-import CardImg1 from "../../img/CardImg1.png";
-import CardImg2 from "../../img/CardImg2.png";
-import CardImg3 from "../../img/CardImg3.png";
-import CardImg4 from "../../img/CardImg4.png";
-import CardImg5 from "../../img/CardImg5.png";
-import CardImg6 from "../../img/CardImg6.png";
-import CardImg7 from "../../img/CardImg7.png";
+import CardImg1 from "../../../img/CardImg1.png";
+import CardImg2 from "../../../img/CardImg2.png";
+import CardImg3 from "../../../img/CardImg3.png";
+import CardImg4 from "../../../img/CardImg4.png";
+import CardImg5 from "../../../img/CardImg5.png";
+import CardImg6 from "../../../img/CardImg6.png";
+import CardImg7 from "../../../img/CardImg7.png";
 
 const JoinPeople = () => {
 

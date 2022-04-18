@@ -1,7 +1,7 @@
 import React from "react";
-import Crosshair from "../../img/icons/crosshair.png";
-import Mappin from "../../img/icons/map-pin.png";
-import Mapo from "../../img/icons/map.png";
+import Crosshair from "../../../img/icons/crosshair.png";
+import Mappin from "../../../img/icons/map-pin.png";
+import Mapo from "../../../img/icons/map.png";
 
 const Steps = () => {
   return (

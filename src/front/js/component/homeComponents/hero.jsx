@@ -1,5 +1,5 @@
 import React from "react";
-import HeroImage from "../../img/hero_img.png";
+import HeroImage from "../../../img/hero_img.png";
 import { useHistory } from "react-router-dom";
 
 const Hero = () => {

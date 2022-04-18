@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState, useContext } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
-import { Context } from "../store/appContext";
-import "../../styles/basemap.css";
+import { Context } from "../../store/appContext";
+import "../../../styles/basemap.css";
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 import Map, {Source, Layer, Marker} from 'react-map-gl';
