@@ -4,6 +4,10 @@ import { Context } from "../store/appContext";
 import { useHistory } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
+import img1 from "../../img/trips/1.jpg";
+import img2 from "../../img/trips/2.jpg";
+import img3 from "../../img/trips/3.jpg";
+import img4 from "../../img/trips/4.jpg";
 
 import options from "./list_countries.jsx";
 
@@ -37,6 +41,22 @@ const TripsInteractions = () => {
 
     let coordinatesData = [];
     const [waypoints, setWaypoints] = useState([]);
+
+    let imgArr = [img1,img2,img3,img4];
+    let imgShow = "";
+
+    let iArr = null;
+    
+    useEffect(() => {iArr = Math.floor(Math.random() * 4)}, []);
+
+    //console.log("iarr",iArr);
+    
+    //imgShow = imgArr[Math.floor(Math.random() * 4];
+    
+    
+    
+    
+
 
     /**function to save trip to the database*/
     const saveTrip = async () => {
@@ -672,7 +692,7 @@ const TripsInteractions = () => {
                                           </Row>
                                       )
                                   )
-                                : ""}
+                                : <img src={imgArr[store.rndImg]}></img>}
                         </Col>
                     </Row>
                 </Col>

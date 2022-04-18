@@ -8,7 +8,7 @@ export const Footer = () => (
 	<footer className="footer mt-auto py-3 text-center">
 	
 			<>
-				<Container fluid>
+				<Container fluid >
 					<Container>
 						<Row className="d-flex justify-content-between py-5">
 							<Col><img src={Logo} height="80" alt="logo" /></Col>

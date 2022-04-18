@@ -13,7 +13,7 @@ const Profile = () => {
 
     return (
         <>
-            <Container>
+            <Container Style="height:47.9vh">
                 <Row className="py-5">
                     
                         <UserProfile />

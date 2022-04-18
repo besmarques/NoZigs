@@ -10,6 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             name: "",
             locations: [],
             geometry: [],
+            rndImg: null,
         },
         actions: {
             syncTokenFromSessionStore: () => {
@@ -98,6 +99,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 setStore({ geometry: geo });
             },
+            tripsBackground: () => {
+                const store = getStore();
+
+                setStore({rndImg : Math.floor(Math.random() * 4)});
+            }
         },
     };
 };
