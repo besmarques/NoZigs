@@ -7,6 +7,9 @@ import HeroImage from "../../../img/hero_img.png";
 const UserProfile = () => {
     const { store, actions } = useContext(Context);
 
+    const [getPhoto, setGetPhoto] = useState("");
+    const [photo, setPhoto] = useState("");
+
     const [getFirstname, setGetFirstname] = useState("");
     const [firstname, setFirstname] = useState("");
 
@@ -24,7 +27,7 @@ const UserProfile = () => {
 
     const [email, setEmail] = useState("");
 
-    const [edit, setEdit] = useState("");
+    const [edit, setEdit] = useState("edit");
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,13 +43,14 @@ const UserProfile = () => {
                 };
 
                 const response = await fetch(
-                    `${process.env.BACKEND_URL}profile/user`,
+                    `${process.env.BACKEND_URL}/api/profile/user`,
                     requestOptions
                 );
 
                 const json = await response.json();
 
                 //setTripsList(json)
+                setPhoto(json.photo);
                 setFirstname(json.first_name);
                 setLastname(json.last_name);
                 setUsername(json.username);
@@ -63,7 +67,7 @@ const UserProfile = () => {
         }
     }, [store.token]);
 
-    const handleClick = async () => {
+    /*const handleClick = async () => {
         try {
             var myHeaders = new Headers();
 
@@ -76,7 +80,7 @@ const UserProfile = () => {
             };
 
             const response = await fetch(
-                `${process.env.BACKEND_URL}profile/user`,
+                `${process.env.BACKEND_URL}/api/profile/user`,
                 requestOptions
             );
 
@@ -92,7 +96,7 @@ const UserProfile = () => {
         } catch (error) {
             console.log("error fetch location data", error);
         }
-    };
+    };*/
 
     let birthDate = "";
     console.log(birthday);
@@ -106,41 +110,44 @@ const UserProfile = () => {
         <>
             <Col xs={12} lg={6}>
                 <Row className="d-flex justify-content-center ">
-                    {edit == "" ? 
-                    (
-                    <>
-                        <Col xs={12} lg={8} className="">
-                            <Row className="d-flex justify-content-center py-2 py-lg-2 ">
-                                <Row className="align-items-center ">
-                                    <Col xs={4} lg={4}>
-                                        <Row>
-                                            <Image src={HeroImage} roundedCircle />
-                                        </Row>
-                                    </Col>
-                                    <Col xs={8} lg={8}>
-                                        <h2 className="profile-title">
-                                            <span className="pink">
-                                                {firstname}
-                                            </span>
-                                        </h2>
-                                        <h2 className="profile-title">
-                                            <span className="blue">{lastname}</span>
-                                        </h2>
-                                    </Col>
-                                    <Col xs={12} lg={8}>
-                                    <Row className="py-2 align-items-center profile mb-3">
-                                        
-                                            <Row className="d-flex disabled-row align-items-center mb-3 mt-3">
-                                                <Col xs={10} lg={10}>
-                                                    <h5>
-                                                        <span className="blue pe-3">
-                                                            <i class="fa-solid fa-user"></i>
-                                                        </span>
-                                                        {username}
-                                                    </h5>
-                                                </Col>
+                    {edit == "" ? (
+                        <>
+                            <Col xs={12} lg={8} className="">
+                                <Row className="d-flex justify-content-center py-2 py-lg-2 ">
+                                    <Row className="align-items-center ">
+                                        <Col xs={4} lg={4}>
+                                            <Row>
+                                                <Image
+                                                    src={HeroImage}
+                                                    roundedCircle
+                                                />
                                             </Row>
-                                            <Row className="d-flex disabled-row align-items-center mb-3 mt-3">
+                                        </Col>
+                                        <Col xs={8} lg={8}>
+                                            <h2 className="profile-title">
+                                                <span className="pink">
+                                                    {firstname}
+                                                </span>
+                                            </h2>
+                                            <h2 className="profile-title">
+                                                <span className="blue">
+                                                    {lastname}
+                                                </span>
+                                            </h2>
+                                        </Col>
+                                        <Col xs={12} lg={8}>
+                                            <Row className="py-2 align-items-center profile mb-3">
+                                                <Row className="d-flex disabled-row align-items-center mb-3 mt-3">
+                                                    <Col xs={10} lg={10}>
+                                                        <h5>
+                                                            <span className="blue pe-3">
+                                                                <i class="fa-solid fa-user"></i>
+                                                            </span>
+                                                            {username}
+                                                        </h5>
+                                                    </Col>
+                                                </Row>
+                                                <Row className="d-flex disabled-row align-items-center mb-3 mt-3">
                                                     <Col xs={10} lg={10}>
                                                         <h5>
                                                             <span className="pink pe-3">
@@ -162,110 +169,180 @@ const UserProfile = () => {
                                                 </Row>
                                                 <Row className="d-flex disabled-row align-items-center mb-3 mt-3">
                                                     <Col xs={10} lg={10}>
-                                            <h5>
-                                                <span className="pink pe-3">
-                                                    <i class="fa-solid fa-envelope"></i>
-                                                </span>
-                                                {email}
-                                            </h5>
-                                        </Col>
-                                        </Row>
-                                    </Row>
-                                        <Col xs={2} lg={2}>
-                                            <Button
-                                                className="btn-submit-route"
-                                                type="submit"
-                                                size="lg"
-                                                onClick={() => setEdit("edit")}>
-                                                Edit
-                                            </Button>
-                                        </Col>
-                                    </Col>
-                                </Row>
-                            </Row>
-                        </Col>
-                    </>
-                    ) 
-                    :
-                    (
-                        <>
-                            <Col xs={12} lg={8} className="">
-                                <Row className="d-flex justify-content-center py-2 py-lg-2 ">
-                                    <Row className="d-flex disabled-row align-items-center">
-                                        <Col xs={10} lg={10}>
-                                            <label className="signup-label"><strong>Picture:</strong></label>
-                                            <input
-                                                className="d-flex flex-column py-1 form-s"
-                                                type="text"
-                                                id="username"
-                                                placeholder="create a username"
-                                                value={HeroImage}
-                                                onChange={(e) => setUsername(e.target.value)}
-                                                required
-                                            />
+                                                        <h5>
+                                                            <span className="pink pe-3">
+                                                                <i class="fa-solid fa-envelope"></i>
+                                                            </span>
+                                                            {email}
+                                                        </h5>
+                                                    </Col>
+                                                </Row>
+                                            </Row>
+                                            <Row>
+                                                <Col xs={2} lg={2}>
+                                                    <Button
+                                                        className="btn-submit-route"
+                                                        type="submit"
+                                                        size="lg"
+                                                        onClick={() =>
+                                                            setEdit("edit")
+                                                        }
+                                                    >
+                                                        Edit
+                                                    </Button>
+                                                </Col>
+                                            </Row>
                                         </Col>
                                     </Row>
-                                    <Row className="d-flex disabled-row align-items-center">
-                                        <Col xs={10} lg={10}>
-                                            <label className="signup-label"><strong>First Name:</strong></label>
-                                            <input
-                                                className="d-flex flex-column py-1 form-s"
-                                                type="text"
-                                                id="firstname"
-                                                placeholder="Add your first name"
-                                                value={firstname}
-                                                onChange={(e) => setFirstname(e.target.value)}
-                                                required
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="d-flex disabled-row align-items-center">
-                                        <Col xs={10} lg={10}>
-                                            <label className="signup-label"><strong>Last Name:</strong></label>
-                                            <input
-                                                className="d-flex flex-column py-1 form-s"
-                                                type="text"
-                                                id="lastname"
-                                                placeholder="Add your last name"
-                                                value={lastname}
-                                                onChange={(e) => setLastname(e.target.value)}
-                                                required
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="d-flex disabled-row align-items-center">
-                                        <Col xs={10} lg={10}>
-                                            <label className="signup-label"><strong>Username:</strong></label>
-                                            <input
-                                                className="d-flex flex-column py-1 form-s"
-                                                type="text"
-                                                id="username"
-                                                placeholder="create a username"
-                                                value={username}
-                                                onChange={(e) => setUsername(e.target.value)}
-                                                required
-                                            />
-                                        </Col>
-                                    </Row>
-                                    <Row className="d-flex disabled-row ">
-                                        <Col xs={10} lg={10}>
-                                            <label className="signup-label"><strong>Birthday:</strong></label>
-                                            <input
-                                                className="d-flex flex-column py-1 form-s"
-                                                type="date"
-                                                id="birthday"
-                                                value={birthday}
-                                                onChange={(e) => setBirthday(e.target.value)}
-                                                required
-                                            />
-                                        </Col>
-                                    </Row>
-                                    
                                 </Row>
                             </Col>
                         </>
-                    )
-                    }
+                    ) : (
+                        <>
+                            <Col xs={12} lg={8} className="">
+                                <Row className="d-flex justify-content-center py-2 py-lg-2 ">
+                                    <Form.Group className="mb-3" controlId="firstname">
+                                        <Row>
+                                            <Form.Label>
+                                                Upload your profile picture
+                                            </Form.Label>
+                                        </Row>
+                                        <Row className="d-flex justify-content-center">
+                                            <Col xs={10} lg={10}>
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Enter trip name"
+                                                    value={photo}
+                                                    onChange={(e) =>
+                                                        setPhoto(e.target.value)
+                                                    }
+                                                    onKeyPress={(e) => {
+                                                        event.key == "Enter"
+                                                            ? setPhoto(photo)
+                                                            : "";
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col xs={2} lg={2}></Col>
+                                        </Row>
+                                    </Form.Group>
+                                </Row>
+                                <Row className="d-flex justify-content-center py-2 py-lg-2 ">
+                                    <Form.Group className="mb-3" controlId="firstname">
+                                        <Row>
+                                            <Form.Label>
+                                                Whats your first name?
+                                            </Form.Label>
+                                        </Row>
+                                        <Row className="d-flex justify-content-center">
+                                            <Col xs={10} lg={10}>
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Enter trip name"
+                                                    value={firstname}
+                                                    onChange={(e) =>
+                                                        setFirstname(e.target.value)
+                                                    }
+                                                    onKeyPress={(e) => {
+                                                        event.key == "Enter"
+                                                            ? setFirstname(firstname)
+                                                            : "";
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col xs={2} lg={2}></Col>
+                                        </Row>
+                                    </Form.Group>
+                                </Row>
+                                <Row className="d-flex justify-content-center py-2 py-lg-2 ">
+                                    <Form.Group className="mb-3" controlId="lasttname">
+                                        <Row>
+                                            <Form.Label>
+                                                Whats your last name?
+                                            </Form.Label>
+                                        </Row>
+                                        <Row className="d-flex justify-content-center">
+                                            <Col xs={10} lg={10}>
+                                                <Form.Control
+                                                    type="text"
+                                                    placeholder="Enter trip name"
+                                                    value={lastname}
+                                                    onChange={(e) =>
+                                                        setLastname(e.target.value)
+                                                    }
+                                                    onKeyPress={(e) => {
+                                                        event.key == "Enter"
+                                                            ? setLastname(lastname)
+                                                            : "";
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col xs={2} lg={2}></Col>
+                                        </Row>
+                                    </Form.Group>
+                                </Row>
+                                <Row className="d-flex justify-content-center py-2 py-lg-2 ">
+                                <Form.Group
+                                        className="mb-3"
+                                        controlId="Date"
+                                    >
+                                        <Row>
+                                            <Form.Label>
+                                                Whats your birthday?
+                                            </Form.Label>
+                                        </Row>
+                                        <Row className="d-flex justify-content-center">
+                                            <Col xs={10} lg={10}>
+                                                <Form.Control
+                                                    type="date"
+                                                    placeholder="Enter trip date"
+                                                    value={birthday}
+                                                    onChange={(e) =>
+                                                        setBirthday(e.target.value)
+                                                    }
+                                                    onKeyPress={(e) => {
+                                                        event.key == "Enter"
+                                                            ? setBirthday(birthday)
+                                                            : "";
+                                                    }}
+                                                />
+                                            </Col>
+                                            <Col xs={2} lg={2}></Col>
+                                        </Row>
+                                    </Form.Group>
+                                </Row>
+                                
+                                <Row className="d-flex justify-content-between">
+                                    <Col xs={10} lg={10}>
+                                        <Row className="d-flex justify-content-between">
+                                            <Col xs={2} lg={2}>
+                                                <Button
+                                                    className="btn-submit-route"
+                                                    type="submit"
+                                                    size="lg"
+                                                    onClick={() => setEdit("")}
+                                                >
+                                                    Cancel
+                                                </Button>
+                                            </Col>
+                                                <Col xs={2} lg={2}>
+                                                    <Button
+                                                        className="btn-submit-route"
+                                                        type="submit"
+                                                        size="lg"
+                                                        onClick={() => setEdit("edit")}
+                                                    >
+                                                        Save
+                                                    </Button>
+                                                </Col>
+                                            </Row>
+                                        </Col>
+                                        <Col xs={2} lg={2}></Col>
+                                  
+                                </Row>
+                            </Col>
+                        </>
+                    )}
                 </Row>
             </Col>
         </>
