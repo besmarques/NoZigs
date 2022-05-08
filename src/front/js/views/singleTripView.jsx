@@ -31,7 +31,7 @@ const SingleTrip = (props) => {
                 };
 
                 const response = await fetch(
-                    `${process.env.BACKEND_URL}trips/${params.theid}`,
+                    `${process.env.BACKEND_URL}/api/trips/${params.theid}`,
                     requestOptions
                 );
 

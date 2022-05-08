@@ -42,7 +42,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 try {
                     const resp = await fetch(
-                        `${process.env.BACKEND_URL}login`,
+                        `${process.env.BACKEND_URL}/api/login`,
                         opts
                     );
 
@@ -70,7 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     },
                 };
                 // fetching data from the backend
-                fetch(`${process.env.BACKEND_URL}hello`, opts)
+                fetch(`${process.env.BACKEND_URL}/api/hello`, opts)
                     .then((resp) => resp.json())
                     .then((data) => setStore({ message: data.message }))
                     .catch((error) =>
@@ -102,8 +102,8 @@ const getState = ({ getStore, getActions, setStore }) => {
             tripsBackground: () => {
                 const store = getStore();
 
-                setStore({rndImg : Math.floor(Math.random() * 4)});
-            }
+                setStore({ rndImg: Math.floor(Math.random() * 4) });
+            },
         },
     };
 };

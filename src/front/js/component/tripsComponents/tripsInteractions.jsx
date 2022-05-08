@@ -42,21 +42,18 @@ const TripsInteractions = () => {
     let coordinatesData = [];
     const [waypoints, setWaypoints] = useState([]);
 
-    let imgArr = [img1,img2,img3,img4];
+    let imgArr = [img1, img2, img3, img4];
     let imgShow = "";
 
     let iArr = null;
-    
-    useEffect(() => {iArr = Math.floor(Math.random() * 4)}, []);
+
+    useEffect(() => {
+        iArr = Math.floor(Math.random() * 4);
+    }, []);
 
     //console.log("iarr",iArr);
-    
-    //imgShow = imgArr[Math.floor(Math.random() * 4];
-    
-    
-    
-    
 
+    //imgShow = imgArr[Math.floor(Math.random() * 4];
 
     /**function to save trip to the database*/
     const saveTrip = async () => {
@@ -83,7 +80,7 @@ const TripsInteractions = () => {
             }),
         };
         console.log(opts);
-        fetch(`${process.env.BACKEND_URL}save-trip`, opts)
+        fetch(`${process.env.BACKEND_URL}/api/save-trip`, opts)
             .then((response) => response.text())
             .then((result) => {
                 console.log("result", result), history.push("/profile");
@@ -529,170 +526,167 @@ const TripsInteractions = () => {
                 <Col xs={12} lg={6}>
                     <Row className="py-5 d-flex justify-content-center">
                         <Col xs={12} lg={12}>
-                            {data.length > 0
-                                ? data.map((listEntry, i) =>
-                                      i == 0 ? (
-                                          <Row
-                                              key={i}
-                                              className="my-3 px-2 p-lg-0 card-row"
-                                          >
-                                              <Col
-                                                  xs={2}
-                                                  lg={2}
-                                                  className="d-flex justify-content-center card-icon-box-home"
-                                              >
-                                                  <i className="fa-solid fa-house card-icon"></i>
-                                              </Col>
+                            {data.length > 0 ? (
+                                data.map((listEntry, i) =>
+                                    i == 0 ? (
+                                        <Row
+                                            key={i}
+                                            className="my-3 px-2 p-lg-0 card-row"
+                                        >
+                                            <Col
+                                                xs={2}
+                                                lg={2}
+                                                className="d-flex justify-content-center card-icon-box-home"
+                                            >
+                                                <i className="fa-solid fa-house card-icon"></i>
+                                            </Col>
 
-                                              <Col>
-                                                  <Row className="py-2">
-                                                      <p>
-                                                          {listEntry.features[0]
-                                                              .place_type !=
-                                                          "poi"
-                                                              ? listEntry
-                                                                    .features[0]
-                                                                    .place_type
-                                                              : listEntry.features[0].properties.category.split(
-                                                                    ","
-                                                                )}
-                                                      </p>
-                                                      <h6>
-                                                          {
-                                                              listEntry
+                                            <Col>
+                                                <Row className="py-2">
+                                                    <p>
+                                                        {listEntry.features[0]
+                                                            .place_type != "poi"
+                                                            ? listEntry
                                                                   .features[0]
-                                                                  .place_name
-                                                          }
-                                                      </h6>
-                                                  </Row>
-                                              </Col>
+                                                                  .place_type
+                                                            : listEntry.features[0].properties.category.split(
+                                                                  ","
+                                                              )}
+                                                    </p>
+                                                    <h6>
+                                                        {
+                                                            listEntry
+                                                                .features[0]
+                                                                .place_name
+                                                        }
+                                                    </h6>
+                                                </Row>
+                                            </Col>
 
-                                              <Col
-                                                  xs={2}
-                                                  lg={2}
-                                                  className="d-flex justify-content-center card-delete-box"
-                                              >
-                                                  <Button
-                                                      className="card-delete-button"
-                                                      type="submit"
-                                                      onClick={() =>
-                                                          removeAll(i)
-                                                      }
-                                                  >
-                                                      <i className="fa-solid fa-trash-can"></i>
-                                                  </Button>
-                                              </Col>
-                                          </Row>
-                                      ) : i > 0 &&
-                                        listEntry.features[0].place_type ==
-                                            "poi" ? (
-                                          <Row
-                                              key={i}
-                                              className="my-3 px-2 p-lg-0 card-row"
-                                          >
-                                              <Col
-                                                  xs={2}
-                                                  lg={2}
-                                                  className="d-flex justify-content-center card-icon-box-poi"
-                                              >
-                                                  <i className="fa-solid fa-landmark-flag card-icon"></i>
-                                              </Col>
-                                              <Col>
-                                                  <Row className="py-2">
-                                                      <p>
-                                                          {listEntry.features[0]
-                                                              .place_type !=
-                                                          "poi"
-                                                              ? listEntry
-                                                                    .features[0]
-                                                                    .place_type
-                                                              : ((titleArray =
-                                                                    listEntry.features[0].properties.category.split(
-                                                                        ","
-                                                                    )),
-                                                                titleArray[0])}
-                                                      </p>
-                                                      <h6>
-                                                          {
-                                                              listEntry
+                                            <Col
+                                                xs={2}
+                                                lg={2}
+                                                className="d-flex justify-content-center card-delete-box"
+                                            >
+                                                <Button
+                                                    className="card-delete-button"
+                                                    type="submit"
+                                                    onClick={() => removeAll(i)}
+                                                >
+                                                    <i className="fa-solid fa-trash-can"></i>
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    ) : i > 0 &&
+                                      listEntry.features[0].place_type ==
+                                          "poi" ? (
+                                        <Row
+                                            key={i}
+                                            className="my-3 px-2 p-lg-0 card-row"
+                                        >
+                                            <Col
+                                                xs={2}
+                                                lg={2}
+                                                className="d-flex justify-content-center card-icon-box-poi"
+                                            >
+                                                <i className="fa-solid fa-landmark-flag card-icon"></i>
+                                            </Col>
+                                            <Col>
+                                                <Row className="py-2">
+                                                    <p>
+                                                        {listEntry.features[0]
+                                                            .place_type != "poi"
+                                                            ? listEntry
                                                                   .features[0]
-                                                                  .place_name
-                                                          }
-                                                      </h6>
-                                                  </Row>
-                                              </Col>
-                                              <Col
-                                                  xs={2}
-                                                  lg={2}
-                                                  className="d-flex justify-content-center card-delete-box"
-                                              >
-                                                  <Button
-                                                      className="card-delete-button"
-                                                      type="submit"
-                                                      onClick={() =>
-                                                          removeItem(i)
-                                                      }
-                                                  >
-                                                      <i className="fa-solid fa-circle-minus"></i>
-                                                  </Button>
-                                              </Col>
-                                          </Row>
-                                      ) : (
-                                          <Row
-                                              key={i}
-                                              className="my-3 px-2 p-lg-0 card-row"
-                                          >
-                                              <Col
-                                                  xs={2}
-                                                  lg={2}
-                                                  className="d-flex justify-content-center card-icon-box-address"
-                                              >
-                                                  <i className="fa-solid fa-tree-city card-icon"></i>
-                                              </Col>
-                                              <Col>
-                                                  <Row className="py-2">
-                                                      <p>
-                                                          {listEntry.features[0]
-                                                              .place_type !=
-                                                          "poi"
-                                                              ? listEntry
-                                                                    .features[0]
-                                                                    .place_type
-                                                              : ((titleArray =
-                                                                    listEntry
-                                                                        .features[0]
-                                                                        .properties
-                                                                        .category),
-                                                                titleArray[0])}
-                                                      </p>
-                                                      <h6>
-                                                          {
-                                                              listEntry
+                                                                  .place_type
+                                                            : ((titleArray =
+                                                                  listEntry.features[0].properties.category.split(
+                                                                      ","
+                                                                  )),
+                                                              titleArray[0])}
+                                                    </p>
+                                                    <h6>
+                                                        {
+                                                            listEntry
+                                                                .features[0]
+                                                                .place_name
+                                                        }
+                                                    </h6>
+                                                </Row>
+                                            </Col>
+                                            <Col
+                                                xs={2}
+                                                lg={2}
+                                                className="d-flex justify-content-center card-delete-box"
+                                            >
+                                                <Button
+                                                    className="card-delete-button"
+                                                    type="submit"
+                                                    onClick={() =>
+                                                        removeItem(i)
+                                                    }
+                                                >
+                                                    <i className="fa-solid fa-circle-minus"></i>
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    ) : (
+                                        <Row
+                                            key={i}
+                                            className="my-3 px-2 p-lg-0 card-row"
+                                        >
+                                            <Col
+                                                xs={2}
+                                                lg={2}
+                                                className="d-flex justify-content-center card-icon-box-address"
+                                            >
+                                                <i className="fa-solid fa-tree-city card-icon"></i>
+                                            </Col>
+                                            <Col>
+                                                <Row className="py-2">
+                                                    <p>
+                                                        {listEntry.features[0]
+                                                            .place_type != "poi"
+                                                            ? listEntry
                                                                   .features[0]
-                                                                  .place_name
-                                                          }
-                                                      </h6>
-                                                  </Row>
-                                              </Col>
-                                              <Col
-                                                  xs={2}
-                                                  lg={2}
-                                                  className="d-flex justify-content-center card-delete-box"
-                                              >
-                                                  <Button
-                                                      className="card-delete-button"
-                                                      type="submit"
-                                                      onClick={() =>
-                                                          removeItem(i)
-                                                      }
-                                                  >
-                                                      <i className="fa-solid fa-circle-minus"></i>
-                                                  </Button>
-                                              </Col>
-                                          </Row>
-                                      )
-                                  )
-                                : <img src={imgArr[store.rndImg]}></img>}
+                                                                  .place_type
+                                                            : ((titleArray =
+                                                                  listEntry
+                                                                      .features[0]
+                                                                      .properties
+                                                                      .category),
+                                                              titleArray[0])}
+                                                    </p>
+                                                    <h6>
+                                                        {
+                                                            listEntry
+                                                                .features[0]
+                                                                .place_name
+                                                        }
+                                                    </h6>
+                                                </Row>
+                                            </Col>
+                                            <Col
+                                                xs={2}
+                                                lg={2}
+                                                className="d-flex justify-content-center card-delete-box"
+                                            >
+                                                <Button
+                                                    className="card-delete-button"
+                                                    type="submit"
+                                                    onClick={() =>
+                                                        removeItem(i)
+                                                    }
+                                                >
+                                                    <i className="fa-solid fa-circle-minus"></i>
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    )
+                                )
+                            ) : (
+                                <img src={imgArr[store.rndImg]}></img>
+                            )}
                         </Col>
                     </Row>
                 </Col>

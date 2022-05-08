@@ -35,7 +35,10 @@ const Signup = () => {
             }),
         };
 
-        const response = await fetch(`${process.env.BACKEND_URL}signup`, opts);
+        const response = await fetch(
+            `${process.env.BACKEND_URL}/api/signup`,
+            opts
+        );
 
         const data = await response.json();
         console.log("data " + data);
