@@ -189,15 +189,79 @@ const UserProfile = () => {
                     :
                     (
                         <>
-                            <Col xs={12} lg={8} className="border">
-                                <p>picture</p>
-                                <p>FName Lname</p>
-                                <p>username</p>
-                                <p>email</p>
-                                <p>password</p>
-                                <p>birthday</p>
-
-
+                            <Col xs={12} lg={8} className="">
+                                <Row className="d-flex justify-content-center py-2 py-lg-2 ">
+                                    <Row className="d-flex disabled-row align-items-center">
+                                        <Col xs={10} lg={10}>
+                                            <label className="signup-label"><strong>Picture:</strong></label>
+                                            <input
+                                                className="d-flex flex-column py-1 form-s"
+                                                type="text"
+                                                id="username"
+                                                placeholder="create a username"
+                                                value={HeroImage}
+                                                onChange={(e) => setUsername(e.target.value)}
+                                                required
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Row className="d-flex disabled-row align-items-center">
+                                        <Col xs={10} lg={10}>
+                                            <label className="signup-label"><strong>First Name:</strong></label>
+                                            <input
+                                                className="d-flex flex-column py-1 form-s"
+                                                type="text"
+                                                id="firstname"
+                                                placeholder="Add your first name"
+                                                value={firstname}
+                                                onChange={(e) => setFirstname(e.target.value)}
+                                                required
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Row className="d-flex disabled-row align-items-center">
+                                        <Col xs={10} lg={10}>
+                                            <label className="signup-label"><strong>Last Name:</strong></label>
+                                            <input
+                                                className="d-flex flex-column py-1 form-s"
+                                                type="text"
+                                                id="lastname"
+                                                placeholder="Add your last name"
+                                                value={lastname}
+                                                onChange={(e) => setLastname(e.target.value)}
+                                                required
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Row className="d-flex disabled-row align-items-center">
+                                        <Col xs={10} lg={10}>
+                                            <label className="signup-label"><strong>Username:</strong></label>
+                                            <input
+                                                className="d-flex flex-column py-1 form-s"
+                                                type="text"
+                                                id="username"
+                                                placeholder="create a username"
+                                                value={username}
+                                                onChange={(e) => setUsername(e.target.value)}
+                                                required
+                                            />
+                                        </Col>
+                                    </Row>
+                                    <Row className="d-flex disabled-row ">
+                                        <Col xs={10} lg={10}>
+                                            <label className="signup-label"><strong>Birthday:</strong></label>
+                                            <input
+                                                className="d-flex flex-column py-1 form-s"
+                                                type="date"
+                                                id="birthday"
+                                                value={birthday}
+                                                onChange={(e) => setBirthday(e.target.value)}
+                                                required
+                                            />
+                                        </Col>
+                                    </Row>
+                                    
+                                </Row>
                             </Col>
                         </>
                     )
