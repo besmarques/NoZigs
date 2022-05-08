@@ -27,7 +27,7 @@ const UserProfile = () => {
 
     const [email, setEmail] = useState("");
 
-    const [edit, setEdit] = useState("edit");
+    const [edit, setEdit] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
