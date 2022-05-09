@@ -201,7 +201,7 @@ const UserProfile = () => {
                         <>
                             <Col xs={12} lg={8} className="">
                                 <Row className="d-flex justify-content-center py-2 py-lg-2 ">
-                                    <Form.Group className="mb-3" controlId="firstname">
+                                    <Form.Group className="mb-3" controlId="photo">
                                         <Row>
                                             <Form.Label>
                                                 Upload your profile picture
@@ -210,9 +210,9 @@ const UserProfile = () => {
                                         <Row className="d-flex justify-content-center">
                                             <Col xs={10} lg={10}>
                                                 <Form.Control
-                                                    type="text"
+                                                    type="file"
                                                     placeholder="Enter trip name"
-                                                    value={photo}
+                                                    //value={photo}
                                                     onChange={(e) =>
                                                         setPhoto(e.target.value)
                                                     }
@@ -238,7 +238,7 @@ const UserProfile = () => {
                                             <Col xs={10} lg={10}>
                                                 <Form.Control
                                                     type="text"
-                                                    placeholder="Enter trip name"
+                                                    placeholder="Enter first name"
                                                     value={firstname}
                                                     onChange={(e) =>
                                                         setFirstname(e.target.value)
@@ -265,7 +265,7 @@ const UserProfile = () => {
                                             <Col xs={10} lg={10}>
                                                 <Form.Control
                                                     type="text"
-                                                    placeholder="Enter trip name"
+                                                    placeholder="Enter last name"
                                                     value={lastname}
                                                     onChange={(e) =>
                                                         setLastname(e.target.value)
@@ -288,14 +288,14 @@ const UserProfile = () => {
                                     >
                                         <Row>
                                             <Form.Label>
-                                                Whats your birthday?
+                                                What is your birthday?
                                             </Form.Label>
                                         </Row>
                                         <Row className="d-flex justify-content-center">
                                             <Col xs={10} lg={10}>
                                                 <Form.Control
                                                     type="date"
-                                                    placeholder="Enter trip date"
+                                                    placeholder="Enter birth date"
                                                     value={birthday}
                                                     onChange={(e) =>
                                                         setBirthday(e.target.value)
@@ -315,17 +315,18 @@ const UserProfile = () => {
                                 <Row className="d-flex justify-content-between">
                                     <Col xs={10} lg={10}>
                                         <Row className="d-flex justify-content-between">
-                                            <Col xs={2} lg={2}>
+                                            <Col xs={4} lg={4}>
                                                 <Button
                                                     className="btn-submit-route"
                                                     type="submit"
                                                     size="lg"
+                                                    Style="background-color:grey !important;border: solid grey !important;"
                                                     onClick={() => setEdit("")}
                                                 >
                                                     Cancel
                                                 </Button>
                                             </Col>
-                                                <Col xs={2} lg={2}>
+                                                <Col xs={4} lg={4} className="d-flex justify-content-end">
                                                     <Button
                                                         className="btn-submit-route"
                                                         type="submit"
@@ -337,9 +338,10 @@ const UserProfile = () => {
                                                 </Col>
                                             </Row>
                                         </Col>
-                                        <Col xs={2} lg={2}></Col>
+                                        
                                   
                                 </Row>
+                                <Col xs={2} lg={2}></Col>
                             </Col>
                         </>
                     )}
