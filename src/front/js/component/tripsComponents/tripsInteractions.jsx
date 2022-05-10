@@ -80,7 +80,7 @@ const TripsInteractions = () => {
             }),
         };
         console.log(opts);
-        fetch(`${process.env.BACKEND_URL}api/save-trip`, opts)
+        fetch(`${process.env.BACKEND_URL}/api/save-trip`, opts)
             .then((response) => response.text())
             .then((result) => {
                 console.log("result", result), history.push("/profile");
