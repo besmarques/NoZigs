@@ -26,7 +26,7 @@ const MyTrips = (props) => {
                 };
 
                 const response = await fetch(
-                    `${process.env.BACKEND_URL}/api/profile`,
+                    `${process.env.BACKEND_URL}api/profile`,
                     requestOptions
                 );
 

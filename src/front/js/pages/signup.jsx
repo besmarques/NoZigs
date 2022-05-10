@@ -36,7 +36,7 @@ const Signup = () => {
         };
 
         const response = await fetch(
-            `${process.env.BACKEND_URL}/api/signup`,
+            `${process.env.BACKEND_URL}api/signup`,
             opts
         );
 

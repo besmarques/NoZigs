@@ -43,7 +43,7 @@ const UserProfile = () => {
                 };
 
                 const response = await fetch(
-                    `${process.env.BACKEND_URL}/api/profile/user`,
+                    `${process.env.BACKEND_URL}api/profile/user`,
                     requestOptions
                 );
 
@@ -80,7 +80,7 @@ const UserProfile = () => {
             };
 
             const response = await fetch(
-                `${process.env.BACKEND_URL}/api/profile/user`,
+                `${process.env.BACKEND_URL}api/profile/user`,
                 requestOptions
             );
 
@@ -201,7 +201,10 @@ const UserProfile = () => {
                         <>
                             <Col xs={12} lg={8} className="">
                                 <Row className="d-flex justify-content-center py-2 py-lg-2 ">
-                                    <Form.Group className="mb-3" controlId="photo">
+                                    <Form.Group
+                                        className="mb-3"
+                                        controlId="photo"
+                                    >
                                         <Row>
                                             <Form.Label>
                                                 Upload your profile picture
@@ -228,7 +231,10 @@ const UserProfile = () => {
                                     </Form.Group>
                                 </Row>
                                 <Row className="d-flex justify-content-center py-2 py-lg-2 ">
-                                    <Form.Group className="mb-3" controlId="firstname">
+                                    <Form.Group
+                                        className="mb-3"
+                                        controlId="firstname"
+                                    >
                                         <Row>
                                             <Form.Label>
                                                 Whats your first name?
@@ -241,11 +247,15 @@ const UserProfile = () => {
                                                     placeholder="Enter first name"
                                                     value={firstname}
                                                     onChange={(e) =>
-                                                        setFirstname(e.target.value)
+                                                        setFirstname(
+                                                            e.target.value
+                                                        )
                                                     }
                                                     onKeyPress={(e) => {
                                                         event.key == "Enter"
-                                                            ? setFirstname(firstname)
+                                                            ? setFirstname(
+                                                                  firstname
+                                                              )
                                                             : "";
                                                     }}
                                                 />
@@ -255,7 +265,10 @@ const UserProfile = () => {
                                     </Form.Group>
                                 </Row>
                                 <Row className="d-flex justify-content-center py-2 py-lg-2 ">
-                                    <Form.Group className="mb-3" controlId="lasttname">
+                                    <Form.Group
+                                        className="mb-3"
+                                        controlId="lasttname"
+                                    >
                                         <Row>
                                             <Form.Label>
                                                 Whats your last name?
@@ -268,11 +281,15 @@ const UserProfile = () => {
                                                     placeholder="Enter last name"
                                                     value={lastname}
                                                     onChange={(e) =>
-                                                        setLastname(e.target.value)
+                                                        setLastname(
+                                                            e.target.value
+                                                        )
                                                     }
                                                     onKeyPress={(e) => {
                                                         event.key == "Enter"
-                                                            ? setLastname(lastname)
+                                                            ? setLastname(
+                                                                  lastname
+                                                              )
                                                             : "";
                                                     }}
                                                 />
@@ -282,7 +299,7 @@ const UserProfile = () => {
                                     </Form.Group>
                                 </Row>
                                 <Row className="d-flex justify-content-center py-2 py-lg-2 ">
-                                <Form.Group
+                                    <Form.Group
                                         className="mb-3"
                                         controlId="Date"
                                     >
@@ -298,11 +315,15 @@ const UserProfile = () => {
                                                     placeholder="Enter birth date"
                                                     value={birthday}
                                                     onChange={(e) =>
-                                                        setBirthday(e.target.value)
+                                                        setBirthday(
+                                                            e.target.value
+                                                        )
                                                     }
                                                     onKeyPress={(e) => {
                                                         event.key == "Enter"
-                                                            ? setBirthday(birthday)
+                                                            ? setBirthday(
+                                                                  birthday
+                                                              )
                                                             : "";
                                                     }}
                                                 />
@@ -311,7 +332,7 @@ const UserProfile = () => {
                                         </Row>
                                     </Form.Group>
                                 </Row>
-                                
+
                                 <Row className="d-flex justify-content-between">
                                     <Col xs={10} lg={10}>
                                         <Row className="d-flex justify-content-between">
@@ -326,20 +347,24 @@ const UserProfile = () => {
                                                     Cancel
                                                 </Button>
                                             </Col>
-                                                <Col xs={4} lg={4} className="d-flex justify-content-end">
-                                                    <Button
-                                                        className="btn-submit-route"
-                                                        type="submit"
-                                                        size="lg"
-                                                        onClick={() => setEdit("edit")}
-                                                    >
-                                                        Save
-                                                    </Button>
-                                                </Col>
-                                            </Row>
-                                        </Col>
-                                        
-                                  
+                                            <Col
+                                                xs={4}
+                                                lg={4}
+                                                className="d-flex justify-content-end"
+                                            >
+                                                <Button
+                                                    className="btn-submit-route"
+                                                    type="submit"
+                                                    size="lg"
+                                                    onClick={() =>
+                                                        setEdit("edit")
+                                                    }
+                                                >
+                                                    Save
+                                                </Button>
+                                            </Col>
+                                        </Row>
+                                    </Col>
                                 </Row>
                                 <Col xs={2} lg={2}></Col>
                             </Col>
