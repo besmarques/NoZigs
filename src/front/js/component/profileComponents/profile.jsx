@@ -43,7 +43,7 @@ const UserProfile = () => {
                 };
 
                 const response = await fetch(
-                    `${process.env.BACKEND_URL}api/profile/user`,
+                    `${process.env.BACKEND_URL}/api/profile/user`,
                     requestOptions
                 );
 
@@ -80,7 +80,7 @@ const UserProfile = () => {
             };
 
             const response = await fetch(
-                `${process.env.BACKEND_URL}api/profile/user`,
+                `${process.env.BACKEND_URL}/api/profile/user`,
                 requestOptions
             );
 
