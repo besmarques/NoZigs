@@ -1,17 +1,17 @@
 import React, { useContext } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../../store/appContext";
 
 const JoinNow = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
 
   const handleRegister = () => {
-    history.push("/signup");
+    navigate.push("/signup");
   };
 
   const handleDiscover = () => {
-    history.push("/trips");
+    navigate.push("/trips");
   };
 
   return (

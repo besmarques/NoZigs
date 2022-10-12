@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import "../../styles/signup.css";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../img/logo.png";
 
 const Signup = () => {
@@ -12,7 +12,7 @@ const Signup = () => {
     const [email, setEmail] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(false);
-    const history = useHistory();
+    const navigate = useNavigate();
     const [passwordStatus, setPasswordStatus] = useState("");
     const [birthday, setBirthday] = useState();
     const [firstname, setFirstname] = useState();
@@ -46,7 +46,7 @@ const Signup = () => {
         if (response.status == 200) {
             sessionStorage.setItem("token", data.token);
             actions.syncTokenFromSessionStore();
-            history.push("/profile");
+            navigate.push("/profile");
         } else {
             setError(true);
             setTimeout(() => {

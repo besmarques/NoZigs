@@ -2,14 +2,14 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import "../../styles/login.css";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Logo from "../../img/logo.png";
 
 const Login = () => {
   const { store, actions } = useContext(Context);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
   const [error, setError] = useState(false);
 
   const token = sessionStorage.getItem("token");
@@ -20,7 +20,7 @@ const Login = () => {
       console.log(resp);
       if (resp.msg) {
 
-        history.push("/profile");
+        navigate.push("/profile");
       } else {
         console.log(resp);
         setError(resp.err);

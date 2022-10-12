@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { Context } from "../../store/appContext";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Typeahead } from "react-bootstrap-typeahead";
 import "react-bootstrap-typeahead/css/Typeahead.css";
 import img1 from "../../../img/trips/1.jpg";
@@ -12,7 +12,7 @@ import img4 from "../../../img/trips/4.jpg";
 import options from "../list_countries.jsx";
 
 const TripsInteractions = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const { store, actions } = useContext(Context);
 
@@ -83,7 +83,7 @@ const TripsInteractions = () => {
         fetch(`${process.env.BACKEND_URL}/api/save-trip`, opts)
             .then((response) => response.text())
             .then((result) => {
-                console.log("result", result), history.push("/profile");
+                console.log("result", result), navigate.push("/profile");
             })
             .catch((error) => console.log("error", error));
     };

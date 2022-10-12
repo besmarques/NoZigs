@@ -1,51 +1,46 @@
 import React from "react";
 import HeroImage from "../../../img/hero_img.png";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
 
 const Hero = () => {
-  const history = useHistory();
+	const navigate = useNavigate();
 
-  const handleClick = () => {
-    history.push("/trips");
-  };
+	const handleClick = () => {
+		navigate("/trips");
+	};
 
-
-  return (
-    <>
-      <div className="container mb-5">
-        <div className="hero">
-          <div className="row">
-            <div className="col-12 col-sm-6">
-              <div className="left-content">
-                <div>
-                  <h1 className="hero-h1">
-                    <span className="pink">Discover</span> more, plan{" "}
-                    <span className="blue">better</span>
-                  </h1>
-                  <p className="hero-p">
-                    Find the{" "}
-                    <strong>
-                      <span className="black">shortest route</span>
-                    </strong>
-                    . Dont waste your time, visit more
-                  </p>
-                  <a className="btn hero-btn" onClick={handleClick}>Discover</a>
-                </div>
-              </div>
-            </div>
-            <div className="col-12 col-sm-6">
-              <img
-                className="hero-img"
-                src={HeroImage}
-                width="600"
-                height="600"
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
-  );
+	return (
+		<>
+			<Container>
+				<Row className="pt-4 pb-3 align-items-center">
+					<Col xs={12} sm={12} lg={6}>
+						<h1 className="hero-h1">
+							<span className="pink">Discover</span> more, plan{" "}
+							<span className="blue">better</span>
+						</h1>
+						<p className="hero-p">
+							Find the{" "}
+							<strong>
+								<span className="black">shortest route</span>
+							</strong>
+							. Dont waste your time, visit more
+						</p>
+						<a className="btn hero-btn" onClick={handleClick}>
+							Discover
+						</a>
+					</Col>
+					<Col sm="12 py-5" lg="6 p-4">
+						<Image fluid src={HeroImage} />
+					</Col>
+				</Row>
+			</Container>
+		</>
+	);
 };
 
 export default Hero;
